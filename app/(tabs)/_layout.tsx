@@ -1,13 +1,31 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { View, StyleSheet, ImageSourcePropType } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import SmallIcon from '@/components/ui/SmallIcon';
+import images from '@/styles/images';
+
+interface TabIconProps {
+  focused: boolean;
+  iconSource: ImageSourcePropType;
+}
+
+const CustomTabIcon:React.FC<TabIconProps> = ({ focused, iconSource}) => (
+  <View style={[
+    styles.iconContainer,
+    focused ? styles.activeIconContainer : null
+  ]}>
+    <SmallIcon 
+      source={iconSource} 
+      style={focused ? { tintColor: '#000000' } : { tintColor: '#6B7280' }}
+    />
+  </View>
+);
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -42,27 +60,37 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabMarket}/>,
         }}
       />
       <Tabs.Screen
         name="feed"
         options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon  focused={focused} iconSource={images.tab.TabFeed}/>,
         }}
       />
       <Tabs.Screen
         name="send"
         options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSend}/>,
         }}
       />
       <Tabs.Screen
         name="setting"
         options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSetting}/>,
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    padding: 10,
+    borderRadius: 100,
+  },
+  activeIconContainer: {
+    backgroundColor: '#F4F4F5',  // Light gray background for active tab
+  }
+});
