@@ -93,11 +93,7 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
       ]}
       activeOpacity={0.9}
     >
-      <LinearGradient
-        colors={item.colors}
-        style={styles.cardGradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
+      <View
       >
         <Image
           source={item.image}
@@ -108,7 +104,7 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
           <Text style={styles.cardDuration}>{item.duration}</Text>
           <Text style={styles.cardTitle}>{item.title}</Text>
         </View>
-      </LinearGradient>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -451,7 +447,7 @@ const MarketScreen: React.FC = () => {
       </View>
       {/* Deposit button */}
       <View style={styles.footer}>
-        <PrimaryButton title="Deposit" style={{width:"100%"}} onPress={()=>{}} />
+        <PrimaryButton title="Deposit" style={{ width: "100%" }} onPress={() => { }} />
       </View>
     </SafeAreaView>
   );
