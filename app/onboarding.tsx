@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 // import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import { router, useRouter } from 'expo-router';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -246,7 +247,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={() => navigation.navigate('MainApp')}
+                onPress={() => router.push('/(tabs)')}
               />
             </View>
           </View>
