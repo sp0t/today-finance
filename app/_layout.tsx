@@ -40,8 +40,8 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <PrivyProvider appId="cm76p206400ey5b2sgwsn2acf" clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3">
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }}/>
-        <Stack.Screen name="onboarding" options={{ headerShown: false }}/>
+        {/* <Stack.Screen name="index" options={{ headerShown: false }}/>
+        <Stack.Screen name="onboarding" options={{ headerShown: false }}/> */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
