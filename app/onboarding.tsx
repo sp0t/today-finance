@@ -24,8 +24,8 @@ const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
-  const { isReady, user } = usePrivy();
   const { sendCode, loginWithCode } = useLoginWithEmail();
+  const { logout } = usePrivy();
 
   const [formData, setFormData] = useState<SlideData>({
     email: '',
@@ -53,6 +53,7 @@ const OnboardingScreen = () => {
   };
 
   const handleEmailAuthentication = async () => {
+    logout();
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
@@ -72,7 +73,7 @@ const OnboardingScreen = () => {
         email: formData.email
       });
       // sliderRef.current?.goToSlide(2);
-      console.log('User:', user);
+      console.log('User:', result);
     } catch (error) {
       console.error('Login failed:', error);
     }
