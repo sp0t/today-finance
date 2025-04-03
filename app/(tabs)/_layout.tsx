@@ -10,12 +10,15 @@ import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import SmallIcon from '@/components/ui/SmallIcon';
 import images from '@/styles/images';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const Tab = createBottomTabNavigator();
 
   return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarIcon: ({ focused, color, size }) => {
@@ -74,7 +77,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="setting"
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }
 
