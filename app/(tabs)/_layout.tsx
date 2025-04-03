@@ -23,7 +23,14 @@ export default function TabLayout() {
           ios: {
             position: 'absolute',
           },
-          default: {},
+          default: {
+            height: 96,
+            paddingBottom: 36,
+            paddingTop: 16,
+            borderTopRightRadius: 16,
+            borderTopLeftRadius: 16,
+            paddingHorizontal: 20,
+          },
         }),
       }}>
       <Tabs.Screen
