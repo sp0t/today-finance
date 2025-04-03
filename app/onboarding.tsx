@@ -54,7 +54,8 @@ const OnboardingScreen = () => {
 
   const handleEmailAuthentication = async () => {
     console.log(formData.email);
-    sendCode({ email:formData.email });
+    const result = sendCode({ email:formData.email });
+    console.log(result)
     sliderRef.current?.goToSlide(1);
   };
   
