@@ -17,7 +17,7 @@ interface TabIconProps {
 const CustomTabIcon:React.FC<TabIconProps> = ({ focused, iconSource}) => (
   <View style={[
     styles.iconContainer,
-    focused ? styles.activeIconContainer : null
+    styles.activeIconContainer 
   ]}>
     <SmallIcon 
       source={iconSource} 
@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   activeIconContainer: {
-    backgroundColor: '#F4F4F5',  // Light gray background for active tab
+    backgroundColor: '#F4F4F5',  
   }
 });
