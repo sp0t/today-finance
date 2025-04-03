@@ -14,13 +14,13 @@ interface TabIconProps {
   iconSource: ImageSourcePropType;
 }
 
-const CustomTabIcon:React.FC<TabIconProps> = ({ focused, iconSource}) => (
+const CustomTabIcon: React.FC<TabIconProps> = ({ focused, iconSource }) => (
   <View style={[
     styles.iconContainer,
-    styles.activeIconContainer 
+    focused ? styles.activeIconContainer : null
   ]}>
-    <SmallIcon 
-      source={iconSource} 
+    <SmallIcon
+      source={iconSource}
       style={focused ? { tintColor: '#000000' } : { tintColor: '#6B7280' }}
     />
   </View>
@@ -43,42 +43,42 @@ export default function TabLayout() {
           bottom: 0,
           left: 0,
           right: 0,
-          height: 96, 
+          height: 96,
           backgroundColor: 'white',
           borderTopLeftRadius: 16,
-          borderTopRightRadius: 16, 
+          borderTopRightRadius: 16,
           paddingHorizontal: 20,
           paddingTop: 16,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.1,
           shadowRadius: 5,
-          elevation: 10, 
+          elevation: 10,
         }
-        
+
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabMarket}/>,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabMarket} />,
         }}
       />
       <Tabs.Screen
         name="feed"
         options={{
-          tabBarIcon: ({ color, focused }) => <CustomTabIcon  focused={focused} iconSource={images.tab.TabFeed}/>,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabFeed} />,
         }}
       />
       <Tabs.Screen
         name="send"
         options={{
-          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSend}/>,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSend} />,
         }}
       />
       <Tabs.Screen
         name="setting"
         options={{
-          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSetting}/>,
+          tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSetting} />,
         }}
       />
     </Tabs>
@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   activeIconContainer: {
-    backgroundColor: '#00BC7D',  
+    backgroundColor: '#00BC7D',
   }
 });
