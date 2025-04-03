@@ -20,7 +20,7 @@ interface SlideData {
   profilePhoto: string;
 }
 
-const OnboardingScreen = () => {
+const onboarding = () => {
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const navigation = useNavigation<GenericNavigationProps>();
   const [image, setImage] = useState<string | null>(null);
@@ -349,4 +349,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OnboardingScreen;
+export default onboarding;
