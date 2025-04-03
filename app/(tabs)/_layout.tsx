@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   activeIconContainer: {
-    backgroundColor: '#00BC7D',
+    backgroundColor: '#F4F4F5',
   }
 });
