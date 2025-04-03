@@ -11,4 +11,3 @@ export type GenericNavigationProps = {
   goBack: () => StackActionType;
   canGoBack: () => StackActionType;
 };
-

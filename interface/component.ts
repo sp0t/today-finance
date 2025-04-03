@@ -32,3 +32,9 @@ export interface ImageProps {
     source: ImageSourcePropType;
     style?: StyleProp<ImageStyle>;
 }
+
+export type CustomToasterProps = {
+    text: string;
+    dismissible?: boolean;
+    backgroundColor?: string;
+  };

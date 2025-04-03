@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
-import { ToasterHelper } from "react-native-customizable-toast";
+import { ToasterHelper, } from "react-native-customizable-toast";
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -12,6 +12,7 @@ import { GenericNavigationProps } from '../interface/types';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
 import SmallIcon from '@/components/ui/SmallIcon';
+import CustomToast from '@/components/ui/CustomToaster';
 
 interface SlideData {
   email: string;
@@ -27,6 +28,7 @@ const OnboardingScreen = () => {
   const [image, setImage] = useState<string | null>(null);
   const { sendCode, loginWithCode } = useLoginWithEmail();
   const { logout } = usePrivy();
+  const [showToast, setShowToast] = useState(false);
 
   const [formData, setFormData] = useState<SlideData>({
     email: '',
@@ -55,11 +57,7 @@ const OnboardingScreen = () => {
 
   const handleEmailAuthentication = async () => {
     logout();
-    ToasterHelper.show({
-      text: 'lorem ipsum',
-      type: 'success',
-      timeout: 5000,
-    });
+    setShowToast(true);
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
@@ -128,6 +126,15 @@ const OnboardingScreen = () => {
               <PrimaryButton title="Continue" style={[{ marginTop: '40%' }, !validateEmail(formData.email) && styles.buttonDisabled]}
                 disabled={!validateEmail(formData.email)} onPress={() => handleEmailAuthentication()} />
             </View>
+            {showToast && (
+              <CustomToast
+                text="This is a success toast!"
+                type="success"
+                timeout={4000}
+                position={80} // 80px from top
+                backgroundColor="#1abc9c" // Custom color
+              />
+            )}
           </View>
         </View>
       ),
