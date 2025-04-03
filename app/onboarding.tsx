@@ -63,7 +63,7 @@ const OnboardingScreen = () => {
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
-        sliderRef.current?.goToSlide(1);
+        // sliderRef.current?.goToSlide(1);
       } else {
         console.error('send code failed');
       }
