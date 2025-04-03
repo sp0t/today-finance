@@ -661,8 +661,9 @@ const styles = StyleSheet.create<IStyles>({
     color: '#0BA72A',
   },
   footer: {
+    position: 'absolute',
+    bottom: 110,
     padding: 16,
-    marginTop: 'auto',
   }
 });
 
