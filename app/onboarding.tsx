@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-// import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
-import { useLoginWithEmail  } from '@privy-io/expo';
-import { usePrivy } from "@privy-io/expo";
+import { useLoginWithEmail, usePrivy, useEmbeddedEthereumWallet } from '@privy-io/expo';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -56,8 +54,8 @@ const OnboardingScreen = () => {
 
   const handleEmailAuthentication = async () => {
     try {
-      const result = await sendCode({ email:formData.email });
-      if(result.success === true) {
+      const result = await sendCode({ email: formData.email });
+      if (result.success === true) {
         sliderRef.current?.goToSlide(1);
       } else {
         console.error('send code failed');
@@ -69,18 +67,20 @@ const OnboardingScreen = () => {
 
   const handleUserLoginWithCode = async () => {
     try {
-      const result = await loginWithCode({ 
-        code: formData.verificationCode, 
-        email: formData.email 
+      const result = await loginWithCode({
+        code: formData.verificationCode,
+        email: formData.email
       });
       // sliderRef.current?.goToSlide(2);
       console.log('User:', user);
     } catch (error) {
-      console.log('User:', user);
+      const {wallets} = useEmbeddedEthereumWallet();
+      const desiredWallet = wallets.find((wallet) => wallet.address === desiredAddress);
+      console.log('User:', desiredWallet);
       console.error('Login failed:', error);
     }
   };
-  
+
 
   const slides = [
     {
