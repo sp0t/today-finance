@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
+import { Toaster } from "react-native-customizable-toast";
 import { ToasterHelper } from "react-native-customizable-toast";
 
 import baseStyles from '@/styles/style';
@@ -293,15 +294,18 @@ const OnboardingScreen = () => {
   ];
 
   return (
-    <AppIntroSlider
-      ref={sliderRef}
-      data={slides}
-      renderItem={({ item }) => item.component()}
-      showNextButton={false}
-      showDoneButton={false}
-      showSkipButton={false}
-      scrollEnabled={false}
-    />
+    <View style={{ flex: 1 }}>
+      <AppIntroSlider
+        ref={sliderRef}
+        data={slides}
+        renderItem={({ item }) => item.component()}
+        showNextButton={false}
+        showDoneButton={false}
+        showSkipButton={false}
+        scrollEnabled={false}
+      />
+      <Toaster/>
+    </View>
   );
 };
 
