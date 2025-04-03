@@ -4,12 +4,14 @@ import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import {PrivyProvider} from '@privy-io/expo';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <GestureHandlerRootView>
       <PrivyProvider 
         appId="cm76p206400ey5b2sgwsn2acf" 
         clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
@@ -29,6 +31,7 @@ export default function RootLayout() {
         </Stack>
         <StatusBar style="auto" />
       </PrivyProvider>
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }
