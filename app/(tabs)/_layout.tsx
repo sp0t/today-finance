@@ -25,15 +25,17 @@ export default function TabLayout() {
           bottom: 0,
           left: 0,
           right: 0,
-          height: 80, // Adjust height for better visibility
-          backgroundColor: 'white', // Customize the tab bar background color
-          borderTopLeftRadius: 20, // Rounded corners
-          borderTopRightRadius: 20, // Rounded corners
+          height: 96, 
+          backgroundColor: 'white',
+          borderTopLeftRadius: 16,
+          borderTopRightRadius: 16, 
+          paddingHorizontal: 20,
+          paddingTop: 16,
           shadowColor: '#000',
-          shadowOffset: { width: 0, height: -3 }, // Negative height for top shadow
+          shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.1,
           shadowRadius: 5,
-          elevation: 10, // For Android shadow
+          elevation: 10, 
         }
         
       }}>
