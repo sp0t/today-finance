@@ -247,7 +247,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={() => router.navigate({pathname: '/(tabs)/explore'})}
+                onPress={() => router.push('/+not-found')}
               />
             </View>
           </View>
