@@ -4,6 +4,7 @@ import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import {PrivyProvider} from '@privy-io/expo';
+import { Toaster } from "react-native-customizable-toast";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -29,6 +30,7 @@ export default function RootLayout() {
         </Stack>
         <StatusBar style="auto" />
       </PrivyProvider>
+      <Toaster />
     </ThemeProvider>
   );
 }
