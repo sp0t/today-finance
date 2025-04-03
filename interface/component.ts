@@ -1,4 +1,4 @@
-import { TextStyle, StyleProp, ViewStyle} from 'react-native';
+import { TextStyle, StyleProp, ViewStyle, KeyboardTypeOptions, ImageSourcePropType, ImageStyle} from 'react-native';
 import { AnimatedStyle } from 'react-native-reanimated';
 
 export interface ButtonProps {
@@ -16,4 +16,19 @@ export interface CornerTextProps {
     left?: number;
     right?: number;
     bottom?: number;
+}
+
+export interface InputProps {
+    value: string;
+    onChangeText: (text: string) => void;
+    placeholder?: string;
+    keyboardType?: KeyboardTypeOptions;
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+    style?: StyleProp<ViewStyle>;
+    maxLength?: number;
+}
+
+export interface ImageProps {
+    source: ImageSourcePropType;
+    style?: StyleProp<ImageStyle>;
 }
