@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
-import { useLoginWithEmail, usePrivy, useEmbeddedEthereumWallet } from '@privy-io/expo';
+import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -74,11 +74,9 @@ const OnboardingScreen = () => {
       // sliderRef.current?.goToSlide(2);
       console.log('User:', user);
     } catch (error) {
-      const {wallets} = useEmbeddedEthereumWallet();
-      const desiredWallet = wallets.find((wallet) => wallet.address === desiredAddress);
-      console.log('User:', desiredWallet);
       console.error('Login failed:', error);
     }
+
   };
 
 

@@ -13,6 +13,13 @@ export default function RootLayout() {
       <PrivyProvider 
         appId="cm76p206400ey5b2sgwsn2acf" 
         clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
+        config={{
+          embedded: {
+              ethereum: {
+                  createOnLogin: 'users-without-wallets',
+              },
+          },
+      }}
       >
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }}/>
