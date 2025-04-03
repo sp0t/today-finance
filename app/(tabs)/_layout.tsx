@@ -22,6 +22,12 @@ export default function TabLayout() {
         tabBarStyle: Platform.select({
           ios: {
             position: 'absolute',
+            height: 96,
+            paddingBottom: 36,
+            paddingTop: 16,
+            borderTopRightRadius: 16,
+            borderTopLeftRadius: 16,
+            paddingHorizontal: 20,
           },
           default: {
             height: 96,
