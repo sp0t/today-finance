@@ -28,6 +28,10 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      "expo-image-picker",
+      {
+        "photosPermission": "The app accesses your photos to let you share them with your friends."
+      },
       "expo-router",
       [
         "expo-splash-screen",
@@ -38,11 +42,7 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-secure-store",
-      "expo-image-picker",
-      {
-        "photosPermission": "The app accesses your photos to let you share them with your friends."
-      }
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
