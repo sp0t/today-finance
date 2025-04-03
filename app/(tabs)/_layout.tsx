@@ -1,56 +1,89 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import SmallIcon from '@/components/ui/SmallIcon';
+import images from '@/styles/images';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <Tabs
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarShowLabel: false,
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconSource;
+
+          switch (route.name) {
+            case 'Market':
+              iconSource = images.tab.TabMarket;
+              break;
+            case 'Feed':
+              iconSource = images.tab.TabFeed;
+              break;
+            case 'Send':
+              iconSource = images.tab.TabSend;
+              break;
+            case 'Settings':
+              iconSource = images.tab.TabSetting;
+              break;
+          }
+
+          // Create a container with background for active tab
+          return (
+            <View style={[
+              styles.iconContainer,
+              focused ? styles.activeIconContainer : null
+            ]}>
+              <SmallIcon
+                source={iconSource}
+                style={focused ? { tintColor: '#000000' } : { tintColor: '#6B7280' }}
+              />
+            </View>
+          );
+        },
+        tabBarActiveTintColor: '#000000',
+        tabBarInactiveTintColor: '#6B7280',
+        tabBarStyle: {
+          height: 96,
+          paddingBottom: 36,
+          paddingTop: 16,
+          borderTopRightRadius: 16,
+          borderTopLeftRadius: 16,
+          paddingHorizontal: 20,
+        },
         headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-            height: 96,
-            paddingBottom: 36,
-            paddingTop: 16,
-            borderTopRightRadius: 16,
-            borderTopLeftRadius: 16,
-            paddingHorizontal: 20,
-          },
-          default: {
-            height: 96,
-            paddingBottom: 36,
-            paddingTop: 16,
-            borderTopRightRadius: 16,
-            borderTopLeftRadius: 16,
-            paddingHorizontal: 20,
-          },
-        }),
-      }}>
+      })}
+    >
       <Tabs.Screen
         name="index"
-        options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
+        name="feed"
+      />
+      <Tabs.Screen
+        name="send"
+      />
+      <Tabs.Screen
+        name="setting"
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    padding: 10,
+    borderRadius: 100,
+  },
+  activeIconContainer: {
+    backgroundColor: '#F4F4F5',  // Light gray background for active tab
+  }
+});
