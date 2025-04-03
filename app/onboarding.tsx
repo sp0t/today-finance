@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
+import { ToasterHelper } from "react-native-customizable-toast";
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -54,6 +55,11 @@ const OnboardingScreen = () => {
 
   const handleEmailAuthentication = async () => {
     logout();
+    ToasterHelper.show({
+      text: 'lorem ipsum',
+      type: 'success',
+      timeout: 5000,
+    });
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
