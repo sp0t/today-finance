@@ -53,14 +53,31 @@ const OnboardingScreen = () => {
   };
 
   const handleEmailAuthentication = async () => {
-    const result = await sendCode({ email:formData.email });
-    sliderRef.current?.goToSlide(1);
+    try {
+      const result = await sendCode({ email:formData.email });
+      if(result.success === true) {
+        sliderRef.current?.goToSlide(1);
+      } else {
+        console.error('send code failed');
+      }
+    } catch (error) {
+      console.error('send code failed');
+    }
   };
 
   const handleUserLoginWithCode = async () => {
-    const result = await loginWithCode({code: formData.verificationCode, email:formData.email})}
-    console.log(result)
-  }  
+    try {
+      const user = await loginWithCode({ 
+        code: formData.verificationCode, 
+        email: formData.email 
+      });
+      // sliderRef.current?.goToSlide(2);
+      console.log('User:', user);
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+  
 
   const slides = [
     {
@@ -147,7 +164,7 @@ const OnboardingScreen = () => {
             <View style={[baseStyles.bottomContainer, { alignItems: 'center', justifyContent: 'center' }]}>
               <PrimaryButton title="Continue" style={[{ marginTop: '40%' }, formData.verificationCode.length !== 6 && styles.buttonDisabled]}
                 disabled={formData.verificationCode.length !== 6}
-                onPress={() => sliderRef.current?.goToSlide(2)} />
+                onPress={() => handleUserLoginWithCode()} />
             </View>
           </View>
         </View>
