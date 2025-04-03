@@ -4,6 +4,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 // import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail  } from '@privy-io/expo';
+import { usePrivy } from "@privy-io/expo";
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -25,6 +26,7 @@ const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const { isReady, user } = usePrivy();
   const { sendCode, loginWithCode } = useLoginWithEmail();
 
   const [formData, setFormData] = useState<SlideData>({
@@ -67,7 +69,7 @@ const OnboardingScreen = () => {
 
   const handleUserLoginWithCode = async () => {
     try {
-      const user = await loginWithCode({ 
+      const result = await loginWithCode({ 
         code: formData.verificationCode, 
         email: formData.email 
       });
