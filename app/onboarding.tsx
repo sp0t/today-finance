@@ -76,6 +76,7 @@ const OnboardingScreen = () => {
       // sliderRef.current?.goToSlide(2);
       console.log('User:', user);
     } catch (error) {
+      console.log('User:', user);
       console.error('Login failed:', error);
     }
   };
