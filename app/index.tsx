@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
+import { router, useRouter } from 'expo-router';
 
 import { loginBackgroundData } from '@/constants/constants';
 import PageScrollView from '@/components/PageScrollView';
-import { Routes } from '@/constants/constants';  
-import baseStyles  from '@/styles/style';
+import { Routes } from '@/constants/constants';
+import baseStyles from '@/styles/style';
 
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import TextButton from '@/components/ui/TextButton';
@@ -59,6 +60,7 @@ const LoginScreen = () => {
   const bottomImageStyle = useAnimatedStyle(() => ({ opacity: bottomImageOpacity.value }));
 
   const handleCreateAccount = () => {
+    router.push('/onboarding');
   }
 
   return (
