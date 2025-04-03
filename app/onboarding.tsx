@@ -51,6 +51,12 @@ const OnboardingScreen = () => {
     // }
   };
 
+  const navigateToHome = () => {
+    router.replace({
+      pathname: '(tabs)/home' as any
+    });
+  }
+
   const slides = [
     {
       key: '1',
@@ -247,7 +253,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={() => router.push('/(tabs)')}
+                onPress={navigateToHome}
               />
             </View>
           </View>
