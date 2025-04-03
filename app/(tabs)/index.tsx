@@ -662,6 +662,7 @@ const styles = StyleSheet.create<IStyles>({
   },
   footer: {
     position: 'absolute',
+    width:'100%',
     bottom: 110,
     padding: 16,
   }
