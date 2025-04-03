@@ -91,6 +91,15 @@ const OnboardingScreen = () => {
       type: 'email',
       component: () => (
         <View style={{ flex: 1 }}>
+          {showToast && (
+            <CustomToast
+              text="This is a success toast!"
+              type="success"
+              timeout={2000}
+              position={80} // 80px from top
+              backgroundColor="#1abc9c" // Custom color
+            />
+          )}
           <View style={{ flex: 0.5 }}>
             <View style={[baseStyles.bgImgContainer]}>
               <ImageBackground
@@ -126,15 +135,6 @@ const OnboardingScreen = () => {
               <PrimaryButton title="Continue" style={[{ marginTop: '40%' }, !validateEmail(formData.email) && styles.buttonDisabled]}
                 disabled={!validateEmail(formData.email)} onPress={() => handleEmailAuthentication()} />
             </View>
-            {showToast && (
-              <CustomToast
-                text="This is a success toast!"
-                type="success"
-                timeout={4000}
-                position={80} // 80px from top
-                backgroundColor="#1abc9c" // Custom color
-              />
-            )}
           </View>
         </View>
       ),
