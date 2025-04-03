@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 // import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
+import { useLoginWithEmail  } from '@privy-io/expo';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -24,6 +25,7 @@ const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const { sendCode, loginWithCode } = useLoginWithEmail();
 
   const [formData, setFormData] = useState<SlideData>({
     email: '',
@@ -49,6 +51,12 @@ const OnboardingScreen = () => {
     //   setImage(result.assets[0].uri);
     // }
   };
+
+  const handleEmailAuthentication = async () => {
+    sendCode({ email:formData.email });
+    sliderRef.current?.goToSlide(1);
+  };
+  
 
   const slides = [
     {
@@ -89,7 +97,7 @@ const OnboardingScreen = () => {
             </View>
             <View style={[baseStyles.bottomContainer, { alignItems: 'center', justifyContent: 'center' }]}>
               <PrimaryButton title="Continue" style={[{ marginTop: '40%' }, !validateEmail(formData.email) && styles.buttonDisabled]}
-                disabled={!validateEmail(formData.email)} onPress={() => sliderRef.current?.goToSlide(1)} />
+                disabled={!validateEmail(formData.email)} onPress={() => handleEmailAuthentication()} />
             </View>
           </View>
         </View>
