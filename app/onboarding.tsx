@@ -52,7 +52,7 @@ const OnboardingScreen = () => {
   };
 
   const navigateToHome = () => {
-    router.replace('/(tabs)')
+    router.replace('/_sitemap')
   }
 
   const slides = [
