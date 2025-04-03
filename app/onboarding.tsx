@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 // import * as ImagePicker from 'expo-image-picker';
+import { useRouter } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
-import { router, useRouter } from 'expo-router';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -22,8 +22,9 @@ interface SlideData {
 }
 
 const OnboardingScreen = () => {
-  const sliderRef = useRef<AppIntroSlider | null>(null);
+  const router = useRouter();
   const navigation = useNavigation<GenericNavigationProps>();
+  const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<SlideData>({
@@ -50,10 +51,6 @@ const OnboardingScreen = () => {
     //   setImage(result.assets[0].uri);
     // }
   };
-
-  const navigateToHome = () => {
-    router.replace('/_sitemap')
-  }
 
   const slides = [
     {
@@ -251,7 +248,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={navigateToHome}
+                onPress={() => navigation.navigate('(tabs)')}
               />
             </View>
           </View>
