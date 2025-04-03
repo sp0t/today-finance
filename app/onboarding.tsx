@@ -247,7 +247,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={() => router.replace('/(tabs)')}
+                onPress={() => router.replace('/(tabs)/explore')}
               />
             </View>
           </View>
