@@ -29,7 +29,9 @@ const OnboardingScreen = () => {
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
-      if(isNewUser && user) {
+      console.error("PrivyUserr:", user);
+      console.error("isNewUserisNewUser:", isNewUser);
+      if (isNewUser && user) {
         console.error("PrivyUserr:", user);
         console.error("isNewUserisNewUser:", isNewUser);
       } else {
