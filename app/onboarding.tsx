@@ -34,19 +34,13 @@ const OnboardingScreen = () => {
       if (user) {
         const address = user.linked_accounts.find(account => account.type === "wallet")?.address || null;
         setWalletAddress(address);
-      } else {
-        CustomToast.show({
-          message: 'You have already created account.',
-          type: 'warning',
-          position: 'top',
-        });
+        sliderRef.current?.goToSlide(2);
       }
     },
     onError: (error: Error) => {
-      console.error("Login error:", error.message);
       if (error.message === 'Invalid email and code combination') {
         CustomToast.show({
-          message: 'Please enter correct mail address or correct code.',
+          message: 'Please enter correct code.',
           type: 'warning',
           position: 'top',
         });
@@ -104,7 +98,6 @@ const OnboardingScreen = () => {
         });
       }
     } catch (error) {
-      console.error('send code failed', error);
       CustomToast.show({
         message: 'Please enter correct mail address.',
         type: 'warning',
@@ -119,10 +112,8 @@ const OnboardingScreen = () => {
         code: formData.verificationCode,
         email: formData.email
       });
-      // sliderRef.current?.goToSlide(2);
     } catch (error) {
     }
-
   };
 
 
