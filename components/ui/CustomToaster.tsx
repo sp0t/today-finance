@@ -24,22 +24,22 @@ interface ToastProps {
 const TOAST_CONFIG: Record<ToastType, ToastConfig> = {
   success: {
     backgroundColor: '#4caf50',
-    icon: 'checkmark-circle',
+    icon: 'checkmark-circle-outline',
     iconColor: 'white',
   },
   error: {
     backgroundColor: '#f44336',
-    icon: 'close-circle',
+    icon: 'close-circle-outline',
     iconColor: 'white',
   },
   info: {
     backgroundColor: '#2196f3',
-    icon: 'information-circle',
+    icon: 'information-circle-outline',
     iconColor: 'white',
   },
   warning: {
     backgroundColor: '#ff9800',
-    icon: 'warning',
+    icon: 'warning-outline',
     iconColor: 'white',
   },
 };
@@ -125,7 +125,7 @@ const CustomToast = () => {
   return (
     <Animated.View style={[styles.container, positionStyle, { backgroundColor: toastConfig.backgroundColor }]}>
       <TouchableOpacity style={styles.toastContent} onPress={hide}>
-        {/* <Ionicons name={toastConfig.icon} size={24} color={toastConfig.iconColor} /> */}
+        <Ionicons name={toastConfig.icon} size={24} color={toastConfig.iconColor} />
         <View style={styles.textContainer}>
           {title ? <Text style={styles.title}>{title}</Text> : null}
           <Text style={styles.message}>{message}</Text>
