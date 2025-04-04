@@ -72,10 +72,10 @@ const OnboardingScreen = () => {
   };
 
   const pickImage = async () => {
-    Alert.alert('Permission Required', 'You need to allow access to your photos to upload a profile picture.');
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
+    
     if (permissionResult.granted === false) {
+      Alert.alert('Permission Required', 'You need to allow access to your photos to upload a profile picture.');
       return;
     }
 
