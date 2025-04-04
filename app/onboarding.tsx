@@ -288,10 +288,6 @@ const OnboardingScreen = () => {
                 </View>
               </ImageBackground>
             </View>
-          </View>
-          <View style={{ flex: 0.1 }}>
-          </View>
-          <View style={{ flex: 0.4 }}>
             <View style={styles.photoUpload}>
               <View style={styles.profilePhoto}>
                 <View >
@@ -311,6 +307,10 @@ const OnboardingScreen = () => {
                 <Text>Upload</Text>
               </TouchableOpacity>
             </View>
+          </View>
+          <View style={{ flex: 0.1 }}>
+          </View>
+          <View style={{ flex: 0.4 }}>
             <View style={[baseStyles.bgImgContainer]}>
               <ImageBackground
                 source={images.onboarding.OnboardingBottom}
