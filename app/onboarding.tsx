@@ -146,6 +146,7 @@ const OnboardingScreen = () => {
       console.log('user=======>', user);
       router.replace('/(tabs)');
     } catch (error) {
+      console.log(error);
       CustomToast.show({
         message: 'there is some error, try again.',
         type: 'error',
