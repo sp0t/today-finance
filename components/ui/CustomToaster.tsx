@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     maxWidth: '90%',
     alignSelf: 'center',
+    width: 'auto'
   },
   toastContent: {
     paddingHorizontal: 20,
