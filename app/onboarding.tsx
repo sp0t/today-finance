@@ -290,6 +290,15 @@ const OnboardingScreen = () => {
             </View>
           </View>
           <View style={{ flex: 0.1 }}>
+          </View>
+          <View style={{ flex: 0.4 }}>
+            <View style={[baseStyles.bgImgContainer]}>
+              <ImageBackground
+                source={images.onboarding.OnboardingBottom}
+                style={baseStyles.bgImage}
+                resizeMode="stretch"
+              />
+            </View>
             <View style={styles.photoUpload}>
               <View style={styles.profilePhoto}>
                 <View >
@@ -308,15 +317,6 @@ const OnboardingScreen = () => {
               <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
                 <Text>Upload</Text>
               </TouchableOpacity>
-            </View>
-          </View>
-          <View style={{ flex: 0.4 }}>
-            <View style={[baseStyles.bgImgContainer]}>
-              <ImageBackground
-                source={images.onboarding.OnboardingBottom}
-                style={baseStyles.bgImage}
-                resizeMode="stretch"
-              />
             </View>
             <View style={[baseStyles.bottomContainer, { alignItems: 'center', justifyContent: 'center' }]}>
               <PrimaryButton
