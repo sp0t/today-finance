@@ -93,7 +93,6 @@ const OnboardingScreen = () => {
       });
       // sliderRef.current?.goToSlide(2);
     } catch (error) {
-      console.error('Login failed:', error);
     }
 
   };
