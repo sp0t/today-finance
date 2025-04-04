@@ -574,7 +574,7 @@ const styles = StyleSheet.create<IStyles>({
   cardImage: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
-    height: '100%',
+    height: 146,
     opacity: 0.7,
   },
   cardContent: {
