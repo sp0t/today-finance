@@ -98,7 +98,7 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
         <Image
           source={item.image}
           style={styles.cardImage}
-          resizeMode="cover"
+          resizeMode="stretch"
         />
         <View style={styles.cardContent}>
           <Text style={styles.cardDuration}>{item.duration}</Text>
