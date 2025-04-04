@@ -25,13 +25,38 @@ const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
   const { sendCode, loginWithCode } = useLoginWithEmail({
-    onLoginSuccess: ( user:PrivyUser, isNewUser?:Boolean) => {
-      console.error("PrivyUserr:", user);
-      console.error("isNewUserisNewUser:", isNewUser);
+    onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
+      if(isNewUser && user) {
+        console.error("PrivyUserr:", user);
+        console.error("isNewUserisNewUser:", isNewUser);
+      } else {
+        CustomToast.show({
+          message: 'You have already created account.',
+          type: 'warning',
+          position: 'top',
+        });
+      }
     },
     onError: (error: Error) => {
-      console.error("Login error:", error.message, error.name);
+      console.error("Login error:", error.message);
+      if (error.message === 'Invalid email and code combination') {
+        CustomToast.show({
+          message: 'Please enter correct mail address or correct code.',
+          type: 'warning',
+          position: 'top',
+        });
+      }
+
+      if (error.message.includes('Already logged')) {
+        CustomToast.show({
+          message: 'You have already created account.',
+          type: 'warning',
+          position: 'top',
+        });
+      }
     },
   });
 
