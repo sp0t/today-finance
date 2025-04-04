@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
