@@ -430,6 +430,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E4E4E7',
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden'
   },
   uploadButton: {
     paddingVertical: 8,
