@@ -305,6 +305,7 @@ const OnboardingScreen = () => {
         showSkipButton={false}
         scrollEnabled={false}
       />
+      <CustomToast/>
     </View>
   );
 };
