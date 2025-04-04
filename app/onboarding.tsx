@@ -286,29 +286,29 @@ const OnboardingScreen = () => {
                     Your profile photo is how you show up,{'\n'}you can change this later
                   </Text>
                 </View>
-                <View style={styles.photoUpload}>
-                  <View style={styles.profilePhoto}>
-                    <View >
-                      {image ? (
-                        <Image source={{ uri: image }} />
-                      ) : (
-                        <View >
-                          <View>
-                            <FontAwesome6 name="user-large" size={24} color="black" />
-                          </View>
-                        </View>
-                      )}
-                    </View>
-                  </View>
-
-                  <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-                    <Text>Upload</Text>
-                  </TouchableOpacity>
-                </View>
               </ImageBackground>
             </View>
           </View>
           <View style={{ flex: 0.1 }}>
+            <View style={styles.photoUpload}>
+              <View style={styles.profilePhoto}>
+                <View >
+                  {image ? (
+                    <Image source={{ uri: image }} />
+                  ) : (
+                    <View >
+                      <View>
+                        <FontAwesome6 name="user-large" size={24} color="black" />
+                      </View>
+                    </View>
+                  )}
+                </View>
+              </View>
+
+              <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                <Text>Upload</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={{ flex: 0.4 }}>
             <View style={[baseStyles.bgImgContainer]}>
