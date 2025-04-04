@@ -287,25 +287,25 @@ const OnboardingScreen = () => {
                   </Text>
                 </View>
               </ImageBackground>
-            </View>
-            <View style={styles.photoUpload}>
-              <View style={styles.profilePhoto}>
-                <View >
-                  {image ? (
-                    <Image source={{ uri: image }} />
-                  ) : (
-                    <View >
-                      <View>
-                        <FontAwesome6 name="user-large" size={24} color="black" />
+              <View style={styles.photoUpload}>
+                <View style={styles.profilePhoto}>
+                  <View >
+                    {image ? (
+                      <Image source={{ uri: image }} />
+                    ) : (
+                      <View >
+                        <View>
+                          <FontAwesome6 name="user-large" size={24} color="black" />
+                        </View>
                       </View>
-                    </View>
-                  )}
+                    )}
+                  </View>
                 </View>
-              </View>
 
-              <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-                <Text>Upload</Text>
-              </TouchableOpacity>
+                <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                  <Text>Upload</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
           <View style={{ flex: 0.1 }}>
