@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
   },
   uploadButton: {
     paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 30,
     marginTop: 20,
     backgroundColor: '#E4E4E7',
     borderRadius: 12
