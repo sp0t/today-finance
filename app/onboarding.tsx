@@ -286,7 +286,7 @@ const OnboardingScreen = () => {
                     Your profile photo is how you show up,{'\n'}you can change this later
                   </Text>
                 </View>
-                <View style={styles.photoUpload}>
+                <View style={[styles.photoUpload,{zIndex:1, elevation: 5}]}>
                   <View style={styles.profilePhoto}>
                     <View >
                       {image ? (
@@ -301,7 +301,7 @@ const OnboardingScreen = () => {
                     </View>
                   </View>
 
-                  <TouchableOpacity onPress={pickImage} style={[styles.uploadButton, {zIndex:1, elevation: 5}]}>
+                  <TouchableOpacity onPress={pickImage} style={[styles.uploadButton]}>
                     <Text>Upload</Text>
                   </TouchableOpacity>
                 </View>
