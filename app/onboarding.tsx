@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
-import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
+import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -25,7 +25,17 @@ const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | null>(null);
-  const { sendCode, loginWithCode } = useLoginWithEmail();
+  const { sendCode, loginWithCode } = useLoginWithEmail({
+    onLoginSuccess: ( user:PrivyUser, isNewUser?:Boolean) => {
+      console.error("PrivyUserr:", user);
+      console.error("isNewUserisNewUser:", isNewUser);
+    },
+    onError: (error: Error) => {
+      console.error("Login error:", error);
+      alert(`Login failed: ${error.message}`);
+    },
+  });
+
   const { logout } = usePrivy();
   const [showToast, setShowToast] = useState(false);
 
@@ -83,7 +93,6 @@ const OnboardingScreen = () => {
         email: formData.email
       });
       // sliderRef.current?.goToSlide(2);
-      console.log('User:', result);
     } catch (error) {
       console.error('Login failed:', error);
     }
