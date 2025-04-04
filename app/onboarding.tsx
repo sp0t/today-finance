@@ -89,7 +89,6 @@ const OnboardingScreen = () => {
     });
 
     if (!result.canceled) {
-      console.log(result.assets[0])
       const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
       setImage(base64Image);
     }
