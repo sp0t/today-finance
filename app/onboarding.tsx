@@ -73,7 +73,7 @@ const OnboardingScreen = () => {
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    
+
     if (permissionResult.granted === false) {
       Alert.alert('Permission Required', 'You need to allow access to your photos to upload a profile picture.');
       return;
@@ -286,21 +286,13 @@ const OnboardingScreen = () => {
                     Your profile photo is how you show up,{'\n'}you can change this later
                   </Text>
                 </View>
-                <View style={[styles.photoUpload,{zIndex:1, elevation: 5}]}>
+                <View style={[styles.photoUpload, { zIndex: 1, elevation: 5 }]}>
                   <View style={styles.profilePhoto}>
-                  <SmallIcon source={images.onboarding.UserIcon} />
-                    <View >
-                      {image ? (
-                        <Image source={{ uri: image }} />
-                      ) : (
-                        <View >
-                          <View>
-                            {/* <FontAwesome6 name="user-large" size={24} color="black" /> */}
-                            <SmallIcon source={images.onboarding.UserIcon} />
-                          </View>
-                        </View>
-                      )}
-                    </View>
+                    {image ? (
+                      <Image source={{ uri: image }} />
+                    ) : (
+                      <FontAwesome6 name="user-large" size={24} color="black" />
+                    )}
                   </View>
 
                   <TouchableOpacity onPress={pickImage} style={[styles.uploadButton]}>
@@ -419,7 +411,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf:'flex-start',
+    alignSelf: 'flex-start',
     marginTop: 24
   },
   profilePhoto: {
