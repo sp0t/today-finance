@@ -576,6 +576,7 @@ const styles = StyleSheet.create<IStyles>({
     width: '100%',
     height: 146,
     opacity: 0.7,
+    backgroundColor: 'green'
   },
   cardContent: {
     padding: 12,
