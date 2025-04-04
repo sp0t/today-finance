@@ -301,7 +301,7 @@ const OnboardingScreen = () => {
                     </View>
                   </View>
 
-                  <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                  <TouchableOpacity onPress={pickImage} style={[styles.uploadButton, {zIndex:1, elevation: 5}]}>
                     <Text>Upload</Text>
                   </TouchableOpacity>
                 </View>
