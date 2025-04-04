@@ -29,8 +29,6 @@ const OnboardingScreen = () => {
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
-      console.error("PrivyUserr:", user);
-      console.error("isNewUserisNewUser:", isNewUser);
       if (user) {
         const address = user.linked_accounts.find(account => account.type === "wallet")?.address || null;
         setWalletAddress(address);
