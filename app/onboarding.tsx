@@ -291,11 +291,16 @@ const OnboardingScreen = () => {
                 <View style={[styles.photoUpload, { zIndex: 1, elevation: 5 }]}>
                   <View style={styles.profilePhoto}>
                     {image ? (
-                      <Image source={{ uri: image }} />
+                      <ImageBackground
+                        source={{ uri: image }}
+                        style={styles.profilePhoto} // Ensure this has width & height
+                        resizeMode="cover"
+                      />
                     ) : (
                       <FontAwesome6 name="user-large" size={24} color="black" />
                     )}
                   </View>
+
 
                   <TouchableOpacity onPress={pickImage} style={[styles.uploadButton]}>
                     <Text>Upload</Text>
