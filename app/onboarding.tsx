@@ -294,7 +294,8 @@ const OnboardingScreen = () => {
                       ) : (
                         <View >
                           <View>
-                            <FontAwesome6 name="user-large" size={24} color="black" />
+                            {/* <FontAwesome6 name="user-large" size={24} color="black" /> */}
+                            <SmallIcon source={images.onboarding.UserIcon} />
                           </View>
                         </View>
                       )}
