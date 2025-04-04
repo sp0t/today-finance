@@ -3,16 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy } from '@privy-io/expo';
-import { ToasterHelper, } from "react-native-customizable-toast";
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
 import { GenericNavigationProps } from '../interface/types';
+import CustomToast from '@/components/ui/CustomToaster';
 
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
 import SmallIcon from '@/components/ui/SmallIcon';
-import CustomToast from '@/components/ui/CustomToaster';
 
 interface SlideData {
   email: string;
@@ -57,7 +56,12 @@ const OnboardingScreen = () => {
 
   const handleEmailAuthentication = async () => {
     logout();
-    setShowToast(true);
+    CustomToast.show({
+      title: 'Missing Information',
+      message: 'Please enter both email and password.',
+      type: 'warning',
+      position: 'top',
+    });
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
@@ -91,15 +95,6 @@ const OnboardingScreen = () => {
       type: 'email',
       component: () => (
         <View style={{ flex: 1 }}>
-          {showToast && (
-            <CustomToast
-              text="This is a success toast!"
-              type="success"
-              timeout={2000}
-              position={80} // 80px from top
-              backgroundColor="#1abc9c" // Custom color
-            />
-          )}
           <View style={{ flex: 0.5 }}>
             <View style={[baseStyles.bgImgContainer]}>
               <ImageBackground
