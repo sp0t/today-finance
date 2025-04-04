@@ -276,7 +276,7 @@ const OnboardingScreen = () => {
                   <Text style={[styles.subtitle, { marginTop: 14 }]}>
                     Your profile photo is how you show up,{'\n'}you can change this later
                   </Text>
-                  <View>
+                  <View style={styles.photoUpload}>
                     <View >
                       <View >
                         {image ? (
@@ -400,13 +400,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   photoUpload: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#f0f0f0',
+    width: 184,
+    height: 198,
+    borderRadius: 12,
+    borderColor: '#E4E4E7',
+    padding: 20,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 24,
     alignSelf: 'center',
   },
   profilePhoto: {
