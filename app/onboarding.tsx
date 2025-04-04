@@ -416,7 +416,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 25,
     borderRadius: 100,
-    backgroundColor: '#F4F4F5'
+    backgroundColor: '#A1A1AA',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   uploadText: {
     color: '#666',
