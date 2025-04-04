@@ -11,3 +11,15 @@ export type GenericNavigationProps = {
   goBack: () => StackActionType;
   canGoBack: () => StackActionType;
 };
+
+export interface TokenListApiProps {
+  userAddress: string,
+  chain: string
+}
+
+export interface TradeSwapProps {
+  tokenIn: string,
+  tokenOut: string,
+  amountIn: string
+}
+
