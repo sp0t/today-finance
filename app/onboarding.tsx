@@ -86,8 +86,6 @@ const OnboardingScreen = () => {
       quality: 1,
     });
 
-    console.log(result)
-
     if (!result.canceled) {
       const selectedAsset = result.assets[0];
       setImage(selectedAsset.uri);
@@ -125,6 +123,15 @@ const OnboardingScreen = () => {
     } catch (error) {
     }
   };
+
+  const handleLetsGo = async () => {
+    console.log('mail====================>', formData.email);
+    console.log('walletaddress===========>', walletAddress);
+    console.log('firstName ==============>', formData.firstName);
+    console.log('lastName ===============>', formData.lastName);
+    console.log('profile ================>', formData.profilePhoto);
+    router.replace('/(tabs)');
+  }
 
 
   const slides = [
@@ -323,7 +330,7 @@ const OnboardingScreen = () => {
               <PrimaryButton
                 title="Let's go!"
                 style={{ marginTop: '40%' }}
-                onPress={() => router.replace('/(tabs)')}
+                onPress={() => handleLetsGo()}
               />
             </View>
           </View>
