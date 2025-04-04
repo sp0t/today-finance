@@ -417,6 +417,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf:'flex-start',
     marginTop: 24
   },
   profilePhoto: {
