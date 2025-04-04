@@ -57,11 +57,11 @@ const OnboardingScreen = () => {
   const handleEmailAuthentication = async () => {
     logout();
     CustomToast.show({
-      title: 'Missing Information',
       message: 'Please enter both email and password.',
       type: 'warning',
       position: 'top',
     });
+    return;
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
