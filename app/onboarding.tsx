@@ -32,7 +32,6 @@ const OnboardingScreen = () => {
     },
     onError: (error: Error) => {
       console.error("Login error:", error);
-      alert(`Login failed: ${error.message}`);
     },
   });
 
