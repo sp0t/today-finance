@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -282,8 +283,9 @@ const OnboardingScreen = () => {
                           <Image source={{ uri: image }} />
                         ) : (
                           <View >
-                            <View />
-                            <View />
+                            <View>
+                              <FontAwesome6 name="user-large" size={24} color="black" />
+                            </View>
                           </View>
                         )}
                       </View>
