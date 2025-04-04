@@ -408,7 +408,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
   },
   profilePhoto: {
     width: 120,
