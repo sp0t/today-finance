@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     zIndex: 9999,
-    maxWidth: '90%',
     alignSelf: 'center',
     width: 'auto'
   },
