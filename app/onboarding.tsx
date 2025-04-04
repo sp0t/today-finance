@@ -291,7 +291,7 @@ const OnboardingScreen = () => {
                       </View>
                     </View>
 
-                    <TouchableOpacity onPress={pickImage}>
+                    <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
                       <Text>Upload</Text>
                     </TouchableOpacity>
                   </View>
@@ -416,9 +416,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 25,
     borderRadius: 100,
-    backgroundColor: '#A1A1AA',
+    backgroundColor: '#E4E4E7',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  uploadButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginTop: 20,
+    backgroundColor: '#E4E4E7',
+    borderRadius: 12
   },
   uploadText: {
     color: '#666',
