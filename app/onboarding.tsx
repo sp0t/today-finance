@@ -31,7 +31,7 @@ const OnboardingScreen = () => {
       console.error("isNewUserisNewUser:", isNewUser);
     },
     onError: (error: Error) => {
-      console.error("Login error:", error.message);
+      console.error("Login error:", error.message, error.name);
     },
   });
 
