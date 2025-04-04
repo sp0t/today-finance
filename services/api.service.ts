@@ -17,18 +17,13 @@ export class ApiService {
     constructor() { }
 
     async sginUp(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: string, loginMethod?: string): Promise<UserProps> {
-        var data = new FormData();
-        data.append('userAddress', userAddress);
-        data.append('userEmail', userEmail);
-        data.append('userFirstName', userFirstName);
-        data.append('userLastName', userLastName);
-
-        if (userProfileImage) {
-            data.append("userProfileImage", userProfileImage);
-        }
-
-        if (loginMethod) {
-            data.append("loginMethod", loginMethod);
+        var data = {
+            userAddress,
+            userEmail,
+            userFirstName,
+            userLastName,
+            userProfileImage,
+            loginMethod
         }
 
         return new Promise((resolve, reject) => {
@@ -45,8 +40,9 @@ export class ApiService {
     }
 
     async findUserByAddress(userAddress: string): Promise<string> {
-        var data = new FormData();
-        data.append('userAddress', userAddress);
+        var data = {
+            userAddress
+        }
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferencefindUserByAddress), data)
@@ -62,8 +58,9 @@ export class ApiService {
     }
 
     async findUserByEmail(userEmail: string): Promise<string> {
-        var data = new FormData();
-        data.append('userEmail', userEmail);
+        var data = {
+            userEmail
+        }
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferencefindUserByEmail), data)
@@ -79,18 +76,13 @@ export class ApiService {
     }
 
     async updateUser(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: string, loginMethod?: string): Promise<UserProps> {
-        var data = new FormData();
-        data.append('userAddress', userAddress);
-        data.append('userEmail', userEmail);
-        data.append('userFirstName', userFirstName);
-        data.append('userLastName', userLastName);
-
-        if (userProfileImage) {
-            data.append("userProfileImage", userProfileImage);
-        }
-
-        if (loginMethod) {
-            data.append("loginMethod", loginMethod);
+        var data = {
+            userAddress,
+            userEmail,
+            userFirstName,
+            userLastName,
+            userProfileImage,
+            loginMethod
         }
 
         return new Promise((resolve, reject) => {
@@ -107,9 +99,10 @@ export class ApiService {
     }
 
     async getTokenBalanceList(userAddress: string, chain: string): Promise<TokenListApiProps> {
-        var data = new FormData();
-        data.append('userAddress', userAddress);
-        data.append('chain', chain);
+        var data = {
+            userAddress,
+            chain
+        }
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferenceGetTokenBalanceList), data)
@@ -125,10 +118,11 @@ export class ApiService {
     }
 
     async tradeSwap(tokenIn: string, tokenOut: string, amountIn: string): Promise<TradeSwapProps> {
-        var data = new FormData();
-        data.append('tokenIn', tokenIn);
-        data.append('tokenOut', tokenOut);
-        data.append('amountIn', amountIn);
+        var data = {
+            tokenIn,
+            tokenOut,
+            amountIn
+        }
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferencetradeSwap), data)
