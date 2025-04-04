@@ -64,6 +64,7 @@ const OnboardingScreen = () => {
   };
 
   const handleEmailAuthentication = async () => {
+    logout();
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
