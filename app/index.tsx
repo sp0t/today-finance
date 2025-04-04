@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
 import { router, useRouter } from 'expo-router';
+import { useLogin } from '@privy-io/expo';
 
 import { loginBackgroundData } from '@/constants/constants';
 import PageScrollView from '@/components/PageScrollView';
@@ -13,7 +14,9 @@ import TextButton from '@/components/ui/TextButton';
 import CornerText from '@/components/ConerText';
 
 
+
 const LoginScreen = () => {
+  const { login } = useLogin();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // Shared values for opacity
@@ -63,6 +66,14 @@ const LoginScreen = () => {
     router.push('/onboarding');
   }
 
+  const handleLogin = () => {
+    console.log('User logged in');
+    login({ loginMethods: ['email']})
+    .then((session) => {
+        console.log('User logged in', session.user);
+    })
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 0.5 }}>
@@ -98,7 +109,7 @@ const LoginScreen = () => {
         <View style={[baseStyles.bottomContainer, { alignItems: 'center', justifyContent: 'center' }]}>
           <Text style={styles.bottomTitle}>Don’t wait for tomorrow, prosper today</Text>
           <PrimaryButton title="Create an account" style={{ marginTop: '26%' }} onPress={handleCreateAccount} />
-          <TextButton title="Sign in" style={{ marginTop: 20 }} onPress={() => { }} />
+          <TextButton title="Sign in" style={{ marginTop: 20 }} onPress={() => handleLogin()} />
         </View>
       </View>
     </View>
