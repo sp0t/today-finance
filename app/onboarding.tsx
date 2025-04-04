@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, Alert } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
 import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import * as ImagePicker from 'expo-image-picker';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -71,16 +72,26 @@ const OnboardingScreen = () => {
   };
 
   const pickImage = async () => {
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ['images'],
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 1,
-    // });
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    // if (!result.canceled) {
-    //   setImage(result.assets[0].uri);
-    // }
+    if (permissionResult.granted === false) {
+      Alert.alert('Permission Required', 'You need to allow access to your photos to upload a profile picture.');
+      return;
+    }
+
+    // Launch image picker
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+
+    if (!result.canceled) {
+      // Get the selected asset
+      const selectedAsset = result.assets[0];
+      setImage(selectedAsset.uri);
+    }
   };
 
   const handleEmailAuthentication = async () => {
@@ -408,7 +419,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop:24
+    marginTop: 24
   },
   profilePhoto: {
     width: 100,
