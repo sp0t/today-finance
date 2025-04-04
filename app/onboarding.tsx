@@ -82,13 +82,15 @@ const OnboardingScreen = () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
+      base64: true,
       aspect: [1, 1],
       quality: 1,
     });
 
     if (!result.canceled) {
-      const selectedAsset = result.assets[0];
-      setImage(selectedAsset.uri);
+      console.log(result.assets[0])
+      const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+      setImage(base64Image);
     }
   };
 
@@ -125,10 +127,6 @@ const OnboardingScreen = () => {
   };
 
   const handleLetsGo = async () => {
-    console.log('mail====================>', formData.email);
-    console.log('walletaddress===========>', walletAddress);
-    console.log('firstName ==============>', formData.firstName);
-    console.log('lastName ===============>', formData.lastName);
     router.replace('/(tabs)');
   }
 
