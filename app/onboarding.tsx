@@ -79,7 +79,6 @@ const OnboardingScreen = () => {
       return;
     }
 
-    // Launch image picker
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -88,7 +87,6 @@ const OnboardingScreen = () => {
     });
 
     if (!result.canceled) {
-      // Get the selected asset
       const selectedAsset = result.assets[0];
       setImage(selectedAsset.uri);
     }
@@ -287,25 +285,6 @@ const OnboardingScreen = () => {
                   <Text style={[styles.subtitle, { marginTop: 14 }]}>
                     Your profile photo is how you show up,{'\n'}you can change this later
                   </Text>
-                  <View style={styles.photoUpload}>
-                    <View style={styles.profilePhoto}>
-                      <View >
-                        {image ? (
-                          <Image source={{ uri: image }} />
-                        ) : (
-                          <View >
-                            <View>
-                              <FontAwesome6 name="user-large" size={24} color="black" />
-                            </View>
-                          </View>
-                        )}
-                      </View>
-                    </View>
-
-                    <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
-                      <Text>Upload</Text>
-                    </TouchableOpacity>
-                  </View>
                 </View>
               </ImageBackground>
             </View>
@@ -313,6 +292,25 @@ const OnboardingScreen = () => {
           <View style={{ flex: 0.1 }}>
           </View>
           <View style={{ flex: 0.4 }}>
+            <View style={styles.photoUpload}>
+              <View style={styles.profilePhoto}>
+                <View >
+                  {image ? (
+                    <Image source={{ uri: image }} />
+                  ) : (
+                    <View >
+                      <View>
+                        <FontAwesome6 name="user-large" size={24} color="black" />
+                      </View>
+                    </View>
+                  )}
+                </View>
+              </View>
+
+              <TouchableOpacity onPress={pickImage} style={styles.uploadButton}>
+                <Text>Upload</Text>
+              </TouchableOpacity>
+            </View>
             <View style={[baseStyles.bgImgContainer]}>
               <ImageBackground
                 source={images.onboarding.OnboardingBottom}
