@@ -288,6 +288,7 @@ const OnboardingScreen = () => {
                 </View>
                 <View style={[styles.photoUpload,{zIndex:1, elevation: 5}]}>
                   <View style={styles.profilePhoto}>
+                  <SmallIcon source={images.onboarding.UserIcon} />
                     <View >
                       {image ? (
                         <Image source={{ uri: image }} />
