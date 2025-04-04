@@ -10,6 +10,7 @@ import baseStyles from '@/styles/style';
 import images from '@/styles/images';
 import { GenericNavigationProps } from '../interface/types';
 import CustomToast from '@/components/ui/CustomToaster';
+import { apiService } from '@/services/api.service';
 
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
@@ -26,13 +27,13 @@ interface SlideData {
 const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
-  const [image, setImage] = useState<string | null>(null);
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [image, setImage] = useState<string | ''>('');
+  const [walletAddress, setWalletAddress] = useState<string>('');
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
       if (user) {
-        const address = user.linked_accounts.find(account => account.type === "wallet")?.address || null;
+        const address = user.linked_accounts.find(account => account.type === "wallet")?.address || '';
         setWalletAddress(address);
         sliderRef.current?.goToSlide(2);
       }
@@ -57,7 +58,6 @@ const OnboardingScreen = () => {
   });
 
   const { logout } = usePrivy();
-  const [showToast, setShowToast] = useState(false);
 
   const [formData, setFormData] = useState<SlideData>({
     email: '',
@@ -95,7 +95,20 @@ const OnboardingScreen = () => {
   };
 
   const handleEmailAuthentication = async () => {
+    try {
+      const user = await apiService.findUserByEmail(formData.email);
+      console.log('user====>', user);
+    } catch (error) {
+      CustomToast.show({
+        message: 'There is error, please try again.',
+        type: 'warning',
+        position: 'top',
+      });
+      return;
+    }
+
     logout();
+
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
@@ -127,7 +140,17 @@ const OnboardingScreen = () => {
   };
 
   const handleLetsGo = async () => {
-    router.replace('/(tabs)');
+    try {
+      const user = await apiService.sginUp(walletAddress, formData.email, formData.firstName, formData.lastName, image, 'email');
+      console.log('user=======>', user);
+      router.replace('/(tabs)');
+    } catch (error) {
+      CustomToast.show({
+        message: 'there is some error, try again.',
+        type: 'error',
+        position: 'top',
+      });
+    }
   }
 
 

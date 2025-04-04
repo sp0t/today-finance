@@ -1,6 +1,15 @@
 import { BackgroundItem } from '@/interface/login';
 import images from '@/styles/images';
 
+
+export const baseURL = 'https://today-api.proskillowner.com';
+export const kReferenceLogin = '/user/insertUser';
+export const kReferencefindUserByEmail = '/user/findUserByEmail';
+export const kReferencefindUserByAddress = '/user/findUserByAddress';
+export const kReferenceUpdateUser = '/user/updateUser';
+export const kReferenceGetTokenBalanceList = '/user/getTokenBalanceList';
+export const kReferencetradeSwap = '/trade/quoteSwap';
+
 export enum Routes {
     ONBOARDING = 'Onboarding',
     LOGIN = 'Login',
