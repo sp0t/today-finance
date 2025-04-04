@@ -55,22 +55,24 @@ const OnboardingScreen = () => {
   };
 
   const handleEmailAuthentication = async () => {
-    logout();
-    CustomToast.show({
-      message: 'Please enter both email and password.',
-      type: 'warning',
-      position: 'top',
-    });
-    return;
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
-        // sliderRef.current?.goToSlide(1);
+        sliderRef.current?.goToSlide(1);
       } else {
-        console.error('send code failed');
+        CustomToast.show({
+          message: 'Failed sending code.',
+          type: 'warning',
+          position: 'top',
+        });
       }
     } catch (error) {
-      console.error('send code failed');
+      console.error('send code failed', error);
+      CustomToast.show({
+        message: 'Please enter correct mail address.',
+        type: 'warning',
+        position: 'top',
+      });
     }
   };
 
@@ -305,7 +307,7 @@ const OnboardingScreen = () => {
         showSkipButton={false}
         scrollEnabled={false}
       />
-      <CustomToast/>
+      <CustomToast />
     </View>
   );
 };
