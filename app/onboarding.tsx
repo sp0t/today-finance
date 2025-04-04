@@ -129,7 +129,6 @@ const OnboardingScreen = () => {
     console.log('walletaddress===========>', walletAddress);
     console.log('firstName ==============>', formData.firstName);
     console.log('lastName ===============>', formData.lastName);
-    console.log('profile ================>', formData.profilePhoto);
     router.replace('/(tabs)');
   }
 
