@@ -125,14 +125,14 @@ const CustomToast = () => {
   return (
     <Animated.View style={[styles.container, positionStyle, { backgroundColor: toastConfig.backgroundColor }]}>
       <TouchableOpacity style={styles.toastContent} onPress={hide}>
-        <Ionicons name={toastConfig.icon} size={24} color={toastConfig.iconColor} />
+        <Ionicons name={toastConfig.icon} size={16} color={toastConfig.iconColor} />
         <View style={styles.textContainer}>
           {title ? <Text style={styles.title}>{title}</Text> : null}
           <Text style={styles.message}>{message}</Text>
         </View>
-        <TouchableOpacity onPress={hide}>
+        {/* <TouchableOpacity onPress={hide}>
           <Ionicons name="close" size={20} color="white" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </TouchableOpacity>
     </Animated.View>
   );
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 16,
     right: 16,
-    borderRadius: 8,
+    borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -175,7 +175,8 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   toastContent: {
-    padding: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -191,7 +192,9 @@ const styles = StyleSheet.create({
   },
   message: {
     color: 'white',
-    fontSize: 14,
+    fontWeight: '500',
+    fontSize: 12,
+    lineHeight:22
   },
 });
 
