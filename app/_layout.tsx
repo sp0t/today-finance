@@ -20,18 +20,18 @@ export default function RootLayout() {
   });
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <PrivyProvider
-        appId="cm76p206400ey5b2sgwsn2acf"
-        clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
-        config={{
-          embedded: {
-            ethereum: {
-              createOnLogin: 'users-without-wallets',
-            },
+    <PrivyProvider
+      appId="cm76p206400ey5b2sgwsn2acf"
+      clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
+      config={{
+        embedded: {
+          ethereum: {
+            createOnLogin: 'users-without-wallets',
           },
-        }}
-      >
+        },
+      }}
+    >
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <GestureHandlerRootView>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -42,8 +42,8 @@ export default function RootLayout() {
           <StatusBar style="auto" />
           <Toaster />
         </GestureHandlerRootView>
-        <PrivyElements></PrivyElements>
-      </PrivyProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+      <PrivyElements></PrivyElements>
+    </PrivyProvider>
   );
 }
