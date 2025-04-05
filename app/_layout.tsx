@@ -4,7 +4,7 @@ import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import { PrivyProvider } from '@privy-io/expo';
-import {PrivyElements} from '@privy-io/expo';
+import { PrivyElements } from '@privy-io/expo';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
@@ -21,18 +21,18 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <GestureHandlerRootView>
-        <PrivyProvider
-          appId="cm76p206400ey5b2sgwsn2acf"
-          clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
-          config={{
-            embedded: {
-              ethereum: {
-                createOnLogin: 'users-without-wallets',
-              },
+      <PrivyProvider
+        appId="cm76p206400ey5b2sgwsn2acf"
+        clientId="client-WY5gxmNC7Y288p2SAnCrTgb5kKnfAhB63h4RgUyZNaNM3"
+        config={{
+          embedded: {
+            ethereum: {
+              createOnLogin: 'users-without-wallets',
             },
-          }}
-        >
+          },
+        }}
+      >
+        <GestureHandlerRootView>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="onboarding" options={{ headerShown: false }} />
@@ -40,10 +40,10 @@ export default function RootLayout() {
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
-          <PrivyElements></PrivyElements>
-        </PrivyProvider>
-        <Toaster />
-      </GestureHandlerRootView>
+          <Toaster />
+        </GestureHandlerRootView>
+        <PrivyElements></PrivyElements>
+      </PrivyProvider>
     </ThemeProvider>
   );
 }
