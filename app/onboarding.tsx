@@ -17,7 +17,6 @@ import { apiService } from '@/services/api.service';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
 import SmallIcon from '@/components/ui/SmallIcon';
-import { useLogin } from '@privy-io/expo';
 
 interface SlideData {
   email: string;
@@ -32,7 +31,7 @@ const OnboardingScreen = () => {
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | ''>('');
   const [walletAddress, setWalletAddress] = useState<string>('');
-  const { login } = useLogin();
+  const { logout } = usePrivy();
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
@@ -60,8 +59,6 @@ const OnboardingScreen = () => {
       }
     },
   });
-
-  const { logout } = usePrivy();
 
   const [formData, setFormData] = useState<SlideData>({
     email: '',
@@ -111,11 +108,6 @@ const OnboardingScreen = () => {
     }
 
     logout();
-
-    login({ loginMethods: ['email']})
-    .then((session) => {
-        console.log('User logged in', session.user);
-    })
 
     try {
       const result = await sendCode({ email: formData.email });

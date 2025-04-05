@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
-import { router, useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import { useLogin, usePrivy } from '@privy-io/expo';
 
 import { loginBackgroundData } from '@/constants/constants';
-import PageScrollView from '@/components/PageScrollView';
-import { Routes } from '@/constants/constants';
 import baseStyles from '@/styles/style';
 
 import PrimaryButton from '@/components/ui/PrimaryButton';
@@ -68,7 +66,6 @@ const LoginScreen = () => {
   }
 
   const handleLogin = () => {
-    console.log('User logged in');
     logout();
     login({ loginMethods: ['email']})
     .then((session) => {
