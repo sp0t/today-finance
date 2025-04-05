@@ -31,7 +31,7 @@ export default function RootLayout() {
         },
       }}
     >
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
         <GestureHandlerRootView>
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -42,7 +42,7 @@ export default function RootLayout() {
           <StatusBar style="auto" />
           <Toaster />
         </GestureHandlerRootView>
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
       <PrivyElements></PrivyElements>
     </PrivyProvider>
   );
