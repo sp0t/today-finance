@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
 import { router, useRouter } from 'expo-router';
-import { useLogin } from '@privy-io/expo';
+import { useLogin, usePrivy } from '@privy-io/expo';
 
 import { loginBackgroundData } from '@/constants/constants';
 import PageScrollView from '@/components/PageScrollView';
@@ -17,6 +17,7 @@ import CornerText from '@/components/ConerText';
 
 const LoginScreen = () => {
   const { login } = useLogin();
+  const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // Shared values for opacity
@@ -68,6 +69,7 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     console.log('User logged in');
+    logout();
     login({ loginMethods: ['email']})
     .then((session) => {
         console.log('User logged in', session.user);

@@ -6,6 +6,7 @@ import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { PrivyElements } from '@privy-io/expo';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -16,6 +17,7 @@ import { apiService } from '@/services/api.service';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
 import SmallIcon from '@/components/ui/SmallIcon';
+import { useLogin } from '@privy-io/expo';
 
 interface SlideData {
   email: string;
@@ -30,6 +32,7 @@ const OnboardingScreen = () => {
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | ''>('');
   const [walletAddress, setWalletAddress] = useState<string>('');
+  const { login } = useLogin();
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
@@ -108,6 +111,11 @@ const OnboardingScreen = () => {
     }
 
     logout();
+
+    login({ loginMethods: ['email']})
+    .then((session) => {
+        console.log('User logged in', session.user);
+    })
 
     try {
       const result = await sendCode({ email: formData.email });

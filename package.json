@@ -58,7 +58,8 @@
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
-    "react-native-webview": "13.12.5"
+    "react-native-webview": "13.12.5",
+    "viem": "^2.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -70,5 +71,15 @@
     "react-test-renderer": "18.3.1",
     "typescript": "^5.3.3"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "react-native-app-intro-slider"
+        ],
+        "listUnknownPackages": false
+      }
+    }
+  }
 }

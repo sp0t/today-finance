@@ -4,11 +4,12 @@ import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import { PrivyProvider } from '@privy-io/expo';
+import {PrivyElements} from '@privy-io/expo';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
-import { PrivyElements } from '@privy-io/expo';
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -39,7 +40,7 @@ export default function RootLayout() {
             <Stack.Screen name="+not-found" />
           </Stack>
           <StatusBar style="auto" />
-          <PrivyElements />
+          <PrivyElements></PrivyElements>
         </PrivyProvider>
         <Toaster />
       </GestureHandlerRootView>
