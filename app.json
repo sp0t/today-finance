@@ -51,6 +51,8 @@
       "typedRoutes": true
     },
     "extra": {
+      "privyAppId": "<your-privy-app-id>",
+      "privyClientId": "<your-privy-app-client-id>",
       "router": {
         "origin": false
       },
