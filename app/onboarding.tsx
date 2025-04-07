@@ -42,6 +42,7 @@ const OnboardingScreen = () => {
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<ImagePicker.ImagePickerSuccessResult | null>(null);
   const [walletAddress, setWalletAddress] = useState<string>('');
+  const [base64EncodeImage, setBase64EncodeImage] = useState<String | null>(null);
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
@@ -99,7 +100,8 @@ const OnboardingScreen = () => {
     });
 
     if (!result.canceled) {
-      // const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+      const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+      setBase64EncodeImage(base64Image);
       setImage(result);
     }
   };
@@ -362,7 +364,7 @@ const OnboardingScreen = () => {
                   <View style={styles.profilePhoto}>
                     {image ? (
                       <ImageBackground
-                        source={{ uri: image }}
+                        source={{ uri: base64EncodeImage }}
                         style={styles.profilePhoto} // Ensure this has width & height
                         resizeMode="cover"
                       />
