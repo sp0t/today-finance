@@ -14,7 +14,7 @@ const Index = () => {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        router.replace('/login');
+        router.replace('/(tabs)');
       } else {
         console.log("Authenticated, staying on tabs");
       }
