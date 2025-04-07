@@ -31,7 +31,6 @@ const OnboardingScreen = () => {
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<string | ''>('');
   const [walletAddress, setWalletAddress] = useState<string>('');
-  const { logout } = usePrivy();
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
     onLoginSuccess: (user: PrivyUser, isNewUser?: Boolean) => {
@@ -141,7 +140,7 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.sginUp(walletAddress, formData.email, formData.firstName, formData.lastName, image, 'email');
       console.log('user=======>', user);
-      router.replace('/(tabs)');
+      router.replace('/');
     } catch (error) {
       console.log(error);
       CustomToast.show({

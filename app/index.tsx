@@ -14,7 +14,6 @@ import CornerText from '@/components/ConerText';
 
 export default function LoginScreen() {
   const { login } = useLogin();
-  const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const router = useRouter();
 
@@ -67,7 +66,6 @@ export default function LoginScreen() {
   }
 
   const handleLogin = () => {
-    logout();
     login({ loginMethods: ['email'] })
       .then((session) => {
         console.log('User logged in', session.user);

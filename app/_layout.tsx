@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useRouter, Redirect } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -51,38 +51,31 @@ function AppNavigator() {
   const router = useRouter();
   const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
-  const [hasMounted, setHasMounted] = useState(false);
-
-
+  
   useEffect(() => {
-    const timer = setTimeout(() => setHasMounted(true), 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (hasMounted && isReady) {
+    if (isReady) {
       console.log("user:", user);
       if (!user) {
-        router.replace("/login"); 
+        router.replace('/');
       } else {
         console.log("Authenticated, staying on tabs");
       }
       setIsLoading(false);
     }
-  }, [hasMounted, isReady, user]);
-
+  }, [isReady, router]);
+  
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
-
+  
   return (
     <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
