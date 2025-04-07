@@ -156,7 +156,7 @@ const OnboardingScreen = () => {
 
   const handleLetsGo = async () => {
     const data = new FormData();
-    data.append('walletAddress', walletAddress);
+    data.append('userAddress', walletAddress);
     data.append('userEmail', formData.email);
     data.append('userFirstName', formData.firstName);
     data.append('userLastName', formData.lastName);
@@ -172,7 +172,7 @@ const OnboardingScreen = () => {
         console.error('Error converting image URI to file:', err);
       }
     }
-    data.append('loginMethod', 'email');
+    data.append('userLoginMethod', 'email');
 
     try {
       const response = await fetch(`${baseURL}${kReferenceLogin}`, {
