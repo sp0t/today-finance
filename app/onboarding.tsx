@@ -165,6 +165,11 @@ const OnboardingScreen = () => {
       const fileUri = asset.uri;
       const fileType = asset.mimeType;
       const fileName = asset.fileName ?? fileUri.split("/").pop();
+      const fileSize = asset.fileSize;
+      if (fileSize && fileSize > 2 * 1024 * 1024) {
+        alert('Image is too large. Please select a smaller one.');
+        return;
+      }
 
       try {
         data.append('userProfileImage', { uri: fileUri, name: fileName, type: fileType });
@@ -173,6 +178,7 @@ const OnboardingScreen = () => {
       }
     }
     data.append('userLoginMethod', 'email');
+
 
     try {
       const response = await fetch(`${baseURL}${kReferenceLogin}`, {
