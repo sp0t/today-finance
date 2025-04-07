@@ -14,7 +14,7 @@ import LoginUIScreen from '@/components/LoginUIScreen'
 
 
 const LoginScreen = () => {
-  return <LoginScreen />;
+  return <LoginUIScreen />;
   const { login } = useLogin();
   const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
