@@ -35,6 +35,7 @@ export default function TabFirstScreen() {
       </ThemedView>
       <PrimaryButton
         title="Log Out"
+        style={{marginTop:50}}
         onPress={() => handleLogout()}
       />
     </ParallaxScrollView>
