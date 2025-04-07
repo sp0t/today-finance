@@ -32,11 +32,11 @@ export default function TabFirstScreen() {
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Seting</ThemedText>
-        <PrimaryButton
-          title="Log Out"
-          onPress={() => logout()}
-        />
       </ThemedView>
+      <PrimaryButton
+        title="Log Out"
+        onPress={() => handleLogout()}
+      />
     </ParallaxScrollView>
   );
 }
