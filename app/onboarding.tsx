@@ -100,6 +100,7 @@ const OnboardingScreen = () => {
       if(!user) {
         router.replace('/(tabs)');
       }
+      sliderRef.current?.goToSlide(2);
     } catch (error) {
       CustomToast.show({
         message: 'There is error, please try again.',
