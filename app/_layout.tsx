@@ -38,8 +38,7 @@ export default function RootLayout() {
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Slot />
-        {/* <AppNavigator /> */}
+        <AppNavigator />
         <StatusBar style="auto" />
         <Toaster />
         <PrivyElements />
@@ -49,9 +48,11 @@ export default function RootLayout() {
 }
 
 function AppNavigator() {
-  const router = useRouter();
-  const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
+
+  const unstable_settings = {
+    initialRouteName: '(tabs)', 
+  };
 
   if (isLoading) {
     return (
