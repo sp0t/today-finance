@@ -81,6 +81,7 @@ export default function LoginScreen() {
     login({ loginMethods: ['email'] })
       .then((session) => {
         console.log('User logged in', session.user);
+        router.replace('/(tabs)');
       })
   }
 
