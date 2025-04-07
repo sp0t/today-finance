@@ -38,6 +38,7 @@ export default function RootLayout() {
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
+
         <AppNavigator />
         <StatusBar style="auto" />
         <Toaster />
@@ -48,20 +49,10 @@ export default function RootLayout() {
 }
 
 function AppNavigator() {
-  const [isLoading, setIsLoading] = useState(true);
 
   const unstable_settings = {
-    initialRouteName: '(tabs)', 
+    initialRouteName: '(tabs)',
   };
-
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
   return (
     <Stack
       screenOptions={{
