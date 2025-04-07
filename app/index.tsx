@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS } from 'react-native-reanimated';
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useLogin, usePrivy } from '@privy-io/expo';
 
 import { loginBackgroundData } from '@/constants/constants';
@@ -16,6 +16,8 @@ const LoginScreen = () => {
   const { login } = useLogin();
   const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const router = useRouter();
+  const { user, isReady } = usePrivy();
 
   // Shared values for opacity
   const learnOpacity = useSharedValue(1);
@@ -25,6 +27,14 @@ const LoginScreen = () => {
 
   const topImageOpacity = useSharedValue(1);
   const bottomImageOpacity = useSharedValue(1);
+  
+  useEffect(() => {
+    if (isReady) {
+      if (user) {
+        router.replace('/(tabs)');
+      }
+    }
+  }, [isReady, user, router]);
 
   useEffect(() => {
     const interval = setInterval(() => {
