@@ -52,17 +52,17 @@ function AppNavigator() {
   const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
   
-  // useEffect(() => {
-  //   if (isReady) {
-  //     console.log("user:", user);
-  //     if (!user) {
-  //       router.replace('/');
-  //     } else {
-  //       console.log("Authenticated, staying on tabs");
-  //     }
-  //     setIsLoading(false);
-  //   }
-  // }, [isReady, router]);
+  useEffect(() => {
+    if (isReady) {
+      console.log("user:", user);
+      if (!user) {
+        // router.replace('/');
+      } else {
+        console.log("Authenticated, staying on tabs");
+      }
+      setIsLoading(false);
+    }
+  }, [isReady, router]);
   
   if (isLoading) {
     return (
