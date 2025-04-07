@@ -27,7 +27,6 @@ export default function TabFirstScreen() {
         <ThemedText type="title">Seting</ThemedText>
         <PrimaryButton
           title="Log Out"
-          style={{ marginTop: '40%' }}
           onPress={() => logout()}
         />
       </ThemedView>
