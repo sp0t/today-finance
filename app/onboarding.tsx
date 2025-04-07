@@ -91,7 +91,7 @@ const OnboardingScreen = () => {
     }
 
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       base64: true,
       aspect: [1, 1],
