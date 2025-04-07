@@ -59,7 +59,7 @@ function AuthenticationCheck() {
   useEffect(() => {
     if (isReady) {
       if (!user) {
-        router.push('/onboarding');
+        router.push('/');
       }
     }
   }, [isReady, user, router]);
