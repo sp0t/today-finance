@@ -97,7 +97,7 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.findUserByEmail(formData.email);
       console.log('user====>', user);
-      if(user.code == 1) {
+      if(user.code == 0) {
         router.replace('/(tabs)');
       }
       sliderRef.current?.goToSlide(1);
