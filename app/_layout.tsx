@@ -62,6 +62,7 @@ function AppNavigator() {
     >
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
       <Stack.Screen name="onboarding" />
       <Stack.Screen name="+not-found" />
     </Stack>
