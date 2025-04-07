@@ -14,9 +14,10 @@ const Index = () => {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        router.replace('/(tabs)');
+        router.push('/login');
       } else {
         console.log("Authenticated, staying on tabs");
+        router.push('/(tabs)');
       }
       setIsLoading(false);
     }
@@ -29,7 +30,5 @@ const Index = () => {
       </View>
     );
   }
-
-  return <Redirect href="/(tabs)" />;
 };
 export default Index;
