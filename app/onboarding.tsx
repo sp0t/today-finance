@@ -162,11 +162,7 @@ const OnboardingScreen = () => {
       const fileName = asset.fileName ?? fileUri.split("/").pop();
 
       try {
-        const response = await fetch(fileUri);
-        const blob = await response.blob(); 
-
-        const file = new File([blob], fileName, { type: fileType });
-        data.append('userProfileImage', file);
+        data.append('userProfileImage', { uri: fileUri, name: fileName, type: fileType });
       } catch (err) {
         console.error('Error converting image URI to file:', err);
       }
@@ -174,9 +170,11 @@ const OnboardingScreen = () => {
     data.append('loginMethod', 'email');
 
     try {
-      const response = await axios.post(`${baseURL}${kReferenceLogin}`, data, {
+      const response = await fetch(`${baseURL}${kReferenceLogin}`, {
+        method: 'POST',
+        body: data,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'content-type': 'multipart/form-data',
         },
       });
       console.log('response============>', response);
