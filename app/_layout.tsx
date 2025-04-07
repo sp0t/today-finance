@@ -48,11 +48,12 @@ export default function RootLayout() {
   );
 }
 
+export const unstable_settings = {
+  initialRouteName: '(tabs)',
+};
+
 function AppNavigator() {
 
-  const unstable_settings = {
-    initialRouteName: '(tabs)',
-  };
   return (
     <Stack
       screenOptions={{
