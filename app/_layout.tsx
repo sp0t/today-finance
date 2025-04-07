@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, View, ActivityIndicator } from 'react-native';
 import { PrivyProvider } from '@privy-io/expo';
 import { PrivyElements } from '@privy-io/expo';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -15,11 +15,15 @@ import { usePrivy } from '@privy-io/expo';
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   
-  useFonts({
+  const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_600SemiBold,
   });
+  
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <PrivyProvider
@@ -33,7 +37,7 @@ export default function RootLayout() {
         },
       }}
     >
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <AppNavigator />
         <StatusBar style="auto" />
         <Toaster />
@@ -46,14 +50,27 @@ export default function RootLayout() {
 function AppNavigator() {
   const router = useRouter();
   const { user, isReady } = usePrivy();
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     if (isReady) {
+      console.log("user:", user);
       if (!user) {
         router.replace('/');
+      } else {
+        console.log("Authenticated, staying on tabs");
       }
+      setIsLoading(false);
     }
-  }, [isReady, user, router]);
+  }, [isReady, router]);
+  
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
   
   return (
     <Stack initialRouteName="(tabs)">
