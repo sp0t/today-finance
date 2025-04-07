@@ -12,7 +12,7 @@ import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-goog
 import { useFonts } from 'expo-font';
 import Constants from "expo-constants";
 import { usePrivy } from "@privy-io/expo";
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -53,13 +53,13 @@ export default function RootLayout() {
 }
 
 function AuthenticationCheck() {
-  const router = useRouter();
   const { user, isReady } = usePrivy();
-  
+  const router = useRouter();
+
   useEffect(() => {
     if (isReady) {
       if (!user) {
-        router.replace('/index');
+        router.push('/onboarding');
       }
     }
   }, [isReady, user, router]);
