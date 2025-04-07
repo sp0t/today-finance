@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from '@react-navigation/native';
@@ -10,7 +11,8 @@ import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import Constants from "expo-constants";
-
+import { usePrivy } from "@privy-io/expo";
+import { router } from 'expo-router';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -34,7 +36,8 @@ export default function RootLayout() {
     >
       {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
       <GestureHandlerRootView>
-        <Stack>
+        <AuthenticationCheck/>
+        <Stack initialRouteName='(tabs)'>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -47,4 +50,19 @@ export default function RootLayout() {
       {/* </ThemeProvider> */}
     </PrivyProvider>
   );
+}
+
+function AuthenticationCheck() {
+  const router = useRouter();
+  const { user, isReady } = usePrivy();
+  
+  useEffect(() => {
+    if (isReady) {
+      if (!user) {
+        router.replace('/index');
+      }
+    }
+  }, [isReady, user, router]);
+  
+  return null;
 }
