@@ -56,7 +56,7 @@ function AppNavigator() {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        // router.replace('/');
+        router.replace('/');
       } else {
         console.log("Authenticated, staying on tabs");
       }
@@ -75,7 +75,7 @@ function AppNavigator() {
   return (
     <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />
     </Stack>
