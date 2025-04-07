@@ -174,8 +174,6 @@ const OnboardingScreen = () => {
     data.append('loginMethod', 'email');
 
     try {
-      // Send the file using Axios
-      console.log('link======>', `${baseURL}${kReferenceLogin}`);
       const response = await axios.post(`${baseURL}${kReferenceLogin}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
