@@ -12,7 +12,7 @@ import TextButton from '@/components/ui/TextButton';
 import CornerText from '@/components/ConerText';
 
 
-const LoginScreen = () => {
+export default function LoginScreen() {
   const { login } = useLogin();
   const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
   const topImageOpacity = useSharedValue(1);
   const bottomImageOpacity = useSharedValue(1);
-  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,10 +68,10 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     logout();
-    login({ loginMethods: ['email']})
-    .then((session) => {
+    login({ loginMethods: ['email'] })
+      .then((session) => {
         console.log('User logged in', session.user);
-    })
+      })
   }
 
   return (
@@ -139,5 +139,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
-export default LoginScreen;

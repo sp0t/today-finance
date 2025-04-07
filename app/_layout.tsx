@@ -51,27 +51,34 @@ function AppNavigator() {
   const router = useRouter();
   const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
-  
+  const [hasMounted, setHasMounted] = useState(false);
+
+
   useEffect(() => {
-    if (isReady) {
+    const timer = setTimeout(() => setHasMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (hasMounted && isReady) {
       console.log("user:", user);
       if (!user) {
-        router.replace('/login');
+        router.replace("/login"); 
       } else {
         console.log("Authenticated, staying on tabs");
       }
       setIsLoading(false);
     }
-  }, [isReady, router]);
-  
+  }, [hasMounted, isReady, user]);
+
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
-  
+
   return (
     <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
