@@ -39,7 +39,6 @@ export default function RootLayout() {
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Slot />
         <AppNavigator />
         <StatusBar style="auto" />
         <Toaster />
