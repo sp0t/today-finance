@@ -150,8 +150,6 @@ const OnboardingScreen = () => {
   };
 
   const handleLetsGo = async () => {
-
-    
     const data = new FormData();
     data.append('walletAddress', walletAddress);
     data.append('userEmail', formData.email);
@@ -159,7 +157,19 @@ const OnboardingScreen = () => {
     data.append('userLastName', formData.lastName);
     if (image) {
       const asset = image.assets[0];
-      data.append('userProfileImage', { uri: asset.uri, name: asset.fileName ?? asset.uri.split("/").pop(), type: asset.mimeType });
+      const fileUri = asset.uri;
+      const fileType = asset.mimeType;
+      const fileName = asset.fileName ?? fileUri.split("/").pop();
+
+      try {
+        const response = await fetch(fileUri);
+        const blob = await response.blob(); 
+
+        const file = new File([blob], fileName, { type: fileType });
+        data.append('userProfileImage', file);
+      } catch (err) {
+        console.error('Error converting image URI to file:', err);
+      }
     }
     data.append('loginMethod', 'email');
 
