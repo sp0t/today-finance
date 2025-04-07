@@ -42,9 +42,9 @@ export default function RootLayout() {
         </Stack>
         <StatusBar style="auto" />
         <Toaster />
+        <PrivyElements />
       </GestureHandlerRootView>
       {/* </ThemeProvider> */}
-      <PrivyElements></PrivyElements>
     </PrivyProvider>
   );
 }
