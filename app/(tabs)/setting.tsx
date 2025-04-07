@@ -6,8 +6,12 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import PrimaryButton from '@/components/ui/PrimaryButton';
+import { usePrivy } from '@privy-io/expo';
 
 export default function TabFirstScreen() {
+  const { logout } = usePrivy();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -21,6 +25,11 @@ export default function TabFirstScreen() {
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Seting</ThemedText>
+        <PrimaryButton
+          title="Log Out"
+          style={{ marginTop: '40%' }}
+          onPress={() => logout()}
+        />
       </ThemedView>
     </ParallaxScrollView>
   );
