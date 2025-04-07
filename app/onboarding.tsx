@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, Alert } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { useRouter } from 'expo-router';
-import { useLoginWithEmail, usePrivy, PrivyUser } from '@privy-io/expo';
+import { useLoginWithEmail, usePrivy, PrivyUser, useLogin } from '@privy-io/expo';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
@@ -38,6 +38,7 @@ interface SlideData {
 
 const OnboardingScreen = () => {
   const router = useRouter();
+  const { login } = useLogin();
   const sliderRef = useRef<AppIntroSlider | null>(null);
   const [image, setImage] = useState<ImagePicker.ImagePickerSuccessResult | null>(null);
   const [walletAddress, setWalletAddress] = useState<string>('');
@@ -107,7 +108,11 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.findUserByEmail(formData.email);
       if (user.code == 0) {
-        router.replace('/(tabs)');
+        login({ loginMethods: ['email'] })
+          .then((session) => {
+            console.log('User logged in', session.user);
+            router.push('/(tabs)');
+          })
       }
       sliderRef.current?.goToSlide(1);
     } catch (error) {
@@ -177,7 +182,9 @@ const OnboardingScreen = () => {
           'content-type': 'multipart/form-data',
         },
       });
-      console.log('response============>', response);
+
+      const json = await response.json();
+      console.log('response============>', json);
       router.replace('/(tabs)');
     } catch (error) {
       console.error('Error uploading file:', error);
