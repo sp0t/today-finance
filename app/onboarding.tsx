@@ -99,31 +99,18 @@ const OnboardingScreen = () => {
 
     if (!result.canceled) {
       // const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
-      const selectedAsset = result.assets[0];
-      const fileUri = selectedAsset.uri;
-      const fileType = selectedAsset.mimeType;
-      const fileName = fileUri.split('/').pop();
-
-      // Proceed to create a File object from the URI
-      const file = {
-        uri: fileUri,
-        name: fileName,
-        type: fileType,
-      };
-      setImage(file);
+      setImage(result);
     }
   };
 
   const handleEmailAuthentication = async () => {
     try {
       const user = await apiService.findUserByEmail(formData.email);
-      console.log('user====>', user);
       if (user.code == 0) {
         router.replace('/(tabs)');
       }
       sliderRef.current?.goToSlide(1);
     } catch (error) {
-      console.log('error====>', error);
       CustomToast.show({
         message: 'There is error, please try again.',
         type: 'warning',
@@ -164,13 +151,18 @@ const OnboardingScreen = () => {
 
   const handleLetsGo = async () => {
 
+    console.log('image=====>', image);
+    return;
+
     const data = new FormData();
     data.append('walletAddress', walletAddress);
     data.append('userEmail', formData.email);
     data.append('userFirstName', formData.firstName);
     data.append('userLastName', formData.lastName);
-    if (image)
+    if (image) {
+      const asset = image.assets[0];
       data.append('userProfileImage', image);
+    }
     data.append('loginMethod', 'email');
 
     try {
