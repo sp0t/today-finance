@@ -97,6 +97,9 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.findUserByEmail(formData.email);
       console.log('user====>', user);
+      if(!user) {
+        router.replace('/(tabs)');
+      }
     } catch (error) {
       CustomToast.show({
         message: 'There is error, please try again.',
