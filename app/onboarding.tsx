@@ -39,7 +39,7 @@ interface SlideData {
 const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<ImagePicker.ImagePickerSuccessResult | null>(null);
   const [walletAddress, setWalletAddress] = useState<string>('');
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
@@ -159,19 +159,13 @@ const OnboardingScreen = () => {
     data.append('userLastName', formData.lastName);
     if (image) {
       const asset = image.assets[0];
-      console.log('uri=====>', asset.uri);
-      console.log('name=====>',  asset.fileName ?? asset.uri.split("/").pop());
-      console.log('type=====>', asset.mimeType);
-      if (asset.exif) {
-        console.log('exif=====>', asset.exif);
-      }
-      return;
-      data.append('userProfileImage', image);
+      data.append('userProfileImage', { uri: asset.uri, name: asset.fileName ?? asset.uri.split("/").pop(), type: asset.mimeType });
     }
     data.append('loginMethod', 'email');
 
     try {
       // Send the file using Axios
+      console.log('link======>', `${baseURL}${kReferenceLogin}`);
       const response = await axios.post(`${baseURL}${kReferenceLogin}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
