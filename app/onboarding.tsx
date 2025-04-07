@@ -102,6 +102,7 @@ const OnboardingScreen = () => {
       }
       sliderRef.current?.goToSlide(1);
     } catch (error) {
+      console.log('error====>', error);
       CustomToast.show({
         message: 'There is error, please try again.',
         type: 'warning',
