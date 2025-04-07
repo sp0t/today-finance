@@ -140,7 +140,7 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.sginUp(walletAddress, formData.email, formData.firstName, formData.lastName, image, 'email');
       console.log('user=======>', user);
-      router.replace('/');
+      router.replace('/(tabs)');
     } catch (error) {
       console.log(error);
       CustomToast.show({

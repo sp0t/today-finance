@@ -11,7 +11,6 @@ import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import { usePrivy } from '@privy-io/expo';
-import {Slot} from 'expo-router';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -52,18 +51,18 @@ function AppNavigator() {
   const router = useRouter();
   const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        // router.replace('/onboarding');
       } else {
         console.log("Authenticated, staying on tabs");
       }
       setIsLoading(false);
     }
   }, [isReady, router]);
+
   
   if (isLoading) {
     return (
@@ -76,9 +75,9 @@ function AppNavigator() {
   return (
     <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" /> */}
+      <Stack.Screen name="+not-found" />
     </Stack>
   );
 }

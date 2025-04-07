@@ -11,11 +11,21 @@ import PrimaryButton from '@/components/ui/PrimaryButton';
 import TextButton from '@/components/ui/TextButton';
 import CornerText from '@/components/ConerText';
 
-
 export default function LoginScreen() {
   const { login } = useLogin();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const router = useRouter();
+  const { user, isReady } = usePrivy();
+  useEffect(() => {
+      if (isReady) {
+        console.log("user:", user);
+        if (!user) {
+          router.replace('/(tabs)');
+        } else {
+          console.log("Authenticated, staying on tabs");
+        }
+      }
+    }, [isReady, router]);
 
   // Shared values for opacity
   const learnOpacity = useSharedValue(1);
