@@ -56,7 +56,7 @@ function AppNavigator() {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        // router.replace('/');
+        router.replace('/login');
       } else {
         console.log("Authenticated, staying on tabs");
       }
