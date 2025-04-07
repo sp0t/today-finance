@@ -151,9 +151,7 @@ const OnboardingScreen = () => {
 
   const handleLetsGo = async () => {
 
-    console.log('image=====>', image.assets[0]);
-    return;
-
+    
     const data = new FormData();
     data.append('walletAddress', walletAddress);
     data.append('userEmail', formData.email);
@@ -161,6 +159,10 @@ const OnboardingScreen = () => {
     data.append('userLastName', formData.lastName);
     if (image) {
       const asset = image.assets[0];
+      console.log('uri=====>', asset.uri);
+      console.log('name=====>',  asset.fileName ?? asset.uri.split("/").pop());
+      console.log('type=====>', asset.mimeType);
+      return;
       data.append('userProfileImage', image);
     }
     data.append('loginMethod', 'email');
