@@ -17,7 +17,6 @@ const LoginScreen = () => {
   const { logout } = usePrivy();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const router = useRouter();
-  const { user, isReady } = usePrivy();
 
   // Shared values for opacity
   const learnOpacity = useSharedValue(1);
@@ -28,13 +27,6 @@ const LoginScreen = () => {
   const topImageOpacity = useSharedValue(1);
   const bottomImageOpacity = useSharedValue(1);
   
-  useEffect(() => {
-    if (isReady) {
-      if (user) {
-        router.replace('/(tabs)');
-      }
-    }
-  }, [isReady, user, router]);
 
   useEffect(() => {
     const interval = setInterval(() => {

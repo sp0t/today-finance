@@ -107,8 +107,6 @@ const OnboardingScreen = () => {
       return;
     }
 
-    logout();
-
     try {
       const result = await sendCode({ email: formData.email });
       if (result.success === true) {
