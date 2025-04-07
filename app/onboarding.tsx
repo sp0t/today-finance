@@ -151,7 +151,7 @@ const OnboardingScreen = () => {
 
   const handleLetsGo = async () => {
 
-    console.log('image=====>', image);
+    console.log('image=====>', image.assets[0]);
     return;
 
     const data = new FormData();
