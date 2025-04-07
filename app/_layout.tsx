@@ -10,9 +10,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
-import Constants from "expo-constants";
-import { usePrivy } from "@privy-io/expo";
-import { useRouter } from 'expo-router';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -34,35 +31,19 @@ export default function RootLayout() {
         },
       }}
     >
-      {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
-      <GestureHandlerRootView>
-        <AuthenticationCheck/>
-        <Stack initialRouteName='(tabs)'>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-        <Toaster />
-        <PrivyElements />
-      </GestureHandlerRootView>
-      {/* </ThemeProvider> */}
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <GestureHandlerRootView>
+          <Stack initialRouteName='(tabs)'>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+          <Toaster />
+          <PrivyElements />
+        </GestureHandlerRootView>
+      </ThemeProvider>
     </PrivyProvider>
   );
-}
-
-function AuthenticationCheck() {
-  const { user, isReady } = usePrivy();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isReady) {
-      if (!user) {
-        router.push('/');
-      }
-    }
-  }, [isReady, user, router]);
-  
-  return null;
 }
