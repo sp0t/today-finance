@@ -180,6 +180,7 @@ const OnboardingScreen = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
+      console.log('response============>', response);
       router.replace('/(tabs)');
     } catch (error) {
       console.error('Error uploading file:', error);
