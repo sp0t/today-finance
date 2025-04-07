@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Stack, useRouter, Redirect } from 'expo-router';
+import { Stack, useRouter, Redirect, Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from '@react-navigation/native';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -14,13 +14,13 @@ import { usePrivy } from '@privy-io/expo';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  
+
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Inter_600SemiBold,
   });
-  
+
   if (!fontsLoaded) {
     return null;
   }
@@ -38,7 +38,8 @@ export default function RootLayout() {
       }}
     >
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <AppNavigator />
+        <Slot />
+        {/* <AppNavigator /> */}
         <StatusBar style="auto" />
         <Toaster />
         <PrivyElements />
@@ -52,18 +53,6 @@ function AppNavigator() {
   const { user, isReady } = usePrivy();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (isReady) {
-      console.log("user:", user);
-      if (!user) {
-      } else {
-        console.log("Authenticated, staying on tabs");
-      }
-      setIsLoading(false);
-    }
-  }, [isReady, router]);
-
-  
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -71,12 +60,16 @@ function AppNavigator() {
       </View>
     );
   }
-  
+
   return (
-    <Stack initialRouteName="(tabs)">
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="onboarding" />
       <Stack.Screen name="+not-found" />
     </Stack>
   );

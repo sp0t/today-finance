@@ -16,6 +16,7 @@ export default function LoginScreen() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const router = useRouter();
   const { user, isReady } = usePrivy();
+  
   useEffect(() => {
       if (isReady) {
         console.log("user:", user);
