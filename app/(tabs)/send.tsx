@@ -6,8 +6,28 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import { useRouter } from 'expo-router';
+import { usePrivy } from '@privy-io/expo';
+import React, { useEffect, useState } from 'react';
 
 export default function TabFirstScreen() {
+
+  const router = useRouter();
+  const { user, isReady } = usePrivy();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isReady) {
+      console.log("user:", user);
+      if (!user) {
+        router.replace('/login');
+      } else {
+        console.log("Authenticated, staying on tabs");
+      }
+      setIsLoading(false);
+    }
+  }, [isReady, router]);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}

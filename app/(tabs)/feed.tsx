@@ -14,6 +14,9 @@ import {
 } from 'react-native';
 
 import images from '@/styles/images';
+import { useRouter } from 'expo-router';
+import { usePrivy } from '@privy-io/expo';
+import { useEffect, useState } from 'react';
 
 interface feedItemProps {
     id: string;
@@ -25,8 +28,8 @@ interface feedItemProps {
     avatar: any;
     tokenIcon: any;
     recipient?: string; // Mark as optional with '?'
-  }
-  
+}
+
 // Sample data for the feed with many items to demonstrate scrolling
 const feedData = [
     {
@@ -153,6 +156,22 @@ const feedData = [
 ];
 
 const FeedScreen = () => {
+    const router = useRouter();
+    const { user, isReady } = usePrivy();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (isReady) {
+            console.log("user:", user);
+            if (!user) {
+                router.replace('/login');
+            } else {
+                console.log("Authenticated, staying on tabs");
+            }
+            setIsLoading(false);
+        }
+    }, [isReady, router]);
+
     const renderFeedItem = ({ item }: ListRenderItemInfo<feedItemProps>) => (
         <View style={styles.feedItem}>
             <Image source={item.avatar} style={styles.avatar} />

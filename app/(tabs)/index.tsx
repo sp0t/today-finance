@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,8 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
+import { useRouter } from 'expo-router';
+import { usePrivy } from '@privy-io/expo';
 
 // Constants for layout measurements
 const { width } = Dimensions.get('window');
@@ -138,6 +140,22 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
 
 // Main component
 const MarketScreen: React.FC = () => {
+
+  const router = useRouter();
+  const { user, isReady } = usePrivy();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isReady) {
+      console.log("user:", user);
+      if (!user) {
+        router.replace('/login');
+      } else {
+        console.log("Authenticated, staying on tabs");
+      }
+      setIsLoading(false);
+    }
+  }, [isReady, router]);
   // Sample data
   const educationalCards: EducationalCard[] = [
     {
@@ -663,7 +681,7 @@ const styles = StyleSheet.create<IStyles>({
   },
   footer: {
     position: 'absolute',
-    width:'100%',
+    width: '100%',
     bottom: 110,
     padding: 16,
   }
