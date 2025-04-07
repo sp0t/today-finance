@@ -162,6 +162,9 @@ const OnboardingScreen = () => {
       console.log('uri=====>', asset.uri);
       console.log('name=====>',  asset.fileName ?? asset.uri.split("/").pop());
       console.log('type=====>', asset.mimeType);
+      if (asset.exif) {
+        console.log('exif=====>', asset.exif);
+      }
       return;
       data.append('userProfileImage', image);
     }
