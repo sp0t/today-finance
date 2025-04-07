@@ -8,9 +8,16 @@ import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import { usePrivy } from '@privy-io/expo';
+import { useRouter } from 'expo-router';
 
 export default function TabFirstScreen() {
   const { logout } = usePrivy();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  }
 
   return (
     <ParallaxScrollView
