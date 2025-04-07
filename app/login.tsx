@@ -22,7 +22,6 @@ export default function LoginScreen() {
     if (isReady) {
       console.log("user:", user);
       if (!user) {
-        router.replace('/login');
       } else {
         console.log("Authenticated, staying on tabs");
         router.replace('/(tabs)');
