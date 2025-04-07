@@ -16,7 +16,7 @@ import {
 export class ApiService {
     constructor() { }
 
-    async sginUp(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: string, loginMethod?: string): Promise<UserProps> {
+    async sginUp(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: File, loginMethod?: string): Promise<UserProps> {
         var data = {
             userAddress,
             userEmail,
@@ -27,7 +27,7 @@ export class ApiService {
         }
 
         return new Promise((resolve, reject) => {
-            post(getBaseRoute(kReferenceLogin), data)
+            post(getBaseRoute(kReferenceLogin), data, )
                 .then((response) => {
                     const result = response.data;
                     resolve(result);

@@ -7,6 +7,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { PrivyElements } from '@privy-io/expo';
+import axios from 'axios';
 
 import baseStyles from '@/styles/style';
 import images from '@/styles/images';
@@ -17,6 +18,15 @@ import { apiService } from '@/services/api.service';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import PrimaryInput from '@/components/ui/PrimaryInput';
 import SmallIcon from '@/components/ui/SmallIcon';
+import {
+  baseURL,
+  kReferenceLogin,
+  kReferencefindUserByAddress,
+  kReferencefindUserByEmail,
+  kReferenceUpdateUser,
+  kReferenceGetTokenBalanceList,
+  kReferencetradeSwap
+} from '@/constants/constants';
 
 interface SlideData {
   email: string;
@@ -29,7 +39,7 @@ interface SlideData {
 const OnboardingScreen = () => {
   const router = useRouter();
   const sliderRef = useRef<AppIntroSlider | null>(null);
-  const [image, setImage] = useState<string | ''>('');
+  const [image, setImage] = useState(null);
   const [walletAddress, setWalletAddress] = useState<string>('');
 
   const { sendCode, loginWithCode } = useLoginWithEmail({
@@ -88,8 +98,19 @@ const OnboardingScreen = () => {
     });
 
     if (!result.canceled) {
-      const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
-      setImage(base64Image);
+      // const base64Image = `data:image/jpeg;base64,${result.assets[0].base64}`;
+      const selectedAsset = result.assets[0];
+      const fileUri = selectedAsset.uri;
+      const fileType = selectedAsset.mimeType;
+      const fileName = fileUri.split('/').pop();
+
+      // Proceed to create a File object from the URI
+      const file = {
+        uri: fileUri,
+        name: fileName,
+        type: fileType,
+      };
+      setImage(file);
     }
   };
 
@@ -97,7 +118,7 @@ const OnboardingScreen = () => {
     try {
       const user = await apiService.findUserByEmail(formData.email);
       console.log('user====>', user);
-      if(user.code == 0) {
+      if (user.code == 0) {
         router.replace('/(tabs)');
       }
       sliderRef.current?.goToSlide(1);
@@ -142,20 +163,28 @@ const OnboardingScreen = () => {
   };
 
   const handleLetsGo = async () => {
+
+    const data = new FormData();
+    data.append('walletAddress', walletAddress);
+    data.append('userEmail', formData.email);
+    data.append('userFirstName', formData.firstName);
+    data.append('userLastName', formData.lastName);
+    if (image)
+      data.append('userProfileImage', image);
+    data.append('loginMethod', 'email');
+
     try {
-      const user = await apiService.sginUp(walletAddress, formData.email, formData.firstName, formData.lastName, image, 'email');
-      console.log('user=======>', user);
+      // Send the file using Axios
+      const response = await axios.post(`${baseURL}${kReferenceLogin}`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       router.replace('/(tabs)');
     } catch (error) {
-      console.log(error);
-      CustomToast.show({
-        message: 'there is some error, try again.',
-        type: 'error',
-        position: 'top',
-      });
+      console.error('Error uploading file:', error);
     }
   }
-
 
   const slides = [
     {

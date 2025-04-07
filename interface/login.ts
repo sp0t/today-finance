@@ -11,7 +11,7 @@ export interface UserProps {
     userEmail: string;
     userFirstName: string;
     userLastName: string;
-    userProfileImage?: string;
+    userProfileImage?: File;
     loginMethod?: string;
 }
   
