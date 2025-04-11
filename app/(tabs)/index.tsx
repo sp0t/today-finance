@@ -89,7 +89,6 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
 };
 
 const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }) => {
-  console.log('item==============>', item)
   return (
     <View
       style={[
@@ -111,15 +110,15 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         <Text style={styles.gainerTicker}>{item.symbol}</Text>
       </View>
       <View style={styles.gainerPrice}>
-        {item.priceChangePercentage24H >= 0 ? (
+        {item.priceChangePercent24H >= 0 ? (
           <Text style={[styles.priceChange, { color: 'green' }]}>
             <Ionicons name="arrow-up" size={24} color="green" />
-            {item.priceChangePercentage24H}%
+            {item.priceChangePercent24H}%
           </Text>
         ) : (
           <Text style={[styles.priceChange, { color: 'red' }]}>
             <Ionicons name="arrow-down" size={24} color="red" />
-            {item.priceChangePercentage24H}%
+            {item.priceChangePercent24H}%
           </Text>
         )}
       </View>

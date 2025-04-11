@@ -63,7 +63,7 @@ export interface tokenProps {
   markeCap: number;
   price: number;
   priceChange24H: number;
-  priceChangePercentage24H: number;
+  priceChangePercent24H: number;
   volume24H: number;
   website: string;
   twitter: string;
