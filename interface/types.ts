@@ -57,17 +57,17 @@ export interface tokenProps {
   symbol: string;
   logo: string;
   decimals: string;
-  totalSupply: Number;
+  totalSupply: number;
   verified: string;
   description: string;
-  markeCap: Number;
-  price: Number;
-  priceChange24H: Number;
-  priceChangePercentage24H: Number;
-  volume24H: Number;
+  markeCap: number;
+  price: number;
+  priceChange24H: number;
+  priceChangePercentage24H: number;
+  volume24H: number;
   website: string;
   twitter: string;
-  score: Number;
+  score: number;
 }
 
 // Component prop types
