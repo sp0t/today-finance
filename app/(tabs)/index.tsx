@@ -388,16 +388,16 @@ const MarketScreen: React.FC = () => {
           </View>
         </View>
 
-        {/* Deposit button */}
-        <View style={[styles.footer, { marginBottom: 20 }]}>
-          <PrimaryButton
-            title="Deposit"
-            style={{ width: "100%" }}
-            onPress={handleFundWalle}
-          />
-        </View>
 
       </ScrollView>
+      {/* Deposit button */}
+      <View style={[styles.footer, { marginBottom: 20 }]}>
+        <PrimaryButton
+          title="Deposit"
+          style={{ width: "100%" }}
+          onPress={handleFundWalle}
+        />
+      </View>
     </SafeAreaView>
 
   );
@@ -441,8 +441,8 @@ interface IStyles {
 
 const styles = StyleSheet.create<IStyles>({
   scrollContent: {
-    paddingBottom: 50, 
-  },  
+    paddingBottom: 50,
+  },
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
