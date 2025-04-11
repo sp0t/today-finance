@@ -105,8 +105,8 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         <Text style={styles.gainerTicker}>{item.symbol}</Text>
       </View>
       <View style={styles.gainerPrice}>
-        <Text style={styles.priceValue}>{item.price}</Text>
-        <Text style={styles.priceChange}>{item.priceChange24H}</Text>
+        <Text style={styles.priceValue}>{item.price.toFixed(5)}</Text>
+        <Text style={styles.priceChange}>{item.priceChange24H.toFixed(5)}</Text>
       </View>
     </View>
   );
