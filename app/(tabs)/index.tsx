@@ -100,7 +100,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
     >
       <View style={[styles.gainerIcon, { backgroundColor: 'red' }]}>
         <Image
-          source={require(item?.logo)}
+          source={{uri: item?.logo}}
           resizeMode="cover"
         />
       </View>
