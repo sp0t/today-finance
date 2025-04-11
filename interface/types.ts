@@ -5,6 +5,23 @@ export type NavigateProps = {
   (name: string, params?: unknown): void;
 };
 
+export enum ReturnCode {
+  RETURN_OK,
+  RETURN_ERROR,
+}
+
+export type ReturnType = {
+  code: ReturnCode;
+  description: string;
+  value?: any;
+}
+
+export enum ResponseStatus {
+  SUCCESS = 200,
+  CLIENT_ERROR = 400,
+  SERVER_ERROR = 500,
+}
+
 export type GenericNavigationProps = {
   navigate: NavigateProps;
   setOptions: (options: Partial<unknown>) => void;
@@ -65,7 +82,7 @@ export interface EducationalCardItemProps {
 }
 
 export interface TopGainerItemProps {
-  item: TopGainer;
+  item: tokenProps;
   index: number;
   totalItems: number;
 }

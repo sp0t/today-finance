@@ -98,16 +98,15 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         }
       ]}
     >
-      <View style={[styles.gainerIcon, { backgroundColor: item.color }]}>
-        <Text style={styles.gainerIconText}>{item.iconText}</Text>
+      <View style={[styles.gainerIcon, { backgroundColor: 'red' }]}>
       </View>
       <View style={styles.gainerInfo}>
         <Text style={styles.gainerName}>{item.name}</Text>
-        <Text style={styles.gainerTicker}>{item.ticker}</Text>
+        <Text style={styles.gainerTicker}>{item.symbol}</Text>
       </View>
       <View style={styles.gainerPrice}>
         <Text style={styles.priceValue}>{item.price}</Text>
-        <Text style={styles.priceChange}>{item.change}</Text>
+        <Text style={styles.priceChange}>{item.priceChange24H}</Text>
       </View>
     </View>
   );
@@ -141,7 +140,12 @@ const MarketScreen: React.FC = () => {
 
   const fetchTopGainers = async () => {
     try {
-      const response = apiService.getTopGainers();
+      const response = await apiService.getTopGainers();
+      if(response.code == 0) {
+        setTopGainer(response?.value);
+      } else {
+        setTopGainer([]);
+      }
     } catch (error) {
       console.error('Failed to fetch top gainers:', error);
     }

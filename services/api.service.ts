@@ -11,13 +11,16 @@ import {
 import { UserProps } from '@/interface/login';
 import {
     TokenListApiProps,
-    TradeSwapProps
+    TradeSwapProps,
+    ReturnCode,
+    ReturnType,
+    ResponseStatus
 } from '@/interface/types'
 
 export class ApiService {
     constructor() { }
 
-    async sginUp(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: File, loginMethod?: string): Promise<UserProps> {
+    async sginUp(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: File, loginMethod?: string): Promise<ReturnType> {
         var data = {
             userAddress,
             userEmail,
@@ -40,7 +43,7 @@ export class ApiService {
         });
     }
 
-    async findUserByAddress(userAddress: string): Promise<string> {
+    async findUserByAddress(userAddress: string): Promise<ReturnType> {
         var data = {
             userAddress
         }
@@ -58,7 +61,7 @@ export class ApiService {
         });
     }
 
-    async findUserByEmail(userEmail: string): Promise<string> {
+    async findUserByEmail(userEmail: string): Promise<ReturnType> {
         var data = {
             userEmail
         }
@@ -76,7 +79,7 @@ export class ApiService {
         });
     }
 
-    async updateUser(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: string, loginMethod?: string): Promise<UserProps> {
+    async updateUser(userAddress: string, userEmail: string, userFirstName: string, userLastName: string, userProfileImage?: string, loginMethod?: string): Promise<ReturnType> {
         var data = {
             userAddress,
             userEmail,
@@ -99,7 +102,7 @@ export class ApiService {
         });
     }
 
-    async getTokenBalanceList(userAddress: string, chain: string): Promise<TokenListApiProps> {
+    async getTokenBalanceList(userAddress: string, chain: string): Promise<ReturnType> {
         var data = {
             userAddress,
             chain
@@ -118,13 +121,12 @@ export class ApiService {
         });
     }
 
-    async getTopGainers(): Promise<any> {
+    async getTopGainers(): Promise<ReturnType> {
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferenceGetTopGainers))
                 .then((response) => {
                     const result = response.data;
-                    console.log('response.data==============>', response.data)
                     resolve(result);
                 })
                 .catch((error) => {
@@ -134,7 +136,7 @@ export class ApiService {
         });
     }
 
-    async tradeSwap(tokenIn: string, tokenOut: string, amountIn: string): Promise<TradeSwapProps> {
+    async tradeSwap(tokenIn: string, tokenOut: string, amountIn: string): Promise<ReturnType> {
         var data = {
             tokenIn,
             tokenOut,
