@@ -98,11 +98,11 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         }
       ]}
     >
-      <View style={[styles.gainerIcon]}>
-        <Image
-          source={{uri: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8329.png'}}
-        />
-      </View>
+      <Image
+        source={{ uri: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8329.png' }}
+        style={styles.gainerIcon}
+        resizeMode='cover'
+      />
       <View style={styles.gainerInfo}>
         <Text style={styles.gainerName}>{item.name}</Text>
         <Text style={styles.gainerTicker}>{item.symbol}</Text>
@@ -355,7 +355,7 @@ interface IStyles {
   indicator: ViewStyle;
   activeIndicator: ViewStyle;
   gainerCard: ViewStyle;
-  gainerIcon: ViewStyle;
+  gainerIcon: ImageStyle;
   gainerIconText: TextStyle;
   gainerInfo: ViewStyle;
   gainerName: TextStyle;
