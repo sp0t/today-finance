@@ -20,7 +20,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import { useRouter } from 'expo-router';
-import { usePrivy } from '@privy-io/expo';
+import {
+  usePrivy,
+  getUserEmbeddedEthereumWallet,
+  useFundWallet
+} from '@privy-io/expo';
+import { base } from 'viem/chains';
 
 // Constants for layout measurements
 const { width } = Dimensions.get('window');
@@ -143,7 +148,9 @@ const MarketScreen: React.FC = () => {
 
   const router = useRouter();
   const { user, isReady } = usePrivy();
+  const account = getUserEmbeddedEthereumWallet(user);
   const [isLoading, setIsLoading] = useState(true);
+  const { fundWallet } = useFundWallet();
 
   useEffect(() => {
     if (isReady) {
@@ -403,6 +410,13 @@ const MarketScreen: React.FC = () => {
     bottomCarouselRef.current?.scrollToIndex({ index, animated: true });
   }, []);
 
+  const handleFundWalle = async () => {
+    fundWallet({
+      address: account?.address,
+      chain: base,
+    });
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -465,7 +479,7 @@ const MarketScreen: React.FC = () => {
       </View>
       {/* Deposit button */}
       <View style={styles.footer}>
-        <PrimaryButton title="Deposit" style={{ width: "100%" }} onPress={() => { }} />
+        <PrimaryButton title="Deposit" style={{ width: "100%" }} onPress={() => { handleFundWalle(); }} />
       </View>
     </SafeAreaView>
   );
