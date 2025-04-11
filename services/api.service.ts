@@ -123,6 +123,7 @@ export class ApiService {
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferenceGetTopGainers))
                 .then((response) => {
+                    console.log('response==============>', response)
                     const result = response.data;
                     resolve(result);
                 })
