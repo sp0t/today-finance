@@ -101,7 +101,6 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
       <View style={[styles.gainerIcon]}>
         <Image
           source={{uri: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8329.png'}}
-          resizeMode="cover"
         />
       </View>
       <View style={styles.gainerInfo}>
