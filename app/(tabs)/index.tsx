@@ -89,6 +89,7 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
 };
 
 const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }) => {
+  console.log('item==============>', item)
   return (
     <View
       style={[
