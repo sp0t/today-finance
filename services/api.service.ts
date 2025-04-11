@@ -121,7 +121,7 @@ export class ApiService {
     async getTopGainers(): Promise<any> {
 
         return new Promise((resolve, reject) => {
-            get(getBaseRoute(kReferenceGetTopGainers))
+            post(getBaseRoute(kReferenceGetTopGainers))
                 .then((response) => {
                     const result = response.data;
                     resolve(result);
