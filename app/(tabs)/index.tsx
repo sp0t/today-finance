@@ -14,6 +14,7 @@ import {
   TextStyle,
   ImageStyle,
   ListRenderItemInfo,
+  ScrollView
 } from 'react-native';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
@@ -303,92 +304,102 @@ const MarketScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.welcomeText}>Welcome</Text>
-          <Text style={styles.dateText}>Monday, March 5th</Text>
-        </View>
-        <View>
-          <Text style={styles.statusText}>Markets are always open</Text>
-        </View>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
-      {/* Learn about finance section */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Learn about the future of finance</Text>
+        {/* Header */}
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.welcomeText}>Welcome</Text>
+            <Text style={styles.dateText}>Monday, March 5th</Text>
+          </View>
+          <View>
+            <Text style={styles.statusText}>Markets are always open</Text>
+          </View>
+        </View>
 
-        <View style={styles.carouselContainer}>
-          <FlatList
-            ref={topCarouselRef}
-            data={educationalCards}
-            renderItem={renderEducationalCard}
-            keyExtractor={(item) => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            snapToInterval={CARD_WIDTH + CARD_GAP}
-            decelerationRate="fast"
-            contentContainerStyle={styles.carouselContent}
-            onMomentumScrollEnd={handleTopScrollEnd}
-            initialScrollIndex={0}
-            getItemLayout={getItemLayout}
-            removeClippedSubviews={true}
+        {/* Learn about finance section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Learn about the future of finance</Text>
+          <View style={styles.carouselContainer}>
+            <FlatList
+              ref={topCarouselRef}
+              data={educationalCards}
+              renderItem={renderEducationalCard}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              snapToInterval={CARD_WIDTH + CARD_GAP}
+              decelerationRate="fast"
+              contentContainerStyle={styles.carouselContent}
+              onMomentumScrollEnd={handleTopScrollEnd}
+              initialScrollIndex={0}
+              getItemLayout={getItemLayout}
+              removeClippedSubviews={true}
+            />
+          </View>
+        </View>
+
+        {/* Top Gainers */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Top gainers</Text>
+          <Text style={styles.sectionSubtitle}>Price rising over the past 24 hours</Text>
+          <View style={styles.carouselContainer}>
+            <FlatList
+              ref={bottomCarouselRef}
+              data={groupedGainerPages}
+              renderItem={renderTopGainerPage}
+              keyExtractor={(_, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              snapToInterval={GANINER_CARD_WIDTH + CARD_GAP}
+              decelerationRate="fast"
+              contentContainerStyle={styles.carouselContent}
+              onMomentumScrollEnd={handleBottomScrollEnd}
+              initialScrollIndex={0}
+              getItemLayout={getGainerItemLayout}
+              removeClippedSubviews={true}
+            />
+          </View>
+        </View>
+
+        {/* Trending */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Trending</Text>
+          <Text style={styles.sectionSubtitle}>Popular assets over the past 24 hours</Text>
+          <View style={styles.carouselContainer}>
+            <FlatList
+              ref={bottomCarouselRef}
+              data={groupedTrendingPages}
+              renderItem={renderTrendingPage}
+              keyExtractor={(_, index) => index.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              snapToInterval={GANINER_CARD_WIDTH + CARD_GAP}
+              decelerationRate="fast"
+              contentContainerStyle={styles.carouselContent}
+              onMomentumScrollEnd={handleBottomScrollEnd}
+              initialScrollIndex={0}
+              getItemLayout={getGainerItemLayout}
+              removeClippedSubviews={true}
+            />
+          </View>
+        </View>
+
+        {/* Deposit button */}
+        <View style={[styles.footer, { marginBottom: 20 }]}>
+          <PrimaryButton
+            title="Deposit"
+            style={{ width: "100%" }}
+            onPress={handleFundWalle}
           />
         </View>
 
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Top gainers</Text>
-        <Text style={styles.sectionSubtitle}>Price rising over the past 24 hours</Text>
-        <View style={styles.carouselContainer}>
-          <FlatList
-            ref={bottomCarouselRef}
-            data={groupedGainerPages}
-            renderItem={renderTopGainerPage}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            snapToInterval={GANINER_CARD_WIDTH + CARD_GAP}
-            decelerationRate="fast"
-            contentContainerStyle={styles.carouselContent}
-            onMomentumScrollEnd={handleBottomScrollEnd}
-            initialScrollIndex={0}
-            getItemLayout={getGainerItemLayout}
-            removeClippedSubviews={true}
-          />
-        </View>
-
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Trending</Text>
-        <Text style={styles.sectionSubtitle}>Popular assets over the pastt 24 hours</Text>
-        <View style={styles.carouselContainer}>
-          <FlatList
-            ref={bottomCarouselRef}
-            data={groupedTrendingPages}
-            renderItem={renderTrendingPage}
-            keyExtractor={(_, index) => index.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            snapToInterval={GANINER_CARD_WIDTH + CARD_GAP}
-            decelerationRate="fast"
-            contentContainerStyle={styles.carouselContent}
-            onMomentumScrollEnd={handleBottomScrollEnd}
-            initialScrollIndex={0}
-            getItemLayout={getGainerItemLayout}
-            removeClippedSubviews={true}
-          />
-        </View>
-
-      </View>
-      {/* Deposit button */}
-      <View style={styles.footer}>
-        <PrimaryButton title="Deposit" style={{ width: "100%" }} onPress={() => { handleFundWalle(); }} />
-      </View>
+      </ScrollView>
     </SafeAreaView>
+
   );
 };
 
@@ -429,6 +440,9 @@ interface IStyles {
 }
 
 const styles = StyleSheet.create<IStyles>({
+  scrollContent: {
+    paddingBottom: 50, 
+  },  
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
