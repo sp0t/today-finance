@@ -110,9 +110,17 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         <Text style={styles.gainerTicker}>{item.symbol}</Text>
       </View>
       <View style={styles.gainerPrice}>
-        <Text style={styles.priceValue}>${item.price.toFixed(5)}</Text>
-        {item.priceChangePercentage24H >= 0 && <Text style={[styles.priceChange, {color:'green'}]}><Ionicons name="arrow-up" size={24} color="green" />{item.priceChangePercentage24H.toFixed(2)}%</Text>}
-        {item.priceChangePercentage24H < 0 && <Text style={[styles.priceChange, {color:'red'}]}><Ionicons name="arrow-down" size={24} color="red" />{item.priceChangePercentage24H.toFixed(2)}%</Text>}
+        {item.priceChangePercentage24H.valueOf() >= 0 ? (
+          <Text style={[styles.priceChange, { color: 'green' }]}>
+            <Ionicons name="arrow-up" size={24} color="green" />
+            {item.priceChangePercentage24H.valueOf().toFixed(2)}%
+          </Text>
+        ) : (
+          <Text style={[styles.priceChange, { color: 'red' }]}>
+            <Ionicons name="arrow-down" size={24} color="red" />
+            {item.priceChangePercentage24H.valueOf().toFixed(2)}%
+          </Text>
+        )}
       </View>
     </View>
   );
