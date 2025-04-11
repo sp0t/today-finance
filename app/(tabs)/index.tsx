@@ -142,7 +142,6 @@ const MarketScreen: React.FC = () => {
   const fetchTopGainers = async () => {
     try {
       const response = apiService.getTopGainers();
-      console.log('response============>', response);
     } catch (error) {
       console.error('Failed to fetch top gainers:', error);
     }
