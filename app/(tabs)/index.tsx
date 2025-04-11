@@ -113,12 +113,12 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
         {item.priceChangePercentage24H >= 0 ? (
           <Text style={[styles.priceChange, { color: 'green' }]}>
             <Ionicons name="arrow-up" size={24} color="green" />
-            {/* {item.priceChangePercentage24H.toFixed(2)}% */}
+            {item.priceChangePercentage24H}%
           </Text>
         ) : (
           <Text style={[styles.priceChange, { color: 'red' }]}>
             <Ionicons name="arrow-down" size={24} color="red" />
-            {/* {item.priceChangePercentage24H.toFixed(2)}% */}
+            {item.priceChangePercentage24H}%
           </Text>
         )}
       </View>
