@@ -26,6 +26,7 @@ import {
 } from '@privy-io/expo';
 import { base } from 'viem/chains';
 import { apiService } from '@/services/api.service';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import {
   EducationalCard,
@@ -110,7 +111,8 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
       </View>
       <View style={styles.gainerPrice}>
         <Text style={styles.priceValue}>{item.price.toFixed(5)}</Text>
-        <Text style={styles.priceChange}>{item.priceChange24H.toFixed(5)}</Text>
+        {item.priceChangePercentage24H.valueOf() >= 0 && <Text style={styles.priceChange}><Ionicons name="arrow-up" size={24} color="black" />{item.priceChangePercentage24H.toFixed(2)}</Text>}
+        {item.priceChangePercentage24H.valueOf() < 0 && <Text style={styles.priceChange}><Ionicons name="arrow-down" size={24} color="black" />{item.priceChangePercentage24H.toFixed(2)}</Text>}
       </View>
     </View>
   );
