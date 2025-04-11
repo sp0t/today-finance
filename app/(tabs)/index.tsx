@@ -99,7 +99,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
       ]}
     >
       <Image
-        source={{ uri: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8329.png' }}
+        source={{ uri: item?.logo }}
         style={styles.gainerIcon}
         resizeMode='cover'
       />
