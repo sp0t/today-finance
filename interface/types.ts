@@ -55,6 +55,7 @@ export interface tokenProps {
   address: string;
   name: string;
   symbol: string;
+  logo: string;
   decimals: string;
   totalSupply: Number;
   verified: string;

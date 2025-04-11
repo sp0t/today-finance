@@ -99,6 +99,10 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
       ]}
     >
       <View style={[styles.gainerIcon, { backgroundColor: 'red' }]}>
+        <Image
+          source={require(item?.logo)}
+          resizeMode="cover"
+        />
       </View>
       <View style={styles.gainerInfo}>
         <Text style={styles.gainerName}>{item.name}</Text>
@@ -141,7 +145,7 @@ const MarketScreen: React.FC = () => {
   const fetchTopGainers = async () => {
     try {
       const response = await apiService.getTopGainers();
-      if(response.code == 0) {
+      if (response.code == 0) {
         setTopGainer(response?.value);
       } else {
         setTopGainer([]);
@@ -150,7 +154,7 @@ const MarketScreen: React.FC = () => {
       console.error('Failed to fetch top gainers:', error);
     }
   };
-  
+
   const educationalCards: EducationalCard[] = [
     {
       id: '1',
@@ -313,7 +317,7 @@ const MarketScreen: React.FC = () => {
             contentContainerStyle={styles.carouselContent}
             onMomentumScrollEnd={handleBottomScrollEnd}
             initialScrollIndex={0}
-            getItemLayout={getGainerItemLayout} 
+            getItemLayout={getGainerItemLayout}
             removeClippedSubviews={true}
           />
         </View>
