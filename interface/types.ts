@@ -1,5 +1,5 @@
 import { StackActionType } from '@react-navigation/native';
-
+import { ImageSourcePropType } from 'react-native';
 
 export type NavigateProps = {
   (name: string, params?: unknown): void;
@@ -23,3 +23,49 @@ export interface TradeSwapProps {
   amountIn: string
 }
 
+// Type definitions
+export interface EducationalCard {
+  id: string;
+  title: string;
+  duration: string;
+  colors: string[];
+  image: ImageSourcePropType;
+}
+
+export interface tokenProps {
+  id: string;
+  chain: string;
+  address: string;
+  name: string;
+  symbol: string;
+  decimals: string;
+  totalSupply: Number;
+  verified: string;
+  description: string;
+  markeCap: Number;
+  price: Number;
+  priceChange24H: Number;
+  priceChangePercentage24H: Number;
+  volume24H: Number;
+  website: string;
+  twitter: string;
+  score: Number;
+}
+
+// Component prop types
+export interface CarouselIndicatorsProps {
+  items: Array<EducationalCard>;
+  activeIndex: number;
+}
+
+export interface EducationalCardItemProps {
+  item: EducationalCard;
+  index: number;
+  totalItems: number;
+}
+
+export interface TopGainerItemProps {
+  item: TopGainer;
+  index: number;
+  totalItems: number;
+}

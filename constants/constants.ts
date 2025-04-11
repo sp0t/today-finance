@@ -9,6 +9,7 @@ export const kReferencefindUserByAddress = '/user/findUserByAddress';
 export const kReferenceUpdateUser = '/user/updateUser';
 export const kReferenceGetTokenBalanceList = '/user/getTokenBalanceList';
 export const kReferencetradeSwap = '/trade/quoteSwap';
+export const kReferenceGetTopGainers = '/token/getTopGainers';
 
 export enum Routes {
     ONBOARDING = 'Onboarding',

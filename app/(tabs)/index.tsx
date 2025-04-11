@@ -13,10 +13,8 @@ import {
   ViewStyle,
   TextStyle,
   ImageStyle,
-  ImageSourcePropType,
   ListRenderItemInfo,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
 import { useRouter } from 'expo-router';
@@ -26,49 +24,21 @@ import {
   useFundWallet
 } from '@privy-io/expo';
 import { base } from 'viem/chains';
+import { apiService } from '@/services/api.service';
+
+import {
+  EducationalCard,
+  tokenProps,
+  CarouselIndicatorsProps,
+  EducationalCardItemProps,
+  TopGainerItemProps
+} from '@/interface/types'
 
 // Constants for layout measurements
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.5;
 const GANINER_CARD_WIDTH = width * 0.86;
 const CARD_GAP = 12;
-
-// Type definitions
-interface EducationalCard {
-  id: string;
-  title: string;
-  duration: string;
-  colors: string[];
-  image: ImageSourcePropType;
-}
-
-interface TopGainer {
-  id: string;
-  name: string;
-  ticker: string;
-  price: string;
-  change: string;
-  color: string;
-  iconText: string;
-}
-
-// Component prop types
-interface CarouselIndicatorsProps {
-  items: Array<EducationalCard>;
-  activeIndex: number;
-}
-
-interface EducationalCardItemProps {
-  item: EducationalCard;
-  index: number;
-  totalItems: number;
-}
-
-interface TopGainerItemProps {
-  item: TopGainer;
-  index: number;
-  totalItems: number;
-}
 
 // Sub-components
 const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ items, activeIndex }) => {
@@ -150,7 +120,12 @@ const MarketScreen: React.FC = () => {
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
   const [isLoading, setIsLoading] = useState(true);
+  const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const { fundWallet } = useFundWallet();
+
+  useEffect(() => {
+    fetchTopGainers();
+  }, []);
 
   useEffect(() => {
     if (isReady) {
@@ -163,7 +138,16 @@ const MarketScreen: React.FC = () => {
       setIsLoading(false);
     }
   }, [isReady, router]);
-  // Sample data
+
+  const fetchTopGainers = async () => {
+    try {
+      const response = apiService.getTopGainers();
+      console.log('response============>', response);
+    } catch (error) {
+      console.error('Failed to fetch top gainers:', error);
+    }
+  };
+  
   const educationalCards: EducationalCard[] = [
     {
       id: '1',
@@ -178,166 +162,21 @@ const MarketScreen: React.FC = () => {
       duration: '40 seconds total',
       colors: ['#FB7185', '#EF4444'],
       image: images.login.InvestBottom
-    },
-    {
-      id: '3',
-      title: 'How to stake tokens?',
-      duration: '62 seconds total',
-      colors: ['#10B981', '#14B8A6'],
-      image: images.login.InvestBottom
-    },
-    {
-      id: '4',
-      title: 'NFT basics',
-      duration: '45 seconds total',
-      colors: ['#F59E0B', '#F97316'],
-      image: images.login.InvestBottom
-    },
+    }
   ];
-
-  const topGainers: TopGainer[] = [
-    {
-      id: '1',
-      name: 'Particle Network',
-      ticker: 'PARTI',
-      price: '$0.3568',
-      change: '+12%',
-      color: '#9333EA',
-      iconText: 'P',
-    },
-    {
-      id: '2',
-      name: 'Limewire',
-      ticker: 'LMWR',
-      price: '$0.09479',
-      change: '+9%',
-      color: '#10B981',
-      iconText: 'L',
-    },
-    {
-      id: '3',
-      name: 'Brett',
-      ticker: 'BRETT',
-      price: '$0.03741',
-      change: '+5%',
-      color: '#3B82F6',
-      iconText: 'B',
-    },
-    {
-      id: '4',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '5',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '6',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '7',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '8',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '9',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '10',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '11',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-
-    {
-      id: '12',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '13',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-    {
-      id: '14',
-      name: 'Kaito',
-      ticker: 'KAITO',
-      price: '$1.35',
-      change: '+19%',
-      color: '#2DD4BF',
-      iconText: 'K',
-    },
-  ];
-
 
   const groupedPages = useMemo(() => {
     const pages = [];
-    for (let i = 0; i < topGainers.length; i += 4) {
-      pages.push(topGainers.slice(i, i + 4));
+    for (let i = 0; i < topGainer.length; i += 4) {
+      pages.push(topGainer.slice(i, i + 4));
     }
     return pages;
-  }, [topGainers]);
+  }, [topGainer]);
 
 
   // Refs and state
   const topCarouselRef = useRef<FlatList<EducationalCard>>(null);
-  const bottomCarouselRef = useRef<FlatList<TopGainer[]>>(null);
+  const bottomCarouselRef = useRef<FlatList<tokenProps[]>>(null);
   const [topActiveIndex, setTopActiveIndex] = useState<number>(0);
   const [bottomActiveIndex, setBottomActiveIndex] = useState<number>(0);
 
@@ -367,7 +206,7 @@ const MarketScreen: React.FC = () => {
   );
 
   const renderTopGainerPage = useCallback(
-    ({ item }: { item: TopGainer[] }) => (
+    ({ item }: { item: tokenProps[] }) => (
       <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }}>
         {item.map((gainer, index) => (
           <TopGainerItem
@@ -471,8 +310,8 @@ const MarketScreen: React.FC = () => {
             contentContainerStyle={styles.carouselContent}
             onMomentumScrollEnd={handleBottomScrollEnd}
             initialScrollIndex={0}
-            getItemLayout={getGainerItemLayout} // update this function accordingly for pages
-            removeClippedSubviews={true} // Performance optimization
+            getItemLayout={getGainerItemLayout} 
+            removeClippedSubviews={true}
           />
         </View>
 
