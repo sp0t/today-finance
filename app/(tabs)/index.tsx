@@ -123,11 +123,8 @@ const MarketScreen: React.FC = () => {
   const account = getUserEmbeddedEthereumWallet(user);
   const [isLoading, setIsLoading] = useState(true);
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
+  const [trendings, setTrendings] = useState<tokenProps[]>([]);
   const { fundWallet } = useFundWallet();
-
-  useEffect(() => {
-    fetchTopGainers();
-  }, []);
 
   useEffect(() => {
     if (isReady) {
@@ -141,18 +138,36 @@ const MarketScreen: React.FC = () => {
     }
   }, [isReady, router]);
 
-  const fetchTopGainers = async () => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     try {
-      const response = await apiService.getTopGainers();
-      if (response.code == 0) {
-        setTopGainer(response?.value);
+      const [gainersResponse, trendingsResponse] = await Promise.all([
+        apiService.getTopGainers(),
+        apiService.getTrendings(),
+      ]);
+
+      if (gainersResponse.code === 0) {
+        setTopGainer(gainersResponse.value);
       } else {
         setTopGainer([]);
       }
+
+      if (trendingsResponse.code === 0) {
+        setTrendings(trendingsResponse.value);
+      } else {
+        setTrendings([]);
+      }
+
     } catch (error) {
-      console.error('Failed to fetch top gainers:', error);
+      console.error("Failed to fetch data:", error);
+      setTopGainer([]);
+      setTrendings([]);
     }
   };
+
 
   const educationalCards: EducationalCard[] = [
     {
@@ -171,13 +186,21 @@ const MarketScreen: React.FC = () => {
     }
   ];
 
-  const groupedPages = useMemo(() => {
+  const groupedGainerPages = useMemo(() => {
     const pages = [];
     for (let i = 0; i < topGainer.length; i += 4) {
       pages.push(topGainer.slice(i, i + 4));
     }
     return pages;
   }, [topGainer]);
+
+  const groupedTrendingPages = useMemo(() => {
+    const pages = [];
+    for (let i = 0; i < trendings.length; i += 4) {
+      pages.push(trendings.slice(i, i + 4));
+    }
+    return pages;
+  }, [trendings]);
 
 
   // Refs and state
@@ -224,7 +247,23 @@ const MarketScreen: React.FC = () => {
         ))}
       </View>
     ),
-    [groupedPages.length]
+    [groupedGainerPages.length]
+  );
+
+  const renderTrendingPage = useCallback(
+    ({ item }: { item: tokenProps[] }) => (
+      <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }}>
+        {item.map((trending, index) => (
+          <TopGainerItem
+            key={trending.id}
+            item={trending}
+            index={index}
+            totalItems={item.length} // or groupedPages.length if you prefer overall count
+          />
+        ))}
+      </View>
+    ),
+    [groupedTrendingPages.length]
   );
 
   // Item layout calculator for optimized FlatList performance
@@ -305,8 +344,31 @@ const MarketScreen: React.FC = () => {
         <View style={styles.carouselContainer}>
           <FlatList
             ref={bottomCarouselRef}
-            data={groupedPages}
+            data={groupedGainerPages}
             renderItem={renderTopGainerPage}
+            keyExtractor={(_, index) => index.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            snapToInterval={GANINER_CARD_WIDTH + CARD_GAP}
+            decelerationRate="fast"
+            contentContainerStyle={styles.carouselContent}
+            onMomentumScrollEnd={handleBottomScrollEnd}
+            initialScrollIndex={0}
+            getItemLayout={getGainerItemLayout}
+            removeClippedSubviews={true}
+          />
+        </View>
+
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Trending</Text>
+        <Text style={styles.sectionSubtitle}>Popular assets over the pastt 24 hours</Text>
+        <View style={styles.carouselContainer}>
+          <FlatList
+            ref={bottomCarouselRef}
+            data={groupedTrendingPages}
+            renderItem={renderTrendingPage}
             keyExtractor={(_, index) => index.toString()}
             horizontal
             showsHorizontalScrollIndicator={false}

@@ -6,7 +6,8 @@ import {
     kReferenceUpdateUser,
     kReferenceGetTokenBalanceList,
     kReferencetradeSwap,
-    kReferenceGetTopGainers
+    kReferenceGetTopGainers,
+    kReferenceGetTrendings
 } from '@/constants/constants';
 import { UserProps } from '@/interface/login';
 import {
@@ -125,6 +126,21 @@ export class ApiService {
 
         return new Promise((resolve, reject) => {
             post(getBaseRoute(kReferenceGetTopGainers))
+                .then((response) => {
+                    const result = response.data;
+                    resolve(result);
+                })
+                .catch((error) => {
+                    const result = error?.response;
+                    reject(result);
+                });
+        });
+    }
+
+    async getTrendings(): Promise<ReturnType> {
+
+        return new Promise((resolve, reject) => {
+            post(getBaseRoute(kReferenceGetTrendings))
                 .then((response) => {
                     const result = response.data;
                     resolve(result);
