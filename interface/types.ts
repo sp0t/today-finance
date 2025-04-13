@@ -86,4 +86,5 @@ export interface TopGainerItemProps {
   item: tokenProps;
   index: number;
   totalItems: number;
+  onPress: (item: tokenProps) => void;
 }

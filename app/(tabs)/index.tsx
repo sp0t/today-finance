@@ -88,9 +88,9 @@ const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, 
   );
 };
 
-const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }) => {
+const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, onPress }) => {
   return (
-    <View
+    <TouchableOpacity
       style={[
         styles.gainerCard,
         {
@@ -99,6 +99,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
           marginLeft: index < 4 ? 20 : 0
         }
       ]}
+      onPress={() => onPress()}
     >
       <Image
         source={{ uri: item?.logo }}
@@ -123,7 +124,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems }
           </Text>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -246,6 +247,13 @@ const MarketScreen: React.FC = () => {
     [educationalCards.length]
   );
 
+  const handleTokenPress = useCallback((token: tokenProps) => {
+    router.push({
+      pathname: '/(tabs)/token-tetail',
+      params: { tokenaddress: token.address }
+    });
+  }, [router]);
+
   const renderTopGainerPage = useCallback(
     ({ item }: { item: tokenProps[] }) => (
       <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }}>
@@ -254,7 +262,8 @@ const MarketScreen: React.FC = () => {
             key={gainer.id}
             item={gainer}
             index={index}
-            totalItems={item.length} // or groupedPages.length if you prefer overall count
+            totalItems={item.length}
+            onPress={handleTokenPress}
           />
         ))}
       </View>
@@ -270,7 +279,8 @@ const MarketScreen: React.FC = () => {
             key={trending.id}
             item={trending}
             index={index}
-            totalItems={item.length} // or groupedPages.length if you prefer overall count
+            totalItems={item.length}
+            onPress={handleTokenPress}
           />
         ))}
       </View>
