@@ -1149,6 +1149,110 @@ const styles = StyleSheet.create({
   reviewButtonContainer: {
     marginTop: 'auto',
     marginBottom: 40,
+  },
+  confirmContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  confirmSection: {
+    marginTop: 24,
+    marginBottom: 16,
+  },
+  confirmSectionTitle: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#666',
+    marginBottom: 12,
+  },
+  tokenReceiveCard: {
+    backgroundColor: '#F7F9FC',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  tokenReceiveIconContainer: {
+    backgroundColor: '#fff',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  tokenReceiveIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+  },
+  tokenReceiveAmount: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#000',
+    marginVertical: 4,
+  },
+  tokenReceiveTokens: {
+    fontSize: 14,
+    color: '#666',
+  },
+  costItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+  },
+  costItemLabel: {
+    fontSize: 14,
+    color: '#333',
+  },
+  costItemValue: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#000',
+  },
+  feeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  freeTag: {
+    fontSize: 12,
+    color: '#10B981',
+    fontWeight: '600',
+    marginLeft: 8,
+    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 40,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+  },
+  totalLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000',
+  },
+  totalValue: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#000',
+  },
+  confirmButtonContainer: {
+    marginTop: 'auto',
+    marginBottom: 40,
   }
 });
 
