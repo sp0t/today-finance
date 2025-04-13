@@ -14,7 +14,10 @@ import {
   TextStyle,
   ImageStyle,
   ListRenderItemInfo,
-  ScrollView
+  ScrollView,
+  Modal,
+  Animated,
+  TouchableWithoutFeedback
 } from 'react-native';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
@@ -37,7 +40,7 @@ import {
 } from '@/interface/types'
 
 // Constants for layout measurements
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.5;
 const GANINER_CARD_WIDTH = width * 0.86;
 const CARD_GAP = 12;
@@ -128,9 +131,102 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
   );
 };
 
+// Token Detail Modal Component
+const TokenDetailModal: React.FC<{
+  visible: boolean;
+  token: tokenProps | null;
+  onClose: () => void;
+  onDeposit: () => void;
+}> = ({ visible, token, onClose, onDeposit }) => {
+  const slideAnim = useRef(new Animated.Value(height)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: height,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [visible, slideAnim]);
+
+  if (!token) return null;
+
+  return (
+    <Modal
+      transparent
+      visible={visible}
+      animationType="none"
+      onRequestClose={onClose}
+    >
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalOverlay}>
+          <TouchableWithoutFeedback>
+            <Animated.View
+              style={[
+                styles.modalContent,
+                { transform: [{ translateY: slideAnim }] }
+              ]}
+            >
+              <View style={styles.modalHeader}>
+                <TouchableOpacity onPress={onClose} style={styles.backButton}>
+                  <Ionicons name="arrow-back" size={24} color="#000" />
+                </TouchableOpacity>
+                <Text style={styles.modalTitle}>{token.name}</Text>
+              </View>
+
+              <View style={styles.tokenIconContainer}>
+                <Image
+                  source={{ uri: token.logo }}
+                  style={styles.tokenIcon}
+                  resizeMode="cover"
+                />
+                <Text style={styles.tokenSymbol}>{token.symbol}</Text>
+              </View>
+
+              <Text style={styles.tokenDescription}>
+                This is the description about {token.name}. This is the description about {token.name}. 
+                This is the description about {token.name}. This is the description about {token.name}.
+              </Text>
+
+              <View style={styles.depositButtonContainer}>
+                <PrimaryButton
+                  title="Deposit"
+                  style={{ width: "100%" }}
+                  onPress={onDeposit}
+                />
+              </View>
+
+              <View style={styles.tabBar}>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Ionicons name="home-outline" size={24} color="#000" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Ionicons name="list-outline" size={24} color="#000" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Ionicons name="paper-plane-outline" size={24} color="#000" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Ionicons name="document-outline" size={24} color="#000" />
+                </TouchableOpacity>
+              </View>
+            </Animated.View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
+  );
+};
+
 // Main component
 const MarketScreen: React.FC = () => {
-
   const router = useRouter();
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
@@ -138,6 +234,10 @@ const MarketScreen: React.FC = () => {
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const [trendings, setTrendings] = useState<tokenProps[]>([]);
   const { fundWallet } = useFundWallet();
+
+  // Token detail modal state
+  const [selectedToken, setSelectedToken] = useState<tokenProps | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     if (isReady) {
@@ -181,7 +281,6 @@ const MarketScreen: React.FC = () => {
     }
   };
 
-
   const educationalCards: EducationalCard[] = [
     {
       id: '1',
@@ -215,7 +314,6 @@ const MarketScreen: React.FC = () => {
     return pages;
   }, [trendings]);
 
-
   // Refs and state
   const topCarouselRef = useRef<FlatList<EducationalCard>>(null);
   const bottomCarouselRef = useRef<FlatList<tokenProps[]>>(null);
@@ -248,11 +346,14 @@ const MarketScreen: React.FC = () => {
   );
 
   const handleTokenPress = useCallback((token: tokenProps) => {
-    router.push({
-      pathname: '/(tabs)/token-tetail',
-      params: { tokenaddress: token.address }
-    });
-  }, [router]);
+    // Instead of navigating, show the modal
+    setSelectedToken(token);
+    setModalVisible(true);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setModalVisible(false);
+  }, []);
 
   const renderTopGainerPage = useCallback(
     ({ item }: { item: tokenProps[] }) => (
@@ -268,7 +369,7 @@ const MarketScreen: React.FC = () => {
         ))}
       </View>
     ),
-    [groupedGainerPages.length]
+    [handleTokenPress]
   );
 
   const renderTrendingPage = useCallback(
@@ -285,7 +386,7 @@ const MarketScreen: React.FC = () => {
         ))}
       </View>
     ),
-    [groupedTrendingPages.length]
+    [handleTokenPress]
   );
 
   // Item layout calculator for optimized FlatList performance
@@ -307,26 +408,16 @@ const MarketScreen: React.FC = () => {
     []
   );
 
-  // Optional: Navigate to specific card programmatically
-  const scrollToEducationalCard = useCallback((index: number) => {
-    topCarouselRef.current?.scrollToIndex({ index, animated: true });
-  }, []);
-
-  const scrollToGainer = useCallback((index: number) => {
-    bottomCarouselRef.current?.scrollToIndex({ index, animated: true });
-  }, []);
-
-  const handleFundWalle = async () => {
+  const handleFundWallet = async () => {
     fundWallet({
       address: account?.address,
       chain: base,
     });
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-
         {/* Header */}
         <View style={styles.header}>
           <View>
@@ -408,59 +499,30 @@ const MarketScreen: React.FC = () => {
             />
           </View>
         </View>
-
-
       </ScrollView>
+
       {/* Deposit button */}
       <View style={[styles.footer, { marginBottom: 20 }]}>
         <PrimaryButton
           title="Deposit"
           style={{ width: "100%" }}
-          onPress={handleFundWalle}
+          onPress={handleFundWallet}
         />
       </View>
-    </SafeAreaView>
 
+      {/* Token Detail Modal */}
+      <TokenDetailModal
+        visible={modalVisible}
+        token={selectedToken}
+        onClose={closeModal}
+        onDeposit={handleFundWallet}
+      />
+    </SafeAreaView>
   );
 };
 
-// Typed styles
-interface IStyles {
-  container: ViewStyle;
-  header: ViewStyle;
-  welcomeText: TextStyle;
-  dateContainer: ViewStyle;
-  dateText: TextStyle;
-  marketStatus: ViewStyle;
-  statusDot: ViewStyle;
-  statusText: TextStyle;
-  section: ViewStyle;
-  sectionTitle: TextStyle;
-  sectionSubtitle: TextStyle;
-  carouselContainer: ViewStyle;
-  carouselContent: ViewStyle;
-  educationalCard: ViewStyle;
-  cardGradient: ViewStyle;
-  cardImage: ImageStyle;
-  cardContent: ViewStyle;
-  cardDuration: TextStyle;
-  cardTitle: TextStyle;
-  indicators: ViewStyle;
-  indicator: ViewStyle;
-  activeIndicator: ViewStyle;
-  gainerCard: ViewStyle;
-  gainerIcon: ImageStyle;
-  gainerIconText: TextStyle;
-  gainerInfo: ViewStyle;
-  gainerName: TextStyle;
-  gainerTicker: TextStyle;
-  gainerPrice: ViewStyle;
-  priceValue: TextStyle;
-  priceChange: TextStyle;
-  footer: ViewStyle;
-}
-
-const styles = StyleSheet.create<IStyles>({
+// Updated styles with modal styles
+const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 50,
   },
@@ -610,7 +672,6 @@ const styles = StyleSheet.create<IStyles>({
     fontSize: 14,
     fontWeight: '500',
     color: '#000000',
-
   },
   gainerTicker: {
     marginTop: 4,
@@ -640,7 +701,73 @@ const styles = StyleSheet.create<IStyles>({
     width: '100%',
     bottom: 110,
     padding: 16,
-  }
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    height: height * 0.9,
+    paddingTop: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 20,
+  },
+  backButton: {
+    padding: 8,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    flex: 1,
+    textAlign: 'center',
+    marginRight: 40, // To balance with the back button
+  },
+  tokenIconContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  tokenIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+  },
+  tokenSymbol: {
+    fontSize: 16,
+    fontWeight: '500',
+    marginTop: 8,
+    color: '#808080',
+  },
+  tokenDescription: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#4B5563',
+    paddingHorizontal: 20,
+    marginBottom: 30,
+  },
+  depositButtonContainer: {
+    paddingHorizontal: 20,
+    marginTop: 'auto',
+    marginBottom: 20,
+  },
+  tabBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingVertical: 10,
+  },
+  tabItem: {
+    padding: 10,
+  },
 });
 
 export default MarketScreen;
