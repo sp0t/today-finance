@@ -99,7 +99,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
           marginLeft: index < 4 ? 20 : 0
         }
       ]}
-      onPress={() => onPress()}
+      onPress={() => onPress(item)}
     >
       <Image
         source={{ uri: item?.logo }}
