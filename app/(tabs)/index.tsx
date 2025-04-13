@@ -17,7 +17,9 @@ import {
   ScrollView,
   Modal,
   Animated,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import images from '@/styles/images';
 import PrimaryButton from '@/components/ui/PrimaryButton';
@@ -131,14 +133,171 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
   );
 };
 
+const AmountInputView = ({ token, onBack, onReview }) => {
+  const [amount, setAmount] = useState('0');
+  const [isFocused, setIsFocused] = useState(false);
+  
+  const handleNumberPress = (num) => {
+    // Don't add leading zeros
+    if (amount === '0' && num === '0') return;
+    
+    // Replace initial zero or set the number
+    if (amount === '0') {
+      setAmount(num);
+    } else {
+      setAmount(amount + num);
+    }
+  };
+  
+  const handleBackspace = () => {
+    if (amount.length > 1) {
+      setAmount(amount.slice(0, -1));
+    } else {
+      setAmount('0');
+    }
+  };
+  
+  const handleDecimalPoint = () => {
+    if (!amount.includes('.')) {
+      setAmount(amount + '.');
+    }
+  };
+  
+  const availableBalance = 254.43; // This would come from your wallet or props
+  
+  return (
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.amountInputContainer}
+    >
+      <View style={styles.modalHeader}>
+        <TouchableOpacity onPress={onBack} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.modalTitle}>Buy {token.symbol}</Text>
+        <View style={{ width: 40 }} /> {/* Empty view for balance */}
+      </View>
+      
+      <View style={styles.amountContainer}>
+        <Text style={styles.currencySymbol}>$</Text>
+        <Text style={styles.amountText}>{amount}</Text>
+      </View>
+      
+      <Text style={styles.availableText}>
+        ${availableBalance.toFixed(2)} available to buy {token.symbol}
+      </Text>
+      
+      <View style={styles.keypadContainer}>
+        {/* Row 1 */}
+        <View style={styles.keypadRow}>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('1')}
+          >
+            <Text style={styles.keypadButtonText}>1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('2')}
+          >
+            <Text style={styles.keypadButtonText}>2</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('3')}
+          >
+            <Text style={styles.keypadButtonText}>3</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Row 2 */}
+        <View style={styles.keypadRow}>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('4')}
+          >
+            <Text style={styles.keypadButtonText}>4</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('5')}
+          >
+            <Text style={styles.keypadButtonText}>5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('6')}
+          >
+            <Text style={styles.keypadButtonText}>6</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Row 3 */}
+        <View style={styles.keypadRow}>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('7')}
+          >
+            <Text style={styles.keypadButtonText}>7</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('8')}
+          >
+            <Text style={styles.keypadButtonText}>8</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('9')}
+          >
+            <Text style={styles.keypadButtonText}>9</Text>
+          </TouchableOpacity>
+        </View>
+        
+        {/* Row 4 */}
+        <View style={styles.keypadRow}>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={handleDecimalPoint}
+          >
+            <Text style={styles.keypadButtonText}>.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={() => handleNumberPress('0')}
+          >
+            <Text style={styles.keypadButtonText}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.keypadButton} 
+            onPress={handleBackspace}
+          >
+            <Ionicons name="backspace-outline" size={24} color="#000" />
+          </TouchableOpacity>
+        </View>
+      </View>
+      
+      <View style={styles.reviewButtonContainer}>
+        <PrimaryButton
+          title="Review"
+          style={{ width: "100%" }}
+          onPress={() => onReview(amount)}
+          disabled={amount === '0' || parseFloat(amount) === 0}
+        />
+      </View>
+    </KeyboardAvoidingView>
+  );
+};
+
 // Token Detail Modal Component
-const TokenDetailModal: React.FC<{
-  visible: boolean;
-  token: tokenProps | null;
-  onClose: () => void;
-  onDeposit: () => void;
-}> = ({ visible, token, onClose, onDeposit }) => {
+const TokenDetailModal = ({ 
+  visible, 
+  token, 
+  onClose, 
+  onDeposit 
+}) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
+  const [modalView, setModalView] = useState('details'); // 'details' or 'amount'
 
   useEffect(() => {
     if (visible) {
@@ -153,8 +312,26 @@ const TokenDetailModal: React.FC<{
         duration: 300,
         useNativeDriver: true,
       }).start();
+      // Reset to details view when modal closes
+      setTimeout(() => {
+        if (!visible) setModalView('details');
+      }, 300);
     }
   }, [visible, slideAnim]);
+
+  const handleDeposit = () => {
+    setModalView('amount');
+  };
+
+  const handleBack = () => {
+    setModalView('details');
+  };
+
+  const handleReview = (amount) => {
+    // Here you would handle the purchase review
+    console.log(`Review purchase of ${amount} ${token?.symbol}`);
+    onDeposit(); // For now, just call the existing onDeposit function
+  };
 
   if (!token) return null;
 
@@ -174,49 +351,62 @@ const TokenDetailModal: React.FC<{
                 { transform: [{ translateY: slideAnim }] }
               ]}
             >
-              <View style={styles.modalHeader}>
-                <TouchableOpacity onPress={onClose} style={styles.backButton}>
-                  <Ionicons name="arrow-back" size={24} color="#000" />
-                </TouchableOpacity>
-                <Text style={styles.modalTitle}>{token.name}</Text>
-              </View>
+              {modalView === 'details' ? (
+                // Token Details View
+                <>
+                  <View style={styles.modalHeader}>
+                    <TouchableOpacity onPress={onClose} style={styles.backButton}>
+                      <Ionicons name="arrow-back" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <Text style={styles.modalTitle}>{token.name}</Text>
+                    <View style={{ width: 40 }} /> {/* Empty view for balance */}
+                  </View>
 
-              <View style={styles.tokenIconContainer}>
-                <Image
-                  source={{ uri: token.logo }}
-                  style={styles.tokenIcon}
-                  resizeMode="cover"
+                  <View style={styles.tokenIconContainer}>
+                    <Image
+                      source={{ uri: token.logo }}
+                      style={styles.tokenIcon}
+                      resizeMode="cover"
+                    />
+                    <Text style={styles.tokenSymbol}>{token.symbol}</Text>
+                  </View>
+
+                  <Text style={styles.tokenDescription}>
+                    This is the description about {token.name}. This is the description about {token.name}. 
+                    This is the description about {token.name}. This is the description about {token.name}.
+                  </Text>
+
+                  <View style={styles.depositButtonContainer}>
+                    <PrimaryButton
+                      title="Deposit"
+                      style={{ width: "100%" }}
+                      onPress={handleDeposit}
+                    />
+                  </View>
+
+                  <View style={styles.tabBar}>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="home-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="list-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="paper-plane-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="document-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                  </View>
+                </>
+              ) : (
+                // Amount Input View
+                <AmountInputView 
+                  token={token}
+                  onBack={handleBack}
+                  onReview={handleReview}
                 />
-                <Text style={styles.tokenSymbol}>{token.symbol}</Text>
-              </View>
-
-              <Text style={styles.tokenDescription}>
-                This is the description about {token.name}. This is the description about {token.name}. 
-                This is the description about {token.name}. This is the description about {token.name}.
-              </Text>
-
-              <View style={styles.depositButtonContainer}>
-                <PrimaryButton
-                  title="Deposit"
-                  style={{ width: "100%" }}
-                  onPress={onDeposit}
-                />
-              </View>
-
-              <View style={styles.tabBar}>
-                <TouchableOpacity style={styles.tabItem}>
-                  <Ionicons name="home-outline" size={24} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.tabItem}>
-                  <Ionicons name="list-outline" size={24} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.tabItem}>
-                  <Ionicons name="paper-plane-outline" size={24} color="#000" />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.tabItem}>
-                  <Ionicons name="document-outline" size={24} color="#000" />
-                </TouchableOpacity>
-              </View>
+              )}
             </Animated.View>
           </TouchableWithoutFeedback>
         </View>
@@ -768,6 +958,59 @@ const styles = StyleSheet.create({
   tabItem: {
     padding: 10,
   },
+  
+  // Amount Input View styles
+  amountInputContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  amountContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  currencySymbol: {
+    fontSize: 40,
+    fontWeight: '600',
+    color: '#000',
+  },
+  amountText: {
+    fontSize: 72,
+    fontWeight: '600',
+    color: '#000',
+  },
+  availableText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  keypadContainer: {
+    marginTop: 'auto',
+  },
+  keypadRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  keypadButton: {
+    width: width / 3 - 40,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  keypadButtonText: {
+    fontSize: 28,
+    fontWeight: '500',
+    color: '#000',
+  },
+  reviewButtonContainer: {
+    marginTop: 'auto',
+    marginBottom: 40,
+  }
 });
 
 export default MarketScreen;
