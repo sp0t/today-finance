@@ -47,6 +47,30 @@ const CARD_WIDTH = width * 0.5;
 const GANINER_CARD_WIDTH = width * 0.86;
 const CARD_GAP = 12;
 
+// Define types for modal views
+type ModalView = 'details' | 'amount' | 'confirm';
+
+// Define types for our new components
+interface AmountInputViewProps {
+  token: tokenProps;
+  onBack: () => void;
+  onReview: (amount: string) => void;
+}
+
+interface ConfirmModalViewProps {
+  token: tokenProps;
+  amount: string;
+  onBack: () => void;
+  onConfirm: () => void;
+}
+
+interface TokenDetailModalProps {
+  visible: boolean;
+  token: tokenProps | null;
+  onClose: () => void;
+  onDeposit: () => void;
+}
+
 // Sub-components
 const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ items, activeIndex }) => {
   return (
@@ -133,11 +157,11 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
   );
 };
 
-const AmountInputView = ({ token, onBack, onReview }) => {
+const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onReview }) => {
   const [amount, setAmount] = useState('0');
   const [isFocused, setIsFocused] = useState(false);
   
-  const handleNumberPress = (num) => {
+  const handleNumberPress = (num: string) => {
     // Don't add leading zeros
     if (amount === '0' && num === '0') return;
     
@@ -289,15 +313,109 @@ const AmountInputView = ({ token, onBack, onReview }) => {
   );
 };
 
+// New Confirm Modal View Component
+const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({ 
+  token, 
+  amount, 
+  onBack, 
+  onConfirm 
+}) => {
+  // Calculate costs and fees
+  const tokenPrice = 0.09479;
+  const costForAsset = parseFloat(amount);
+  const networkFee = 0.01; // Example, in a real app this would be dynamic
+  const protocolFee = 3.50;
+  const transactionFee = 5.89;
+  const totalCost = costForAsset + protocolFee + transactionFee;
+  
+  // Calculate number of tokens received
+  const tokenAmount = costForAsset / tokenPrice;
+  
+  return (
+    <View style={styles.confirmContainer}>
+      <View style={styles.modalHeader}>
+        <TouchableOpacity onPress={onBack} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.modalTitle}>Review</Text>
+        <View style={{ width: 40 }} /> {/* Empty view for balance */}
+      </View>
+      
+      <View style={styles.confirmSection}>
+        <Text style={styles.confirmSectionTitle}>You receive</Text>
+        <View style={styles.tokenReceiveCard}>
+          <View style={styles.tokenReceiveIconContainer}>
+            <Image 
+              source={{ uri: token.logo }} 
+              style={styles.tokenReceiveIcon} 
+              resizeMode="cover"
+            />
+          </View>
+          <Text style={styles.tokenReceiveAmount}>${costForAsset.toFixed(2)}</Text>
+          <Text style={styles.tokenReceiveTokens}>
+            {tokenAmount.toFixed(3)} {token.symbol}
+          </Text>
+        </View>
+      </View>
+      
+      <View style={styles.confirmSection}>
+        <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
+        
+        <View style={styles.costItem}>
+          <Text style={styles.costItemLabel}>{token.symbol} price</Text>
+          <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
+        </View>
+        
+        <View style={styles.costItem}>
+          <Text style={styles.costItemLabel}>Cost for asset</Text>
+          <Text style={styles.costItemValue}>${costForAsset.toFixed(2)}</Text>
+        </View>
+        
+        <View style={styles.costItem}>
+          <Text style={styles.costItemLabel}>Network fee</Text>
+          <View style={styles.feeContainer}>
+            <Text style={styles.costItemValue}>${networkFee.toFixed(2)}</Text>
+            <Text style={styles.freeTag}>FREE</Text>
+          </View>
+        </View>
+        
+        <View style={styles.costItem}>
+          <Text style={styles.costItemLabel}>Protocol fee</Text>
+          <Text style={styles.costItemValue}>${protocolFee.toFixed(2)}</Text>
+        </View>
+        
+        <View style={styles.costItem}>
+          <Text style={styles.costItemLabel}>Transaction fee</Text>
+          <Text style={styles.costItemValue}>${transactionFee.toFixed(2)}</Text>
+        </View>
+      </View>
+      
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalLabel}>Total cost</Text>
+        <Text style={styles.totalValue}>${totalCost.toFixed(2)}</Text>
+      </View>
+      
+      <View style={styles.confirmButtonContainer}>
+        <PrimaryButton
+          title="Confirm"
+          style={{ width: "100%" }}
+          onPress={onConfirm}
+        />
+      </View>
+    </View>
+  );
+};
+
 // Token Detail Modal Component
-const TokenDetailModal = ({ 
+const TokenDetailModal: React.FC<TokenDetailModalProps> = ({ 
   visible, 
   token, 
   onClose, 
   onDeposit 
 }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
-  const [modalView, setModalView] = useState('details'); // 'details' or 'amount'
+  const [modalView, setModalView] = useState<ModalView>('details');
+  const [purchaseAmount, setPurchaseAmount] = useState('0');
 
   useEffect(() => {
     if (visible) {
@@ -324,13 +442,23 @@ const TokenDetailModal = ({
   };
 
   const handleBack = () => {
-    setModalView('details');
+    if (modalView === 'amount') {
+      setModalView('details');
+    } else if (modalView === 'confirm') {
+      setModalView('amount');
+    }
   };
 
-  const handleReview = (amount) => {
-    // Here you would handle the purchase review
-    console.log(`Review purchase of ${amount} ${token?.symbol}`);
-    onDeposit(); // For now, just call the existing onDeposit function
+  const handleReview = (amount: string) => {
+    setPurchaseAmount(amount);
+    setModalView('confirm');
+  };
+
+  const handleConfirm = () => {
+    // Here you would handle the purchase confirmation
+    console.log(`Confirming purchase of ${purchaseAmount} ${token?.symbol}`);
+    onDeposit(); // Call the deposit function which may handle the transaction
+    onClose(); // Close the modal after confirming
   };
 
   if (!token) return null;
@@ -351,7 +479,7 @@ const TokenDetailModal = ({
                 { transform: [{ translateY: slideAnim }] }
               ]}
             >
-              {modalView === 'details' ? (
+              {modalView === 'details' && (
                 // Token Details View
                 <>
                   <View style={styles.modalHeader}>
@@ -399,12 +527,24 @@ const TokenDetailModal = ({
                     </TouchableOpacity>
                   </View>
                 </>
-              ) : (
+              )}
+              
+              {modalView === 'amount' && (
                 // Amount Input View
                 <AmountInputView 
                   token={token}
                   onBack={handleBack}
                   onReview={handleReview}
+                />
+              )}
+              
+              {modalView === 'confirm' && (
+                // Confirmation View
+                <ConfirmModalView 
+                  token={token}
+                  amount={purchaseAmount}
+                  onBack={handleBack}
+                  onConfirm={handleConfirm}
                 />
               )}
             </Animated.View>
@@ -711,7 +851,6 @@ const MarketScreen: React.FC = () => {
   );
 };
 
-// Updated styles with modal styles
 const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 50,
