@@ -1089,7 +1089,7 @@ const styles = StyleSheet.create({
   depositButtonContainer: {
     paddingHorizontal: 20,
     marginTop: 'auto',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   tabBar: {
     flexDirection: 'row',
