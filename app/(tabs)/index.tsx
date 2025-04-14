@@ -158,6 +158,10 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, tradeType, usd
   const [amount, setAmount] = useState('0');
   const [isFocused, setIsFocused] = useState(false);
 
+  console.log('usdBalance=========', usdBalance);
+  console.log('ethBalance=========', ethBalance);
+  console.log('tokenBalance=========', tokenBalance);
+
   const handleNumberPress = (num: string) => {
     if (amount === '0' && num === '0') return;
 
