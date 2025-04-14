@@ -183,7 +183,7 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
         </TouchableOpacity>
         <Text style={styles.modalTitle}>Buy {token.name}</Text>
       </View>
-      <View style={{ paddingHorizontal: 20 }}>
+      <View style={{ paddingHorizontal: 20, flex:1 }}>
         <View style={styles.amountContainer}>
           <Text style={styles.currencySymbol}>$</Text>
           <Text style={styles.amountText}>{amount}</Text>
@@ -1122,6 +1122,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   amountContainer: {
+    flex: 0.5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
