@@ -472,7 +472,6 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       <Ionicons name="arrow-back" size={24} color="#000" />
                     </TouchableOpacity>
                     <Text style={styles.modalTitle}>{token.name}</Text>
-                    <View style={{ width: 40 }} /> {/* Empty view for balance */}
                   </View>
 
                   <View style={styles.tokenIconContainer}>
