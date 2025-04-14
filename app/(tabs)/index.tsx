@@ -55,7 +55,9 @@ const CARD_GAP = 12;
 
 // Define types for modal views
 type ModalView = 'details' | 'amount' | 'confirm';
-
+const provider = new ethers.providers.JsonRpcProvider(
+  rpcUrl
+);
 // Define types for our new components
 interface AmountInputViewProps {
   token: tokenProps;
@@ -416,9 +418,6 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
     const fetchBalance = async () => {
       try {
         console.log('tokenBalance===================1');
-        const provider = new ethers.JsonRpcProvider(rpcUrl);
-        console.log('tokenBalance===================2');
-
         const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
         console.log('tokenBalance===================3');
 
@@ -618,10 +617,6 @@ const MarketScreen: React.FC = () => {
       setIsLoading(false);
     }
   }, [isReady, router]);
-
-  const provider = new ethers.providers.JsonRpcProvider(
-    rpcUrl
-  );
 
   const fetchBalance = async () => {
     try {
