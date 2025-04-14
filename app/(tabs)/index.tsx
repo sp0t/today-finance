@@ -1106,7 +1106,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   tabItem: {
-    backgroundColor: '#F4F4F5',
+    padding: 10,
   },
 
   // Amount Input View styles
