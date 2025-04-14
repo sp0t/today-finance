@@ -1151,7 +1151,7 @@ const styles = StyleSheet.create({
   keypadRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 22,
   },
   keypadButton: {
     width: width / 3 - 40,
