@@ -73,6 +73,7 @@ interface TokenDetailModalProps {
   visible: boolean;
   token: tokenProps | null;
   usdBalance: number;
+  ethBalance: string;
   onClose: () => void;
   onDeposit: () => void;
 }
@@ -400,6 +401,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   visible,
   token,
   usdBalance,
+  ethBalance,
   onClose,
   onDeposit
 }) => {
@@ -495,13 +497,13 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                     {token.description}
                   </Text>
 
-                  <View style={styles.depositButtonContainer}>
+                  {usdBalance == 0 && <View style={styles.depositButtonContainer}>
                     <PrimaryButton
                       title="Deposit"
                       style={{ width: "100%" }}
                       onPress={handleDeposit}
                     />
-                  </View>
+                  </View>}
 
                   {/* <View style={styles.tabBar}>
                     <TouchableOpacity
@@ -566,6 +568,7 @@ const MarketScreen: React.FC = () => {
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const [trendings, setTrendings] = useState<tokenProps[]>([]);
   const [balance, setBalance] = useState<number | 0>(0);
+  const [ethBalance, setEthBalance] = useState<String | null>(null);
   const { fundWallet } = useFundWallet();
 
   // Token detail modal state
@@ -593,7 +596,8 @@ const MarketScreen: React.FC = () => {
     try {
       const rawBalance = await provider.getBalance(account?.address,);
       const ethBalance = ethers.utils.formatEther(rawBalance);
-      console.log('ethBalance===========>', ethBalance);
+
+      setEthBalance(ethBalance);
 
       const priceInfoResponse = await axios.get(`${COINMARKETCAP_API_URL}/v2/tools/price-conversion`, {
         headers: {
@@ -611,6 +615,7 @@ const MarketScreen: React.FC = () => {
     } catch (error) {
       console.error('Error fetching balance:', error);
       setBalance(0);
+      setEthBalance('error');
     }
   };
 
@@ -877,7 +882,8 @@ const MarketScreen: React.FC = () => {
       <TokenDetailModal
         visible={modalVisible}
         token={selectedToken}
-        usdBalance = {balance}
+        usdBalance={balance}
+        ethBalance={ethBalance}
         onClose={closeModal}
         onDeposit={handleFundWallet}
       />
