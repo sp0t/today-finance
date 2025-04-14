@@ -563,7 +563,7 @@ const MarketScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const [trendings, setTrendings] = useState<tokenProps[]>([]);
-  const [balance, setBalance] = useState<string | null>(null);
+  const [balance, setBalance] = useState<number | 0>(0);
   const { fundWallet } = useFundWallet();
 
   // Token detail modal state
@@ -603,11 +603,12 @@ const MarketScreen: React.FC = () => {
         }
       });
 
-      console.log('priceInfoResponse===========>', priceInfoResponse.data);
-      setBalance(ethBalance);
+      const usdValue = priceInfoResponse.data?.quote?.USD?.price ?? 0;
+      setBalance(usdValue.toFixed(2));
+
     } catch (error) {
       console.error('Error fetching balance:', error);
-      setBalance('Error');
+      setBalance(0);
     }
   };
 
@@ -862,13 +863,13 @@ const MarketScreen: React.FC = () => {
       </ScrollView>
 
       {/* Deposit button */}
-      <View style={[styles.footer, { marginBottom: 20 }]}>
+      {balance != 0 && <View style={[styles.footer, { marginBottom: 20 }]}>
         <PrimaryButton
           title="Deposit"
           style={{ width: "100%" }}
           onPress={handleFundWallet}
         />
-      </View>
+      </View>}
 
       {/* Token Detail Modal */}
       <TokenDetailModal
