@@ -1072,7 +1072,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   tokenSymbol: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '500',
     marginTop: 4,
     color: '#808080',
