@@ -411,6 +411,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
   const [purchaseAmount, setPurchaseAmount] = useState('0');
+  const [tokenAmount, setTokenAmount] = useState<string | null>('0.0')
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
 
@@ -418,12 +419,14 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
     const fetchBalance = async () => {
       try {
         const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
-        console.log('tokenBalance===================3');
         const rawBalance = await contract.balanceOf(account?.address);
         const decimals = await contract.decimals();
         const formatted = ethers.utils.formatUnits(rawBalance, decimals);
-        console.log('tokenBalance', formatted);
+        // setTokenAmount(formatted);
+        setTokenAmount('0.1');
+
       } catch (error) {
+        setTokenAmount('0.0');
       }
     };
 
@@ -516,20 +519,34 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                     {token.description}
                   </Text>
 
-                  {usdBalance == 0 && <View style={styles.depositButtonContainer}>
+                  {usdBalance === 0 && <View style={styles.depositButtonContainer}>
                     <PrimaryButton
                       title="Deposit"
                       style={{ width: "100%" }}
                       onPress={handleDeposit}
                     />
                   </View>}
-                  {usdBalance > 0 && <View style={styles.depositButtonContainer}>
-                    <PrimaryButton
-                      title="Buy"
-                      style={{ width: "100%" }}
-                      onPress={handleDeposit}
-                    />
-                  </View>}
+                  {usdBalance > 0 && parseFloat(tokenAmount || '0') === 0 &&
+                    <View style={styles.depositButtonContainer}>
+                      <PrimaryButton
+                        title="Buy"
+                        style={{ width: "100%" }}
+                        onPress={handleDeposit}
+                      />
+                    </View>}
+                  {usdBalance > 0 && parseFloat(tokenAmount || '0') !== 0 &&
+                    <View style={[styles.depositButtonContainer, {flexDirection: 'row'}]}>
+                      <PrimaryButton
+                        title="Buy"
+                        style={{ width: "50%" }}
+                        onPress={handleDeposit}
+                      />
+                      <PrimaryButton
+                        title="Sell"
+                        style={{ width: "50%" }}
+                        onPress={handleDeposit}
+                      />
+                    </View>}
 
                   {/* <View style={styles.tabBar}>
                     <TouchableOpacity
