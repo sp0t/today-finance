@@ -417,6 +417,8 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
   const [purchaseAmount, setPurchaseAmount] = useState('0');
+  const [activeTab, setActiveTab] = useState('home');
+
 
   useEffect(() => {
     if (visible) {
@@ -514,17 +516,28 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                   </View>
 
                   <View style={styles.tabBar}>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="home-outline" size={24} color="#000" />
+                    <TouchableOpacity
+                      style={[styles.tabItem, activeTab === 'home' && styles.activeTabItem]}
+                      onPress={() => setActiveTab('home')}>
+                      <Ionicons name="home-outline" size={24} color={activeTab === 'home' ? '#000' : '#9CA3AF'} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="list-outline" size={24} color="#000" />
+
+                    <TouchableOpacity
+                      style={[styles.tabItem, activeTab === 'list' && styles.activeTabItem]}
+                      onPress={() => setActiveTab('list')}>
+                      <Ionicons name="list-outline" size={24} color={activeTab === 'list' ? '#000' : '#9CA3AF'} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="paper-plane-outline" size={24} color="#000" />
+
+                    <TouchableOpacity
+                      style={[styles.tabItem, activeTab === 'send' && styles.activeTabItem]}
+                      onPress={() => setActiveTab('send')}>
+                      <Ionicons name="paper-plane-outline" size={24} color={activeTab === 'send' ? '#000' : '#9CA3AF'} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="document-outline" size={24} color="#000" />
+
+                    <TouchableOpacity
+                      style={[styles.tabItem, activeTab === 'document' && styles.activeTabItem]}
+                      onPress={() => setActiveTab('document')}>
+                      <Ionicons name="document-outline" size={24} color={activeTab === 'document' ? '#000' : '#9CA3AF'} />
                     </TouchableOpacity>
                   </View>
                 </>
@@ -1107,6 +1120,10 @@ const styles = StyleSheet.create({
   },
   tabItem: {
     padding: 10,
+    borderRadius: 100,
+  },
+  activeTabItem: {
+    backgroundColor: '#F4F4F5',
   },
 
   // Amount Input View styles
