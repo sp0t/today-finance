@@ -599,8 +599,7 @@ const MarketScreen: React.FC = () => {
         },
         params: {
           amount: ethBalance,
-          id: 1027,
-          symbol: 2781,
+          id: 1027
         }
       });
 
