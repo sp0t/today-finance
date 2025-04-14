@@ -419,13 +419,8 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
       try {
         const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
         console.log('tokenBalance===================3');
-
         const rawBalance = await contract.balanceOf(account?.address);
-        console.log('tokenBalance', rawBalance);
-
         const decimals = await contract.decimals();
-        console.log('decimals===================3', decimals);
-
         const formatted = ethers.formatUnits(rawBalance, decimals);
         console.log('tokenBalance', formatted);
       } catch (error) {
