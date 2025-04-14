@@ -57,7 +57,7 @@ export default function TabLayout() {
         }
 
       }}>
-      {/* <Tabs.Screen
+      <Tabs.Screen
         name="index"
         options={{
           tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabMarket} />,
@@ -80,7 +80,7 @@ export default function TabLayout() {
         options={{
           tabBarIcon: ({ color, focused }) => <CustomTabIcon focused={focused} iconSource={images.tab.TabSetting} />,
         }}
-      /> */}
+      />
     </Tabs>
   );
 }

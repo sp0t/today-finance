@@ -512,6 +512,21 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       onPress={handleDeposit}
                     />
                   </View>
+
+                  <View style={styles.tabBar}>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="home-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="list-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="paper-plane-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tabItem}>
+                      <Ionicons name="document-outline" size={24} color="#000" />
+                    </TouchableOpacity>
+                  </View>
                 </>
               )}
 
@@ -827,12 +842,12 @@ const MarketScreen: React.FC = () => {
       </View>
 
       {/* Token Detail Modal */}
-      {/* <TokenDetailModal
+      <TokenDetailModal
         visible={modalVisible}
         token={selectedToken}
         onClose={closeModal}
         onDeposit={handleFundWallet}
-      /> */}
+      />
     </SafeAreaView>
   );
 };
@@ -1072,6 +1087,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 'auto',
     marginBottom: 20,
+  },
+  tabBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingVertical: 10,
+  },
+  tabItem: {
+    padding: 10,
   },
 
   // Amount Input View styles
