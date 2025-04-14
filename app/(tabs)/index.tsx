@@ -335,7 +335,7 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
             />
             <Text style={styles.tokenReceiveAmount}>${costForAsset.toFixed(2)}</Text>
             <Text style={styles.tokenReceiveTokens}>
-              {tokenAmount.toFixed(3)} {token.name} {(token.symbol)}
+              {tokenAmount.toFixed(3)} {token.symbol}
             </Text>
           </View>
         </View>
