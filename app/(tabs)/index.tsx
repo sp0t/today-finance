@@ -36,7 +36,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   EducationalCard,
   tokenProps,
-  CarouselIndicatorsProps,
   EducationalCardItemProps,
   TopGainerItemProps
 } from '@/interface/types'
@@ -70,23 +69,6 @@ interface TokenDetailModalProps {
   onClose: () => void;
   onDeposit: () => void;
 }
-
-// Sub-components
-const CarouselIndicators: React.FC<CarouselIndicatorsProps> = ({ items, activeIndex }) => {
-  return (
-    <View style={styles.indicators}>
-      {items.map((_, index) => (
-        <View
-          key={index}
-          style={[
-            styles.indicator,
-            index === activeIndex && styles.activeIndicator
-          ]}
-        />
-      ))}
-    </View>
-  );
-};
 
 const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, totalItems }) => {
   return (
@@ -1060,9 +1042,8 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   backButton: {
     padding: 8,
