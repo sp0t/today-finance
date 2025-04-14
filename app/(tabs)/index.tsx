@@ -411,10 +411,11 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const [purchaseAmount, setPurchaseAmount] = useState('0');
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
-  
+
   useEffect(() => {
     const fetchBalance = async () => {
       try {
+        console.log('tokenBalance===================');
         const provider = new ethers.JsonRpcProvider(rpcUrl);
 
         const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
