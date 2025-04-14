@@ -1141,7 +1141,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     color: '#737373',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 50,
   },
   keypadContainer: {
     marginTop: 'auto',
