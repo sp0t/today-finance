@@ -415,10 +415,12 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        console.log('tokenBalance===================');
+        console.log('tokenBalance===================1');
         const provider = new ethers.JsonRpcProvider(rpcUrl);
+        console.log('tokenBalance===================2');
 
         const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
+        console.log('tokenBalance===================3');
 
         const rawBalance = await contract.balanceOf(account?.address);
         console.log('tokenBalance', rawBalance);
