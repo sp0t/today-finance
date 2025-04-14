@@ -1093,10 +1093,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     borderTopWidth: 1,
     borderTopColor: '#E5E7EB',
-    paddingVertical: 10,
+    height: 96,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 10,
   },
   tabItem: {
-    padding: 10,
+    backgroundColor: '#F4F4F5',
   },
 
   // Amount Input View styles
