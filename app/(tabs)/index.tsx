@@ -38,7 +38,11 @@ import {
   tokenProps,
   EducationalCardItemProps,
   TopGainerItemProps
-} from '@/interface/types'
+} from '@/interface/types';
+
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
+import { ethers } from 'ethers';
 
 // Constants for layout measurements
 const { width, height } = Dimensions.get('window');
@@ -342,7 +346,7 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
         <View style={styles.confirmSection}>
           <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
 
-          <View style={[styles.costItem, {marginTop: 16}]}>
+          <View style={[styles.costItem, { marginTop: 16 }]}>
             <Text style={styles.costItemLabel}>{token.symbol} price</Text>
             <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
           </View>
@@ -557,6 +561,7 @@ const MarketScreen: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const [trendings, setTrendings] = useState<tokenProps[]>([]);
+  const [balance, setBalance] = useState<string | null>(null);
   const { fundWallet } = useFundWallet();
 
   // Token detail modal state
@@ -570,10 +575,27 @@ const MarketScreen: React.FC = () => {
         router.replace('/login');
       } else {
         console.log("Authenticated, staying on tabs");
+        fetchBalance();
       }
       setIsLoading(false);
     }
   }, [isReady, router]);
+
+  const provider = new ethers.providers.JsonRpcProvider(
+    'https://base-rpc.publicnode.com' // or use a public RPC
+  );
+
+  const fetchBalance = async () => {
+    try {
+      const rawBalance = await provider.getBalance(account?.address,);
+      const ethBalance = ethers.utils.formatEther(rawBalance);
+      console.log('ethBalance===========>', ethBalance);
+      setBalance(ethBalance);
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+      setBalance('Error');
+    }
+  };
 
   useEffect(() => {
     fetchData();

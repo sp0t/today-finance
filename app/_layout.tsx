@@ -11,6 +11,10 @@ import { Toaster } from "react-native-customizable-toast";
 import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import { usePrivy } from '@privy-io/expo';
+// Required for ethers.js to work in React Native (Expo)
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
