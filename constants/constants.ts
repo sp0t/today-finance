@@ -1,7 +1,7 @@
 import { BackgroundItem } from '@/interface/login';
 import images from '@/styles/images';
 
-
+export const rpcUrl = 'https://base-rpc.publicnode.com';
 // export const baseURL = 'https://today-api.proskillowner.com';
 export const baseURL = 'http://127.0.0.1:3070';
 export const kReferenceLogin = '/user/insertUser';
@@ -12,6 +12,9 @@ export const kReferenceGetTokenBalanceList = '/user/getTokenBalanceList';
 export const kReferencetradeSwap = '/trade/quoteSwap';
 export const kReferenceGetTopGainers = '/token/getTopGainers';
 export const kReferenceGetTrendings = '/token/getTrendings';
+
+export const COINMARKETCAP_API_URL = "https://pro-api.coinmarketcap.com";
+export const COINMARKETCAP_API_KEY='55e5ac57-80df-46ee-9678-1a90a9884dc6';
 
 export enum Routes {
     ONBOARDING = 'Onboarding',

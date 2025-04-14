@@ -32,6 +32,7 @@ import {
 import { base } from 'viem/chains';
 import { apiService } from '@/services/api.service';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import axios from 'axios';
 
 import {
   EducationalCard,
@@ -43,6 +44,7 @@ import {
 import 'react-native-get-random-values';
 import '@ethersproject/shims';
 import { ethers } from 'ethers';
+import { rpcUrl, COINMARKETCAP_API_URL, COINMARKETCAP_API_KEY } from '@/constants/constants';
 
 // Constants for layout measurements
 const { width, height } = Dimensions.get('window');
@@ -582,7 +584,7 @@ const MarketScreen: React.FC = () => {
   }, [isReady, router]);
 
   const provider = new ethers.providers.JsonRpcProvider(
-    'https://base-rpc.publicnode.com' // or use a public RPC
+    rpcUrl
   );
 
   const fetchBalance = async () => {
@@ -590,6 +592,19 @@ const MarketScreen: React.FC = () => {
       const rawBalance = await provider.getBalance(account?.address,);
       const ethBalance = ethers.utils.formatEther(rawBalance);
       console.log('ethBalance===========>', ethBalance);
+
+      const tokenInfoListResponse = await axios.get(`${COINMARKETCAP_API_URL}/v1/cryptocurrency/listings/latest`, {
+        headers: {
+          "X-CMC_PRO_API_KEY": COINMARKETCAP_API_KEY,
+        },
+        params: {
+          amount: ethBalance,
+          id: 1027,
+          symbol: 2781,
+        }
+      });
+
+      console.log('tokenInfoListResponse===========>', tokenInfoListResponse);
       setBalance(ethBalance);
     } catch (error) {
       console.error('Error fetching balance:', error);
