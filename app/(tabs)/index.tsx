@@ -73,7 +73,7 @@ interface TokenDetailModalProps {
   visible: boolean;
   token: tokenProps | null;
   usdBalance: number;
-  ethBalance: string;
+  ethBalance: string | null;
   onClose: () => void;
   onDeposit: () => void;
 }
@@ -408,8 +408,9 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
   const [purchaseAmount, setPurchaseAmount] = useState('0');
-  const [activeTab, setActiveTab] = useState('home');
 
+  console.log('usdBalance', usdBalance)
+  console.log('ethBalance', ethBalance)
 
   useEffect(() => {
     if (visible) {
@@ -577,7 +578,6 @@ const MarketScreen: React.FC = () => {
 
   useEffect(() => {
     if (isReady) {
-      console.log("user:", user);
       if (!user) {
         router.replace('/login');
       } else {
