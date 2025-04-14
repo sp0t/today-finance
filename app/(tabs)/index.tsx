@@ -610,7 +610,7 @@ const MarketScreen: React.FC = () => {
       });
 
       const usdValue = priceInfoResponse.data?.quote?.USD?.price ?? 0;
-      console.log('priceInfoResponse.data?.quote?.USD', priceInfoResponse.data.quote)
+      console.log('priceInfoResponse.data?.quote?.USD', priceInfoResponse.data)
       setBalance(usdValue.toFixed(2));
 
     } catch (error) {
