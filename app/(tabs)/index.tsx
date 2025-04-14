@@ -1083,6 +1083,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#737373',
     paddingHorizontal: 20,
+    marginTop: 20
   },
   depositButtonContainer: {
     paddingHorizontal: 20,
