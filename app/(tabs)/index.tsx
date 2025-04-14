@@ -515,7 +515,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                     />
                   </View>
 
-                  <View style={styles.tabBar}>
+                  {/* <View style={styles.tabBar}>
                     <TouchableOpacity
                       style={[styles.tabItem, activeTab === 'home' && styles.activeTabItem]}
                       onPress={() => setActiveTab('home')}>
@@ -539,7 +539,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       onPress={() => setActiveTab('document')}>
                       <Ionicons name="document-outline" size={24} color={activeTab === 'document' ? '#000' : '#9CA3AF'} />
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
                 </>
               )}
 
@@ -1105,10 +1105,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderTopWidth: 1,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     borderTopColor: '#E5E7EB',
     height: 96,
     backgroundColor: '#FFFFFF',
