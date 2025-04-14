@@ -181,116 +181,118 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
         <TouchableOpacity onPress={onBack}>
           <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.modalTitle}>Buy {token.symbol}</Text>
+        <Text style={styles.modalTitle}>Buy {token.name}</Text>
       </View>
-
-      <View style={styles.amountContainer}>
-        <Text style={styles.currencySymbol}>$</Text>
-        <Text style={styles.amountText}>{amount}</Text>
-      </View>
-
-      <Text style={styles.availableText}>
-        ${availableBalance.toFixed(2)} available to buy {token.symbol}
-      </Text>
-
-      <View style={styles.keypadContainer}>
-        {/* Row 1 */}
-        <View style={styles.keypadRow}>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('1')}
-          >
-            <Text style={styles.keypadButtonText}>1</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('2')}
-          >
-            <Text style={styles.keypadButtonText}>2</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('3')}
-          >
-            <Text style={styles.keypadButtonText}>3</Text>
-          </TouchableOpacity>
+      <View style={{ paddingVertical: 20 }}>
+        <View style={styles.amountContainer}>
+          <Text style={styles.currencySymbol}>$</Text>
+          <Text style={styles.amountText}>{amount}</Text>
         </View>
 
-        {/* Row 2 */}
-        <View style={styles.keypadRow}>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('4')}
-          >
-            <Text style={styles.keypadButtonText}>4</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('5')}
-          >
-            <Text style={styles.keypadButtonText}>5</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('6')}
-          >
-            <Text style={styles.keypadButtonText}>6</Text>
-          </TouchableOpacity>
+        <Text style={styles.availableText}>
+          ${availableBalance.toFixed(2)} available to buy {token.symbol}
+        </Text>
+
+        <View style={styles.keypadContainer}>
+          {/* Row 1 */}
+          <View style={styles.keypadRow}>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('1')}
+            >
+              <Text style={styles.keypadButtonText}>1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('2')}
+            >
+              <Text style={styles.keypadButtonText}>2</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('3')}
+            >
+              <Text style={styles.keypadButtonText}>3</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Row 2 */}
+          <View style={styles.keypadRow}>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('4')}
+            >
+              <Text style={styles.keypadButtonText}>4</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('5')}
+            >
+              <Text style={styles.keypadButtonText}>5</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('6')}
+            >
+              <Text style={styles.keypadButtonText}>6</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Row 3 */}
+          <View style={styles.keypadRow}>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('7')}
+            >
+              <Text style={styles.keypadButtonText}>7</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('8')}
+            >
+              <Text style={styles.keypadButtonText}>8</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('9')}
+            >
+              <Text style={styles.keypadButtonText}>9</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Row 4 */}
+          <View style={styles.keypadRow}>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={handleDecimalPoint}
+            >
+              <Text style={styles.keypadButtonText}>.</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={() => handleNumberPress('0')}
+            >
+              <Text style={styles.keypadButtonText}>0</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.keypadButton}
+              onPress={handleBackspace}
+            >
+              <Ionicons name="backspace-outline" size={24} color="#000" />
+            </TouchableOpacity>
+          </View>
         </View>
 
-        {/* Row 3 */}
-        <View style={styles.keypadRow}>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('7')}
-          >
-            <Text style={styles.keypadButtonText}>7</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('8')}
-          >
-            <Text style={styles.keypadButtonText}>8</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('9')}
-          >
-            <Text style={styles.keypadButtonText}>9</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Row 4 */}
-        <View style={styles.keypadRow}>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={handleDecimalPoint}
-          >
-            <Text style={styles.keypadButtonText}>.</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={() => handleNumberPress('0')}
-          >
-            <Text style={styles.keypadButtonText}>0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.keypadButton}
-            onPress={handleBackspace}
-          >
-            <Ionicons name="backspace-outline" size={24} color="#000" />
-          </TouchableOpacity>
+        <View style={styles.reviewButtonContainer}>
+          <PrimaryButton
+            title="Review"
+            style={{ width: "100%" }}
+            onPress={() => onReview(amount)}
+            disabled={amount === '0' || parseFloat(amount) === 0}
+          />
         </View>
       </View>
 
-      <View style={styles.reviewButtonContainer}>
-        <PrimaryButton
-          title="Review"
-          style={{ width: "100%" }}
-          onPress={() => onReview(amount)}
-          disabled={amount === '0' || parseFloat(amount) === 0}
-        />
-      </View>
     </KeyboardAvoidingView>
   );
 };
