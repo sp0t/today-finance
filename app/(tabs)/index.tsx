@@ -1150,19 +1150,19 @@ const styles = StyleSheet.create({
   keypadRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginBottom: 20,
   },
   keypadButton: {
     width: width / 3 - 40,
-    height: 60,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
   },
   keypadButtonText: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '500',
-    color: '#000',
+    color: '#0A0A0A',
   },
   reviewButtonContainer: {
     marginTop: 'auto',
