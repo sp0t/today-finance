@@ -1129,13 +1129,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   currencySymbol: {
-    fontSize: 40,
-    fontWeight: '600',
+    fontSize: 42,
+    fontWeight: '500',
     color: '#000',
   },
   amountText: {
     fontSize: 72,
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#000',
   },
   availableText: {
