@@ -1173,8 +1173,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   confirmSection: {
-    marginTop: 24,
-    marginBottom: 16,
+    marginTop: 24
   },
   confirmSectionTitle: {
     fontSize: 16,
