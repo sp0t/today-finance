@@ -1224,9 +1224,7 @@ const styles = StyleSheet.create({
   costItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    marginTop: 10
   },
   costItemLabel: {
     fontSize: 14,
