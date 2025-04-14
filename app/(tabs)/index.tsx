@@ -421,7 +421,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
         console.log('tokenBalance===================3');
         const rawBalance = await contract.balanceOf(account?.address);
         const decimals = await contract.decimals();
-        const formatted = ethers.formatUnits(rawBalance, decimals);
+        const formatted = ethers.utils.formatUnits(rawBalance, decimals);
         console.log('tokenBalance', formatted);
       } catch (error) {
       }
