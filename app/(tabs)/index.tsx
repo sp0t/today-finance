@@ -1122,11 +1122,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   amountContainer: {
-    flex: 0.5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginTop: 100,
+    marginBottom: 100,
   },
   currencySymbol: {
     fontSize: 42,
