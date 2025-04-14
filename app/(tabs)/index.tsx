@@ -182,8 +182,6 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, tradeType, usd
     }
   };
 
-  const availableBalance = 254.43; // This would come from your wallet or props
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -202,10 +200,10 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, tradeType, usd
         </View>
 
         {tradeType === 'buy' && <Text style={styles.availableText}>
-          ${availableBalance.toFixed(5)} available to buy {token.symbol}
+          ${usdBalance.toFixed(5)} available to buy {token.symbol}
         </Text>}
         {tradeType === 'sell' && <Text style={styles.availableText}>
-          {availableBalance.toFixed(5)} {token.symbol} available to sell
+          {parseFloat(tokenBalance || '0').toFixed(5)} {token.symbol} available to sell
         </Text>}
 
         <View style={styles.keypadContainer}>
