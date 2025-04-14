@@ -1057,7 +1057,8 @@ const styles = StyleSheet.create({
   },
   tokenIconContainer: {
     marginTop: 8,
-    paddingVertical: 8
+    paddingVertical: 8,
+    paddingHorizontal: 20
   },
   tokenIcon: {
     width: 64,
