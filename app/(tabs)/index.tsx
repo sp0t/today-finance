@@ -1146,6 +1146,7 @@ const styles = StyleSheet.create({
   },
   keypadContainer: {
     marginTop: 'auto',
+    marginBottom: 20
   },
   keypadRow: {
     flexDirection: 'row',
