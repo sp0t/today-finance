@@ -469,7 +469,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                 <>
                   <View style={styles.modalHeader}>
                     <TouchableOpacity onPress={onClose} style={styles.backButton}>
-                      <Ionicons name="arrow-back" size={24} color="#000" />
+                      <Ionicons name="arrow-back" size={28} color="#000" />
                     </TouchableOpacity>
                     <Text style={styles.modalTitle}>{token.name}</Text>
                   </View>
@@ -1044,9 +1044,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-  },
-  backButton: {
-    padding: 8,
   },
   modalTitle: {
     fontSize: 18,
