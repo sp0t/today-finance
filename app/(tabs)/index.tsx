@@ -408,6 +408,8 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
   const [purchaseAmount, setPurchaseAmount] = useState('0');
+  const { user, isReady } = usePrivy();
+  const account = getUserEmbeddedEthereumWallet(user);
 
   console.log('usdBalance', usdBalance)
   console.log('ethBalance', ethBalance)
@@ -505,6 +507,13 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       onPress={handleDeposit}
                     />
                   </View>}
+                  {usdBalance > 0 && <View style={styles.depositButtonContainer}>
+                    <PrimaryButton
+                      title="Buy"
+                      style={{ width: "100%" }}
+                      onPress={handleDeposit}
+                    />
+                  </View>}
 
                   {/* <View style={styles.tabBar}>
                     <TouchableOpacity
@@ -569,7 +578,7 @@ const MarketScreen: React.FC = () => {
   const [topGainer, setTopGainer] = useState<tokenProps[]>([]);
   const [trendings, setTrendings] = useState<tokenProps[]>([]);
   const [balance, setBalance] = useState<number | 0>(0);
-  const [ethBalance, setEthBalance] = useState<String | null>(null);
+  const [ethBalance, setEthBalance] = useState<string | null>(null);
   const { fundWallet } = useFundWallet();
 
   // Token detail modal state
