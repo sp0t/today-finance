@@ -512,21 +512,6 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       onPress={handleDeposit}
                     />
                   </View>
-
-                  <View style={styles.tabBar}>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="home-outline" size={24} color="#000" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="list-outline" size={24} color="#000" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="paper-plane-outline" size={24} color="#000" />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.tabItem}>
-                      <Ionicons name="document-outline" size={24} color="#000" />
-                    </TouchableOpacity>
-                  </View>
                 </>
               )}
 
