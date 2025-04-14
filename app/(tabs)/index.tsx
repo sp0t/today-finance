@@ -72,6 +72,7 @@ interface ConfirmModalViewProps {
 interface TokenDetailModalProps {
   visible: boolean;
   token: tokenProps | null;
+  usdBalance: number;
   onClose: () => void;
   onDeposit: () => void;
 }
@@ -398,6 +399,7 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
 const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   visible,
   token,
+  usdBalance,
   onClose,
   onDeposit
 }) => {
@@ -875,6 +877,7 @@ const MarketScreen: React.FC = () => {
       <TokenDetailModal
         visible={modalVisible}
         token={selectedToken}
+        usdBalance = {balance}
         onClose={closeModal}
         onDeposit={handleFundWallet}
       />
@@ -1126,7 +1129,7 @@ const styles = StyleSheet.create({
   depositButtonContainer: {
     paddingHorizontal: 20,
     marginTop: 'auto',
-    marginBottom: 40,
+    marginBottom: 60,
   },
   tabBar: {
     flexDirection: 'row',
