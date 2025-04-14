@@ -1073,16 +1073,6 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 20,
   },
-  tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
-    paddingVertical: 10,
-  },
-  tabItem: {
-    padding: 10,
-  },
 
   // Amount Input View styles
   amountInputContainer: {
