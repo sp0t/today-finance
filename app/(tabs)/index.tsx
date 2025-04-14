@@ -827,12 +827,12 @@ const MarketScreen: React.FC = () => {
       </View>
 
       {/* Token Detail Modal */}
-      <TokenDetailModal
+      {/* <TokenDetailModal
         visible={modalVisible}
         token={selectedToken}
         onClose={closeModal}
         onDeposit={handleFundWallet}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
