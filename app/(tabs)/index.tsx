@@ -1122,7 +1122,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   amountContainer: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
