@@ -1045,6 +1045,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
+  backButton: {
+    height: 20,
+    width: 28
+  },
   modalTitle: {
     fontSize: 18,
     fontWeight: '600',
