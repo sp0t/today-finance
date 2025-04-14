@@ -191,7 +191,10 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
   const availableBalance = 254.43; // This would come from your wallet or props
 
   return (
-    <View style={styles.amountInputContainer}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.amountInputContainer}
+    >
       <View style={styles.modalHeader}>
         <TouchableOpacity onPress={onBack} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#000" />
@@ -307,11 +310,11 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
           disabled={amount === '0' || parseFloat(amount) === 0}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
-// Confirm Modal View Component
+// New Confirm Modal View Component
 const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
   token,
   amount,
@@ -479,7 +482,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
             >
               {modalView === 'details' && (
                 // Token Details View
-                <View>
+                <>
                   <View style={styles.modalHeader}>
                     <TouchableOpacity onPress={onClose} style={styles.backButton}>
                       <Ionicons name="arrow-back" size={24} color="#000" />
@@ -524,10 +527,10 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       <Ionicons name="document-outline" size={24} color="#000" />
                     </TouchableOpacity>
                   </View>
-                </View>
+                </>
               )}
 
-              {modalView === 'amount' && token && (
+              {modalView === 'amount' && (
                 // Amount Input View
                 <AmountInputView
                   token={token}
@@ -536,7 +539,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                 />
               )}
 
-              {modalView === 'confirm' && token && (
+              {modalView === 'confirm' && (
                 // Confirmation View
                 <ConfirmModalView
                   token={token}
