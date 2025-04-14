@@ -1256,6 +1256,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 'auto',
     bottom: 40,
     paddingTop: 16,
   },
