@@ -411,10 +411,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const [purchaseAmount, setPurchaseAmount] = useState('0');
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
-
-  console.log('usdBalance', usdBalance);
-  console.log('ethBalance', ethBalance);
-
+  
   useEffect(() => {
     const fetchBalance = async () => {
       try {
