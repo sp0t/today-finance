@@ -129,6 +129,7 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
         }
       ]}
       onPress={() => onPress(item)}
+      key={item.id} // Added unique key prop
     >
       <Image
         source={{ uri: item?.logo }}
@@ -686,13 +687,15 @@ const MarketScreen: React.FC = () => {
   }, []);
 
   const renderTopGainerPage = useCallback(
-    ({ item }: { item: tokenProps[] }) => (
-      <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }}>
-        {item.map((gainer, index) => (
+    ({ item, index }: { item: tokenProps[], index: number }) => (
+      // Add a key to the parent View
+      <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }} key={`gainer-page-${index}`}>
+        {item.map((gainer) => (
+          // We've already added a key prop to TopGainerItem component
           <TopGainerItem
-            key={gainer.id}
+            key={`gainer-${gainer.id}`} // Add a key here too for extra safety
             item={gainer}
-            index={index}
+            index={item.indexOf(gainer)}
             totalItems={item.length}
             onPress={handleTokenPress}
           />
@@ -703,13 +706,15 @@ const MarketScreen: React.FC = () => {
   );
 
   const renderTrendingPage = useCallback(
-    ({ item }: { item: tokenProps[] }) => (
-      <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }}>
-        {item.map((trending, index) => (
+    ({ item, index }: { item: tokenProps[], index: number }) => (
+      // Add a key to the parent View
+      <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }} key={`trending-page-${index}`}>
+        {item.map((trending) => (
+          // We've already added a key prop to TopGainerItem component
           <TopGainerItem
-            key={trending.id}
+            key={`trending-${trending.id}`} // Add a key here too for extra safety
             item={trending}
-            index={index}
+            index={item.indexOf(trending)}
             totalItems={item.length}
             onPress={handleTokenPress}
           />
@@ -791,7 +796,7 @@ const MarketScreen: React.FC = () => {
               ref={bottomCarouselRef}
               data={groupedGainerPages}
               renderItem={renderTopGainerPage}
-              keyExtractor={(_, index) => index.toString()}
+              keyExtractor={(_, index) => `gainer-page-${index}`}
               horizontal
               showsHorizontalScrollIndicator={false}
               pagingEnabled
@@ -815,7 +820,7 @@ const MarketScreen: React.FC = () => {
               ref={bottomCarouselRef}
               data={groupedTrendingPages}
               renderItem={renderTrendingPage}
-              keyExtractor={(_, index) => index.toString()}
+              keyExtractor={(_, index) => `trending-page-${index}`}
               horizontal
               showsHorizontalScrollIndicator={false}
               pagingEnabled
