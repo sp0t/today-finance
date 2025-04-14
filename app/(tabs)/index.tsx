@@ -1048,7 +1048,7 @@ const styles = StyleSheet.create({
     width: 28
   },
   modalTitle: {
-    fontSize: 14,
+    fontSize: 18,
     lineHeight: 22,
     fontWeight: '600',
     flex: 1,
