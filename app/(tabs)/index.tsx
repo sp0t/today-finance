@@ -342,7 +342,7 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
         <View style={styles.confirmSection}>
           <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
 
-          <View style={styles.costItem}>
+          <View style={[styles.costItem, {marginTop: 16}]}>
             <Text style={styles.costItemLabel}>{token.symbol} price</Text>
             <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
           </View>
@@ -1227,12 +1227,15 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   costItemLabel: {
-    fontSize: 14,
-    color: '#333',
+    fontSize: 12,
+    lineHeight: 22,
+    fontWeight: '500',
+    color: '#000000',
   },
   costItemValue: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 12,
+    lineHeight: 22,
+    fontWeight: '400',
     color: '#000',
   },
   feeContainer: {
