@@ -178,11 +178,10 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
       style={styles.amountInputContainer}
     >
       <View style={styles.modalHeader}>
-        <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#000" />
+        <TouchableOpacity onPress={onBack}>
+          <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
         <Text style={styles.modalTitle}>Buy {token.symbol}</Text>
-        <View style={{ width: 40 }} /> {/* Empty view for balance */}
       </View>
 
       <View style={styles.amountContainer}>
@@ -317,11 +316,10 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
   return (
     <View style={styles.confirmContainer}>
       <View style={styles.modalHeader}>
-        <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#000" />
+        <TouchableOpacity onPress={onBack}>
+          <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
         <Text style={styles.modalTitle}>Review</Text>
-        <View style={{ width: 40 }} /> {/* Empty view for balance */}
       </View>
 
       <View style={styles.confirmSection}>
