@@ -1061,8 +1061,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   tokenIcon: {
-    width: 64,
-    height: 64,
+    width: 48,
+    height: 48,
     borderRadius: 32,
   },
   tokenName: {
