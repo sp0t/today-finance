@@ -161,11 +161,11 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
 const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onReview }) => {
   const [amount, setAmount] = useState('0');
   const [isFocused, setIsFocused] = useState(false);
-  
+
   const handleNumberPress = (num: string) => {
     // Don't add leading zeros
     if (amount === '0' && num === '0') return;
-    
+
     // Replace initial zero or set the number
     if (amount === '0') {
       setAmount(num);
@@ -173,7 +173,7 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
       setAmount(amount + num);
     }
   };
-  
+
   const handleBackspace = () => {
     if (amount.length > 1) {
       setAmount(amount.slice(0, -1));
@@ -181,17 +181,17 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
       setAmount('0');
     }
   };
-  
+
   const handleDecimalPoint = () => {
     if (!amount.includes('.')) {
       setAmount(amount + '.');
     }
   };
-  
+
   const availableBalance = 254.43; // This would come from your wallet or props
-  
+
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.amountInputContainer}
     >
@@ -202,106 +202,106 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
         <Text style={styles.modalTitle}>Buy {token.symbol}</Text>
         <View style={{ width: 40 }} /> {/* Empty view for balance */}
       </View>
-      
+
       <View style={styles.amountContainer}>
         <Text style={styles.currencySymbol}>$</Text>
         <Text style={styles.amountText}>{amount}</Text>
       </View>
-      
+
       <Text style={styles.availableText}>
         ${availableBalance.toFixed(2)} available to buy {token.symbol}
       </Text>
-      
+
       <View style={styles.keypadContainer}>
         {/* Row 1 */}
         <View style={styles.keypadRow}>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('1')}
           >
             <Text style={styles.keypadButtonText}>1</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('2')}
           >
             <Text style={styles.keypadButtonText}>2</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('3')}
           >
             <Text style={styles.keypadButtonText}>3</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Row 2 */}
         <View style={styles.keypadRow}>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('4')}
           >
             <Text style={styles.keypadButtonText}>4</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('5')}
           >
             <Text style={styles.keypadButtonText}>5</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('6')}
           >
             <Text style={styles.keypadButtonText}>6</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Row 3 */}
         <View style={styles.keypadRow}>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('7')}
           >
             <Text style={styles.keypadButtonText}>7</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('8')}
           >
             <Text style={styles.keypadButtonText}>8</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('9')}
           >
             <Text style={styles.keypadButtonText}>9</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* Row 4 */}
         <View style={styles.keypadRow}>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={handleDecimalPoint}
           >
             <Text style={styles.keypadButtonText}>.</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={() => handleNumberPress('0')}
           >
             <Text style={styles.keypadButtonText}>0</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-            style={styles.keypadButton} 
+          <TouchableOpacity
+            style={styles.keypadButton}
             onPress={handleBackspace}
           >
             <Ionicons name="backspace-outline" size={24} color="#000" />
           </TouchableOpacity>
         </View>
       </View>
-      
+
       <View style={styles.reviewButtonContainer}>
         <PrimaryButton
           title="Review"
@@ -315,11 +315,11 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
 };
 
 // New Confirm Modal View Component
-const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({ 
-  token, 
-  amount, 
-  onBack, 
-  onConfirm 
+const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
+  token,
+  amount,
+  onBack,
+  onConfirm
 }) => {
   // Calculate costs and fees
   const tokenPrice = 0.09479;
@@ -328,10 +328,10 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
   const protocolFee = 3.50;
   const transactionFee = 5.89;
   const totalCost = costForAsset + protocolFee + transactionFee;
-  
+
   // Calculate number of tokens received
   const tokenAmount = costForAsset / tokenPrice;
-  
+
   return (
     <View style={styles.confirmContainer}>
       <View style={styles.modalHeader}>
@@ -341,14 +341,14 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
         <Text style={styles.modalTitle}>Review</Text>
         <View style={{ width: 40 }} /> {/* Empty view for balance */}
       </View>
-      
+
       <View style={styles.confirmSection}>
         <Text style={styles.confirmSectionTitle}>You receive</Text>
         <View style={styles.tokenReceiveCard}>
           <View style={styles.tokenReceiveIconContainer}>
-            <Image 
-              source={{ uri: token.logo }} 
-              style={styles.tokenReceiveIcon} 
+            <Image
+              source={{ uri: token.logo }}
+              style={styles.tokenReceiveIcon}
               resizeMode="cover"
             />
           </View>
@@ -358,20 +358,20 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
           </Text>
         </View>
       </View>
-      
+
       <View style={styles.confirmSection}>
         <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
-        
+
         <View style={styles.costItem}>
           <Text style={styles.costItemLabel}>{token.symbol} price</Text>
           <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
         </View>
-        
+
         <View style={styles.costItem}>
           <Text style={styles.costItemLabel}>Cost for asset</Text>
           <Text style={styles.costItemValue}>${costForAsset.toFixed(2)}</Text>
         </View>
-        
+
         <View style={styles.costItem}>
           <Text style={styles.costItemLabel}>Network fee</Text>
           <View style={styles.feeContainer}>
@@ -379,23 +379,23 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
             <Text style={styles.freeTag}>FREE</Text>
           </View>
         </View>
-        
+
         <View style={styles.costItem}>
           <Text style={styles.costItemLabel}>Protocol fee</Text>
           <Text style={styles.costItemValue}>${protocolFee.toFixed(2)}</Text>
         </View>
-        
+
         <View style={styles.costItem}>
           <Text style={styles.costItemLabel}>Transaction fee</Text>
           <Text style={styles.costItemValue}>${transactionFee.toFixed(2)}</Text>
         </View>
       </View>
-      
+
       <View style={styles.totalContainer}>
         <Text style={styles.totalLabel}>Total cost</Text>
         <Text style={styles.totalValue}>${totalCost.toFixed(2)}</Text>
       </View>
-      
+
       <View style={styles.confirmButtonContainer}>
         <PrimaryButton
           title="Confirm"
@@ -408,11 +408,11 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
 };
 
 // Token Detail Modal Component
-const TokenDetailModal: React.FC<TokenDetailModalProps> = ({ 
-  visible, 
-  token, 
-  onClose, 
-  onDeposit 
+const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
+  visible,
+  token,
+  onClose,
+  onDeposit
 }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
@@ -501,7 +501,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                   </View>
 
                   <Text style={styles.tokenDescription}>
-                    This is the description about {token.name}. This is the description about {token.name}. 
+                    This is the description about {token.name}. This is the description about {token.name}.
                     This is the description about {token.name}. This is the description about {token.name}.
                   </Text>
 
@@ -529,19 +529,19 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                   </View>
                 </>
               )}
-              
+
               {modalView === 'amount' && (
                 // Amount Input View
-                <AmountInputView 
+                <AmountInputView
                   token={token}
                   onBack={handleBack}
                   onReview={handleReview}
                 />
               )}
-              
+
               {modalView === 'confirm' && (
                 // Confirmation View
-                <ConfirmModalView 
+                <ConfirmModalView
                   token={token}
                   amount={purchaseAmount}
                   onBack={handleBack}
@@ -688,14 +688,12 @@ const MarketScreen: React.FC = () => {
 
   const renderTopGainerPage = useCallback(
     ({ item, index }: { item: tokenProps[], index: number }) => (
-      // Add a key to the parent View
       <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }} key={`gainer-page-${index}`}>
-        {item.map((gainer) => (
-          // We've already added a key prop to TopGainerItem component
+        {item.map((gainer, gainerIndex) => (
           <TopGainerItem
-            key={`gainer-${gainer.id}`} // Add a key here too for extra safety
+            key={`gainer-item-${index}-${gainerIndex}-${gainer.id || gainerIndex}`}
             item={gainer}
-            index={item.indexOf(gainer)}
+            index={gainerIndex}
             totalItems={item.length}
             onPress={handleTokenPress}
           />
@@ -707,14 +705,12 @@ const MarketScreen: React.FC = () => {
 
   const renderTrendingPage = useCallback(
     ({ item, index }: { item: tokenProps[], index: number }) => (
-      // Add a key to the parent View
       <View style={{ width: GANINER_CARD_WIDTH + CARD_GAP }} key={`trending-page-${index}`}>
-        {item.map((trending) => (
-          // We've already added a key prop to TopGainerItem component
+        {item.map((trending, trendingIndex) => (
           <TopGainerItem
-            key={`trending-${trending.id}`} // Add a key here too for extra safety
+            key={`trending-item-${index}-${trendingIndex}-${trending.id || trendingIndex}`}
             item={trending}
-            index={item.indexOf(trending)}
+            index={trendingIndex}
             totalItems={item.length}
             onPress={handleTokenPress}
           />
@@ -1102,7 +1098,7 @@ const styles = StyleSheet.create({
   tabItem: {
     padding: 10,
   },
-  
+
   // Amount Input View styles
   amountInputContainer: {
     flex: 1,
