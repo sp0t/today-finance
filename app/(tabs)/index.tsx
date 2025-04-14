@@ -61,6 +61,10 @@ const provider = new ethers.providers.JsonRpcProvider(
 // Define types for our new components
 interface AmountInputViewProps {
   token: tokenProps;
+  tradeType: string;
+  usdBalance: number;
+  ethBalance: string | null;
+  tokenBalance: string | null;
   onBack: () => void;
   onReview: (amount: string) => void;
 }
@@ -78,7 +82,6 @@ interface TokenDetailModalProps {
   usdBalance: number;
   ethBalance: string | null;
   onClose: () => void;
-  onDeposit: () => void;
 }
 
 const EducationalCardItem: React.FC<EducationalCardItemProps> = ({ item, index, totalItems }) => {
@@ -151,15 +154,13 @@ const TopGainerItem: React.FC<TopGainerItemProps> = ({ item, index, totalItems, 
   );
 };
 
-const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onReview }) => {
+const AmountInputView: React.FC<AmountInputViewProps> = ({ token, tradeType, usdBalance, ethBalance, tokenBalance, onBack, onReview }) => {
   const [amount, setAmount] = useState('0');
   const [isFocused, setIsFocused] = useState(false);
 
   const handleNumberPress = (num: string) => {
-    // Don't add leading zeros
     if (amount === '0' && num === '0') return;
 
-    // Replace initial zero or set the number
     if (amount === '0') {
       setAmount(num);
     } else {
@@ -192,17 +193,20 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
         <TouchableOpacity onPress={onBack}>
           <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.modalTitle}>Buy {token.name}</Text>
+        <Text style={styles.modalTitle}>{tradeType == 'buy' ? 'Buy' : 'Sell'} {token.name}</Text>
       </View>
       <View style={{ paddingHorizontal: 20, flex: 1 }}>
         <View style={styles.amountContainer}>
-          <Text style={styles.currencySymbol}>$</Text>
+          {tradeType === 'buy' && <Text style={styles.currencySymbol}>$</Text>}
           <Text style={styles.amountText}>{amount}</Text>
         </View>
 
-        <Text style={styles.availableText}>
-          ${availableBalance.toFixed(2)} available to buy {token.symbol}
-        </Text>
+        {tradeType === 'buy' && <Text style={styles.availableText}>
+          ${availableBalance.toFixed(5)} available to buy {token.symbol}
+        </Text>}
+        {tradeType === 'sell' && <Text style={styles.availableText}>
+          {availableBalance.toFixed(5)} {token.symbol} available to sell
+        </Text>}
 
         <View style={styles.keypadContainer}>
           {/* Row 1 */}
@@ -405,15 +409,16 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   token,
   usdBalance,
   ethBalance,
-  onClose,
-  onDeposit
+  onClose
 }) => {
   const slideAnim = useRef(new Animated.Value(height)).current;
   const [modalView, setModalView] = useState<ModalView>('details');
   const [purchaseAmount, setPurchaseAmount] = useState('0');
   const [tokenAmount, setTokenAmount] = useState<string | null>('0.0')
+  const [tradeType, setTradeType] = useState<string>('buy')
   const { user, isReady } = usePrivy();
   const account = getUserEmbeddedEthereumWallet(user);
+  const { fundWallet } = useFundWallet();
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -454,8 +459,21 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   }, [visible, slideAnim]);
 
   const handleDeposit = () => {
-    setModalView('amount');
+    fundWallet({
+      address: account?.address,
+      chain: base,
+    });
   };
+
+  const handleBuy = () => {
+    setTradeType('buy');
+    setModalView('amount');
+  }
+
+  const handleSell = () => {
+    setTradeType('sell');
+    setModalView('amount');
+  }
 
   const handleBack = () => {
     if (modalView === 'amount') {
@@ -473,7 +491,6 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
   const handleConfirm = () => {
     // Here you would handle the purchase confirmation
     console.log(`Confirming purchase of ${purchaseAmount} ${token?.symbol}`);
-    onDeposit(); // Call the deposit function which may handle the transaction
     onClose(); // Close the modal after confirming
   };
 
@@ -531,7 +548,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       <PrimaryButton
                         title="Buy"
                         style={{ width: "100%" }}
-                        onPress={handleDeposit}
+                        onPress={handleBuy}
                       />
                     </View>}
                   {usdBalance > 0 && parseFloat(tokenAmount || '0') !== 0 &&
@@ -539,12 +556,12 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       <PrimaryButton
                         title="Buy"
                         style={{ width: (width - 60) * 0.5 }}
-                        onPress={handleDeposit}
+                        onPress={handleBuy}
                       />
                       <PrimaryButton
                         title="Sell"
                         style={{ width: (width - 60) * 0.5 }}
-                        onPress={handleDeposit}
+                        onPress={handleSell}
                       />
                     </View>}
 
@@ -580,6 +597,10 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                 // Amount Input View
                 <AmountInputView
                   token={token}
+                  tradeType={tradeType}
+                  usdBalance={usdBalance}
+                  ethBalance={ethBalance}
+                  tokenBalance={tokenAmount}
                   onBack={handleBack}
                   onReview={handleReview}
                 />
@@ -923,7 +944,6 @@ const MarketScreen: React.FC = () => {
         usdBalance={balance}
         ethBalance={ethBalance}
         onClose={closeModal}
-        onDeposit={handleFundWallet}
       />
     </SafeAreaView>
   );
