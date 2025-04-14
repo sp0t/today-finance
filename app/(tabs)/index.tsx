@@ -1183,7 +1183,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     lineHeight: 22,
-    color: '#666',
+    color: '#000000',
   },
   tokenReceiveCard: {
     backgroundColor: '#F4F4F5',
