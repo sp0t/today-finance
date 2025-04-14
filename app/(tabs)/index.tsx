@@ -1206,7 +1206,7 @@ const styles = StyleSheet.create({
   },
   reviewButtonContainer: {
     marginTop: 'auto',
-    marginBottom: 40,
+    marginBottom: 60,
   },
   confirmContainer: {
     flex: 1,
@@ -1313,7 +1313,7 @@ const styles = StyleSheet.create({
   },
   confirmButtonContainer: {
     marginTop: 'auto',
-    marginBottom: 40,
+    marginBottom: 60,
   }
 });
 
