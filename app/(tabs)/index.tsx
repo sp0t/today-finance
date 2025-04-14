@@ -535,15 +535,15 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       />
                     </View>}
                   {usdBalance > 0 && parseFloat(tokenAmount || '0') !== 0 &&
-                    <View style={[styles.depositButtonContainer, {flexDirection: 'row', gap:20}]}>
+                    <View style={[styles.depositButtonContainer, { flexDirection: 'row', gap: 20 }]}>
                       <PrimaryButton
                         title="Buy"
-                        style={{ width: (width - 40) * 0.5 -10 }}
+                        style={{ width: (width - 60) * 0.5 }}
                         onPress={handleDeposit}
                       />
                       <PrimaryButton
                         title="Sell"
-                        style={{ width: (width - 40) * 0.5 -10 }}
+                        style={{ width: (width - 60) * 0.5 }}
                         onPress={handleDeposit}
                       />
                     </View>}
