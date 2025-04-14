@@ -1056,8 +1056,8 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   tokenIconContainer: {
-    alignItems: 'center',
-    marginVertical: 20,
+    marginTop: 8,
+    paddingVertical: 8
   },
   tokenIcon: {
     width: 64,
