@@ -931,7 +931,7 @@ const MarketScreen: React.FC = () => {
       </ScrollView>
 
       {/* Deposit button */}
-      {balance != 0 && <View style={[styles.footer, { marginBottom: 20 }]}>
+      {balance == 0 && <View style={[styles.footer, { marginBottom: 20 }]}>
         <PrimaryButton
           title="Deposit"
           style={{ width: "100%" }}
