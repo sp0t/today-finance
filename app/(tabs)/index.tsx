@@ -200,7 +200,7 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, tradeType, usd
         </View>
 
         {tradeType === 'buy' && <Text style={styles.availableText}>
-          ${usdBalance.toFixed(5)} available to buy {token.symbol}
+          ${usdBalance} available to buy {token.symbol}
         </Text>}
         {tradeType === 'sell' && <Text style={styles.availableText}>
           {parseFloat(tokenBalance || '0').toFixed(5)} {token.symbol} available to sell
