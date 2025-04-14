@@ -1126,8 +1126,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 100,
-    marginBottom: 100,
   },
   currencySymbol: {
     fontSize: 42,
