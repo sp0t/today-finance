@@ -538,10 +538,12 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                     <View style={[styles.depositButtonContainer, {flexDirection: 'row'}]}>
                       <PrimaryButton
                         title="Buy"
+                        style={{ width: "45%" }}
                         onPress={handleDeposit}
                       />
                       <PrimaryButton
                         title="Sell"
+                        style={{ width: "45%" }}
                         onPress={handleDeposit}
                       />
                     </View>}
