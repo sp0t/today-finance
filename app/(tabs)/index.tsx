@@ -328,13 +328,11 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
         <View style={styles.confirmSection}>
           <Text style={styles.confirmSectionTitle}>You receive</Text>
           <View style={styles.tokenReceiveCard}>
-            <View style={styles.tokenReceiveIconContainer}>
-              <Image
-                source={{ uri: token.logo }}
-                style={styles.tokenReceiveIcon}
-                resizeMode="cover"
-              />
-            </View>
+            <Image
+              source={{ uri: token.logo }}
+              style={styles.tokenReceiveIcon}
+              resizeMode="cover"
+            />
             <Text style={styles.tokenReceiveAmount}>${costForAsset.toFixed(2)}</Text>
             <Text style={styles.tokenReceiveTokens}>
               {tokenAmount.toFixed(3)} {token.symbol}
@@ -1208,19 +1206,22 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   tokenReceiveIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 40,
   },
   tokenReceiveAmount: {
     fontSize: 24,
+    lineHeight: 24,
     fontWeight: '600',
     color: '#000',
-    marginVertical: 4,
+    marginTop: 12,
   },
   tokenReceiveTokens: {
     fontSize: 14,
-    color: '#666',
+    fontWeight: '600',
+    lineHeight: 24,
+    color: '#A1A1A1',
   },
   costItem: {
     flexDirection: 'row',
