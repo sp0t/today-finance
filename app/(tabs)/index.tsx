@@ -183,7 +183,7 @@ const AmountInputView: React.FC<AmountInputViewProps> = ({ token, onBack, onRevi
         </TouchableOpacity>
         <Text style={styles.modalTitle}>Buy {token.name}</Text>
       </View>
-      <View style={{ paddingHorizontal: 20, flex:1 }}>
+      <View style={{ paddingHorizontal: 20, flex: 1 }}>
         <View style={styles.amountContainer}>
           <Text style={styles.currencySymbol}>$</Text>
           <Text style={styles.amountText}>{amount}</Text>
@@ -324,67 +324,70 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
         <Text style={styles.modalTitle}>Review</Text>
       </View>
 
-      <View style={styles.confirmSection}>
-        <Text style={styles.confirmSectionTitle}>You receive</Text>
-        <View style={styles.tokenReceiveCard}>
-          <View style={styles.tokenReceiveIconContainer}>
-            <Image
-              source={{ uri: token.logo }}
-              style={styles.tokenReceiveIcon}
-              resizeMode="cover"
-            />
-          </View>
-          <Text style={styles.tokenReceiveAmount}>${costForAsset.toFixed(2)}</Text>
-          <Text style={styles.tokenReceiveTokens}>
-            {tokenAmount.toFixed(3)} {token.symbol}
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.confirmSection}>
-        <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
-
-        <View style={styles.costItem}>
-          <Text style={styles.costItemLabel}>{token.symbol} price</Text>
-          <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
-        </View>
-
-        <View style={styles.costItem}>
-          <Text style={styles.costItemLabel}>Cost for asset</Text>
-          <Text style={styles.costItemValue}>${costForAsset.toFixed(2)}</Text>
-        </View>
-
-        <View style={styles.costItem}>
-          <Text style={styles.costItemLabel}>Network fee</Text>
-          <View style={styles.feeContainer}>
-            <Text style={styles.costItemValue}>${networkFee.toFixed(2)}</Text>
-            <Text style={styles.freeTag}>FREE</Text>
+      <View style={{ flex: 1, paddingHorizontal: 20 }}>
+        <View style={styles.confirmSection}>
+          <Text style={styles.confirmSectionTitle}>You receive</Text>
+          <View style={styles.tokenReceiveCard}>
+            <View style={styles.tokenReceiveIconContainer}>
+              <Image
+                source={{ uri: token.logo }}
+                style={styles.tokenReceiveIcon}
+                resizeMode="cover"
+              />
+            </View>
+            <Text style={styles.tokenReceiveAmount}>${costForAsset.toFixed(2)}</Text>
+            <Text style={styles.tokenReceiveTokens}>
+              {tokenAmount.toFixed(3)} {token.symbol}
+            </Text>
           </View>
         </View>
 
-        <View style={styles.costItem}>
-          <Text style={styles.costItemLabel}>Protocol fee</Text>
-          <Text style={styles.costItemValue}>${protocolFee.toFixed(2)}</Text>
+        <View style={styles.confirmSection}>
+          <Text style={styles.confirmSectionTitle}>Cost breakdown</Text>
+
+          <View style={styles.costItem}>
+            <Text style={styles.costItemLabel}>{token.symbol} price</Text>
+            <Text style={styles.costItemValue}>${tokenPrice.toFixed(5)}</Text>
+          </View>
+
+          <View style={styles.costItem}>
+            <Text style={styles.costItemLabel}>Cost for asset</Text>
+            <Text style={styles.costItemValue}>${costForAsset.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.costItem}>
+            <Text style={styles.costItemLabel}>Network fee</Text>
+            <View style={styles.feeContainer}>
+              <Text style={styles.costItemValue}>${networkFee.toFixed(2)}</Text>
+              <Text style={styles.freeTag}>FREE</Text>
+            </View>
+          </View>
+
+          <View style={styles.costItem}>
+            <Text style={styles.costItemLabel}>Protocol fee</Text>
+            <Text style={styles.costItemValue}>${protocolFee.toFixed(2)}</Text>
+          </View>
+
+          <View style={styles.costItem}>
+            <Text style={styles.costItemLabel}>Transaction fee</Text>
+            <Text style={styles.costItemValue}>${transactionFee.toFixed(2)}</Text>
+          </View>
         </View>
 
-        <View style={styles.costItem}>
-          <Text style={styles.costItemLabel}>Transaction fee</Text>
-          <Text style={styles.costItemValue}>${transactionFee.toFixed(2)}</Text>
+        <View style={styles.totalContainer}>
+          <Text style={styles.totalLabel}>Total cost</Text>
+          <Text style={styles.totalValue}>${totalCost.toFixed(2)}</Text>
+        </View>
+
+        <View style={styles.confirmButtonContainer}>
+          <PrimaryButton
+            title="Confirm"
+            style={{ width: "100%" }}
+            onPress={onConfirm}
+          />
         </View>
       </View>
 
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalLabel}>Total cost</Text>
-        <Text style={styles.totalValue}>${totalCost.toFixed(2)}</Text>
-      </View>
-
-      <View style={styles.confirmButtonContainer}>
-        <PrimaryButton
-          title="Confirm"
-          style={{ width: "100%" }}
-          onPress={onConfirm}
-        />
-      </View>
     </View>
   );
 };
@@ -1171,7 +1174,6 @@ const styles = StyleSheet.create({
   },
   confirmContainer: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   confirmSection: {
     marginTop: 24,
