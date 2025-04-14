@@ -593,7 +593,7 @@ const MarketScreen: React.FC = () => {
       const ethBalance = ethers.utils.formatEther(rawBalance);
       console.log('ethBalance===========>', ethBalance);
 
-      const tokenInfoListResponse = await axios.get(`${COINMARKETCAP_API_URL}/v2/tools/price-conversion`, {
+      const priceInfoResponse = await axios.get(`${COINMARKETCAP_API_URL}/v2/tools/price-conversion`, {
         headers: {
           "X-CMC_PRO_API_KEY": COINMARKETCAP_API_KEY,
         },
@@ -603,7 +603,7 @@ const MarketScreen: React.FC = () => {
         }
       });
 
-      console.log('tokenInfoListResponse===========>', tokenInfoListResponse);
+      console.log('priceInfoResponse===========>', priceInfoResponse.data);
       setBalance(ethBalance);
     } catch (error) {
       console.error('Error fetching balance:', error);
