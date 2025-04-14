@@ -469,7 +469,7 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                 <>
                   <View style={styles.modalHeader}>
                     <TouchableOpacity onPress={onClose}>
-                      <Ionicons name="arrow-back" style={styles.backButton} color="#000" />
+                      <Ionicons name="arrow-back" size={28} color="#000" />
                     </TouchableOpacity>
                     <Text style={styles.modalTitle}>{token.name}</Text>
                   </View>
