@@ -1042,6 +1042,7 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
