@@ -355,7 +355,6 @@ const ConfirmModalView: React.FC<ConfirmModalViewProps> = ({
           <View style={styles.costItem}>
             <Text style={styles.costItemLabel}>Network fee</Text>
             <View style={styles.feeContainer}>
-              <Text style={styles.costItemValue}>${networkFee.toFixed(2)}</Text>
               <Text style={styles.freeTag}>FREE</Text>
             </View>
           </View>
