@@ -45,6 +45,7 @@ import 'react-native-get-random-values';
 import '@ethersproject/shims';
 import { ethers } from 'ethers';
 import { rpcUrl, COINMARKETCAP_API_URL, COINMARKETCAP_API_KEY } from '@/constants/constants';
+import ERC20_ABI from "@/constants/ERC20_ABI.json";
 
 // Constants for layout measurements
 const { width, height } = Dimensions.get('window');
@@ -413,7 +414,25 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
 
   console.log('usdBalance', usdBalance);
   console.log('ethBalance', ethBalance);
-  console.log('tokentoken', token);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const provider = new ethers.JsonRpcProvider(rpcUrl);
+
+        const contract = new ethers.Contract(token?.address, ERC20_ABI, provider);
+
+        const rawBalance = await contract.balanceOf(account?.address);
+        const decimals = await contract.decimals();
+
+        const formatted = ethers.formatUnits(rawBalance, decimals);
+        console.log('tokenBalance', formatted);
+      } catch (error) {
+      }
+    };
+
+    fetchBalance();
+  }, []);
 
   useEffect(() => {
     if (visible) {
