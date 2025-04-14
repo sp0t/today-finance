@@ -478,12 +478,12 @@ const TokenDetailModal: React.FC<TokenDetailModalProps> = ({
                       style={styles.tokenIcon}
                       resizeMode="cover"
                     />
+                    <Text style={styles.tokenName}>{token.name}</Text>
                     <Text style={styles.tokenSymbol}>{token.symbol}</Text>
                   </View>
 
                   <Text style={styles.tokenDescription}>
-                    This is the description about {token.name}. This is the description about {token.name}.
-                    This is the description about {token.name}. This is the description about {token.name}.
+                    {token.description}
                   </Text>
 
                   <View style={styles.depositButtonContainer}>
@@ -1065,18 +1065,24 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
   },
-  tokenSymbol: {
-    fontSize: 16,
+  tokenName: {
+    fontSize: 32,
     fontWeight: '500',
     marginTop: 8,
+    color: '#000000',
+  },
+  tokenSymbol: {
+    fontSize: 10,
+    fontWeight: '500',
+    marginTop: 4,
     color: '#808080',
   },
   tokenDescription: {
     fontSize: 14,
     lineHeight: 20,
-    color: '#4B5563',
+    fontWeight: '400',
+    color: '#737373',
     paddingHorizontal: 20,
-    marginBottom: 30,
   },
   depositButtonContainer: {
     paddingHorizontal: 20,
