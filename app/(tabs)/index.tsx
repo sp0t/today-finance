@@ -1118,7 +1118,6 @@ const styles = StyleSheet.create({
   // Amount Input View styles
   amountInputContainer: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   amountContainer: {
     flexDirection: 'row',
